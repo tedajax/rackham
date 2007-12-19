@@ -8,7 +8,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Content\newfont-0.xnb</Output>
-      <Time>2007-12-18T22:33:06.609375-05:00</Time>
+      <Time>2007-12-19T16:11:58.90625-05:00</Time>
     </Item>
     <Item>
       <Source>Models\TankTex.bmp</Source>
@@ -17,7 +17,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\TankTex.xnb</Output>
-      <Time>2007-12-18T22:33:03.140625-05:00</Time>
+      <Time>2007-12-19T16:11:54.484375-05:00</Time>
     </Item>
     <Item>
       <Source>Models\Road.bmp</Source>
@@ -26,7 +26,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\Road.xnb</Output>
-      <Time>2007-12-18T22:33:03.09375-05:00</Time>
+      <Time>2007-12-19T16:11:54.46875-05:00</Time>
     </Item>
     <Item>
       <Source>Models\Tank.x</Source>
@@ -35,10 +35,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\Tank.xnb</Output>
-      <Time>2007-12-18T22:33:03.109375-05:00</Time>
+      <Time>2007-12-19T16:11:54.46875-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Tank%0.xml</Key>
-        <Value>2007-12-19T09:22:24.328125-05:00</Value>
+        <Value>2007-12-19T16:13:40.09375-05:00</Value>
       </Dependency>
       <Request>bin\x86\Debug\Models\tanktex%0.xnb</Request>
     </Item>
@@ -49,10 +49,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\Sphere.xnb</Output>
-      <Time>2007-12-18T22:33:03.140625-05:00</Time>
+      <Time>2007-12-19T16:11:54.484375-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Sphere%0.xml</Key>
-        <Value>2007-12-19T09:22:24.984375-05:00</Value>
+        <Value>2007-12-19T16:13:42.921875-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -60,7 +60,7 @@
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\Tank%0.xml</Output>
-      <Time>2007-12-18T22:33:03.109375-05:00</Time>
+      <Time>2007-12-19T16:11:54.46875-05:00</Time>
     </Item>
     <Item>
       <Source>Models\tanktex.bmp</Source>
@@ -75,23 +75,23 @@
       </Parameters>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\tanktex%0.xnb</Output>
-      <Time>2007-12-18T22:33:03.140625-05:00</Time>
+      <Time>2007-12-19T16:11:54.484375-05:00</Time>
     </Item>
     <Item>
       <Source>Models\Sphere.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\Sphere%0.xml</Output>
-      <Time>2007-12-18T22:33:03.140625-05:00</Time>
+      <Time>2007-12-19T16:11:54.484375-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
       <BuildConfiguration>Debug</BuildConfiguration>
-      <RootDirectory>C:\Documents and Settings\Gokul\My Documents\Visual Studio 2005\SVN\trunk\Rackham\</RootDirectory>
-      <LoggerRootDirectory>C:\Documents and Settings\Gokul\My Documents\Visual Studio 2005\SVN\trunk\Rackham\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Documents and Settings\Gokul\My Documents\Visual Studio 2005\SVN\trunk\Rackham\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Documents and Settings\Gokul\My Documents\Visual Studio 2005\SVN\trunk\Rackham\bin\x86\Debug\</OutputDirectory>
+      <RootDirectory>C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham_svn\Rackham\</RootDirectory>
+      <LoggerRootDirectory>C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham_svn\Rackham\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham_svn\Rackham\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham_svn\Rackham\bin\x86\Debug\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -112,7 +112,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\WINDOWS\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\2.0.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2007-12-18T17:38:02.65625-05:00</Value>
+        <Value>2007-12-18T17:23:41.421875-05:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

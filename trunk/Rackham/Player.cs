@@ -46,7 +46,7 @@ namespace Tanks
             Ready = 0;
             Action = Start;
             this.radius = radius;
-            speed = .00004f;
+            speed = .001f;
             Velocity = Vector2.Zero;
             type = 1;
        
@@ -72,10 +72,6 @@ namespace Tanks
             {
                 InitialDraw(Font);
             }
-
-
-
-
         }
     
 
@@ -108,35 +104,35 @@ namespace Tanks
             if (Pressed.IsKeyDown(Upkey))
             {
 
-                velocity.Y -= speed * Gametime.ElapsedGameTime.Milliseconds;
+                velocity.Y -= speed;
                 Rotation = 90.0f;
 
             }
              if (Pressed.IsKeyDown(Downkey))
             {
                
-                velocity.Y += speed * Gametime.ElapsedGameTime.Milliseconds;
+                velocity.Y += speed;
                 Rotation = -90.0f;
 
             }
             if (Pressed.IsKeyDown(Leftkey))
             {
 
-                velocity.X -= speed * Gametime.ElapsedGameTime.Milliseconds;
+                velocity.X -= speed;
                 Rotation = 180.0f;
 
             }
              if (Pressed.IsKeyDown(Rightkey))
             {
-                velocity.X += speed * Gametime.ElapsedGameTime.Milliseconds;
+                velocity.X += speed;
                 Rotation = 0.0f;
 
             }
             Velocity *= .99f;
-             if (Pressed.IsKeyDown(StopKey) && Gametime.TotalGameTime.CompareTo(ShotTime)>0)
+            if (Pressed.IsKeyDown(StopKey) && Gametime.TotalGameTime.CompareTo(ShotTime)>0)
             {
 
-                Bullet newbullet = new Bullet(Position,5* new Vector2((float)(Math.Cos((double)MathHelper.ToRadians(Rotation)) / 100),(float)(Math.Sin((double)MathHelper.ToRadians(Rotation))) / -100), 0.5f, CollisionHandle);
+                 Bullet newbullet = new Bullet(Position,5* new Vector2((float)(Math.Cos((double)MathHelper.ToRadians(Rotation)) / 100),(float)(Math.Sin((double)MathHelper.ToRadians(Rotation))) / -100), 0.5f, CollisionHandle);
                  BulletClass.Add(newbullet);
                  newbullet.Mass = 0.5f;
                  newbullet.NoCollide.Add(type);

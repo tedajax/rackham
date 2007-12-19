@@ -1,4 +1,3 @@
-//Gokul is stupid
 #region Using Statements
 using System;
 using System.Collections.Generic;
@@ -32,10 +31,12 @@ namespace Tanks
         //Create the ground
         Model BulletModel;
         List<Bullet> BulletClass = new List<Bullet>();
-        
+
+        Enemy[] enemies = new Enemy[5];
+
         //Position of the Camera in world space, for our view matrix
-        float CameraY = 1.0f;
-        Vector3 cameraPosition = new Vector3(0.0f, 1.0f, .1f);
+        float CameraY = 80.0f;
+        Vector3 cameraPosition = new Vector3(0.0f, 80.0f, .1f);
 
         //Aspect ratio to use for the projection matrix
         float aspectRatio = 640.0f / 480.0f;
@@ -90,6 +91,15 @@ namespace Tanks
             Times.Reset(graphics.GraphicsDevice);
             Times.KernEnable = false;
             Times.TextColor = Color.White;
+
+
+            int count = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                enemies[i] = new Enemy(new Vector2(-20f, (float)(count * 5f)), Vector2.Zero, .4f, BulletModel);
+                enemies[i].Target = new Vector2(20f, 0f);
+            }
+            
             // TODO: Load any ResourceManagementMode.Manual content
         }
 
@@ -160,9 +170,10 @@ namespace Tanks
                     O = null;
                     
                 }
-                
-
             }
+
+            foreach (Enemy e in enemies)
+                e.Update(gameTime, CollisionManager);
 
             base.Update(gameTime);
             //Update the Keyboard
@@ -194,7 +205,8 @@ namespace Tanks
                 if (x!=null) x.Draw(BulletModel, cameraPosition, aspectRatio, Times);
             }
 
-            
+            foreach (Enemy e in enemies)
+                e.Draw(cameraPosition, aspectRatio);
             Player1.Draw(cameraPosition, aspectRatio, Times);
             Player2.Draw(cameraPosition, aspectRatio, Times);
             Player3.Draw(cameraPosition, aspectRatio, Times);
