@@ -99,39 +99,55 @@ namespace Tanks
 
         public void ControlModel(KeyboardState Pressed, GameTime Gametime, Collision CollisionHandle, List<Bullet> BulletClass)
         {
-       
-           
+            float OldRotation = Rotation;
+            Rotation = 0.0f;
+            int NumberRot = 0; 
             if (Pressed.IsKeyDown(Upkey))
             {
 
-                velocity.Y -= speed;
-                Rotation = 90.0f;
+                velocity.Y -= speed ;
+                Rotation += 90.0f;
+                NumberRot++;
 
             }
              if (Pressed.IsKeyDown(Downkey))
             {
                
-                velocity.Y += speed;
-                Rotation = -90.0f;
+                velocity.Y += speed ;
+                Rotation += -90.0f;
+                NumberRot++;
 
             }
             if (Pressed.IsKeyDown(Leftkey))
             {
 
-                velocity.X -= speed;
-                Rotation = 180.0f;
+                velocity.X -= speed ;
+                Rotation += 180.0f;
+                NumberRot++;
 
             }
              if (Pressed.IsKeyDown(Rightkey))
             {
-                velocity.X += speed;
-                Rotation = 0.0f;
+                velocity.X += speed ;
+                Rotation += 0.0f;
+                NumberRot++;
 
             }
+            //If you pressed keys (increaes numberRot) then you should divide rotation by number of keys pressed (to get angle in between)
+            if (NumberRot > 0)
+            {
+                Rotation /= NumberRot;
+            }
+            else
+            {
+                //If no keys were pressed then revert to the old rotation (so you can drift)
+                Rotation = OldRotation;
+            }
+            //This is a workaround, when you press down and left at the same time, the model doesn't rotate correctly, this fixes it
+            if (Pressed.IsKeyDown(Leftkey) && Pressed.IsKeyDown(Downkey)) Rotation += 180;
             Velocity *= .99f;
             if (Pressed.IsKeyDown(StopKey) && Gametime.TotalGameTime.CompareTo(ShotTime)>0)
             {
-
                  Bullet newbullet = new Bullet(Position,5* new Vector2((float)(Math.Cos((double)MathHelper.ToRadians(Rotation)) / 100),(float)(Math.Sin((double)MathHelper.ToRadians(Rotation))) / -100), 0.5f, CollisionHandle);
                  BulletClass.Add(newbullet);
                  newbullet.Mass = 0.5f;
