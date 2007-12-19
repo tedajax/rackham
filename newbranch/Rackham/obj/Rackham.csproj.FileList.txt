@@ -1,0 +1,15 @@
+bin\x86\Debug\Content\newfont.xml
+bin\x86\Debug\Content\newfont-0.xnb
+bin\x86\Debug\Models\TankTex.xnb
+bin\x86\Debug\Models\Road.xnb
+bin\x86\Debug\Models\Tank.xnb
+bin\x86\Debug\Models\Sphere.xnb
+bin\x86\Debug\Models\tanktex%0.xnb
+bin\x86\Debug\.\Content\newfont-0.png
+bin\x86\Debug\Tanks.exe
+bin\x86\Debug\Tanks.pdb
+obj\x86\Debug\ResolveAssemblyReference.cache
+obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+obj\x86\Debug\Tanks.obj.x86.Debug.Microsoft.Xna.Framework.RuntimeProfile.txt
+obj\x86\Debug\Tanks.exe
+obj\x86\Debug\Tanks.pdb
