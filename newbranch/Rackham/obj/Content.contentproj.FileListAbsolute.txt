@@ -1,2 +1,0 @@
-C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\obj\x86\Debug\Tanks.pdb
