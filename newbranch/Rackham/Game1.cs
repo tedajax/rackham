@@ -1,4 +1,4 @@
-//whoo stupid i is stupid...
+//whoo stupid -- dumb
 //Well i guess we can just agree that we are equal
 #region Using Statements
 using System;
