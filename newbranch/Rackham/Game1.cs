@@ -1,4 +1,6 @@
-//Gokul is a bit weird
+//Gokul is not stupid
+//Infact, ted is the stupid one
+
 #region Using Statements
 using System;
 using System.Collections.Generic;
@@ -18,6 +20,8 @@ namespace Tanks
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        //This is some amazing code right here
+        //Whoever wrote this comment should be deemed a god.
         GraphicsDeviceManager graphics;
         ContentManager content;
 
@@ -196,3 +200,4 @@ namespace Tanks
 
     }
 }
+//Merging sure is fun, but i bet it can be a pain also.
