@@ -55,14 +55,34 @@ namespace Tanks
             CollidedThisFrame = false;
 
             if (Position.X > Target.X)
-                velocity.X -= speed;
+            {
+                if (Velocity.X > 0)
+                    velocity.X -= speed * 2;
+                else
+                    velocity.X -= speed;
+            }
             if (Position.X < Target.X)
-                velocity.X += speed;
+            {
+                if (Velocity.X < 0)
+                    velocity.X += speed * 2;
+                else
+                    velocity.X += speed;
+            }
 
             if (Position.Y > Target.Y)
-                velocity.Y -= speed;
+            {
+                if (Velocity.Y > 0)
+                    velocity.Y -= speed * 2;
+                else
+                    velocity.Y -= speed;
+            }
             if (Position.Y < Target.Y)
-                velocity.Y += speed;
+            {
+                if (Velocity.Y < 0)
+                    velocity.Y += speed * 2;
+                else
+                    velocity.Y += speed;
+            }
         }
 
         public void Draw(Vector3 cp, float ar)

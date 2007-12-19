@@ -101,8 +101,9 @@ namespace Tanks
             int count = 0;
             for (int i = 0; i < 5; i++)
             {
-                enemies[i] = new Enemy(new Vector2(-20f, (float)(count * 5f)), Vector2.Zero, .4f, BulletModel);
+                enemies[i] = new Enemy(new Vector2(-20f, (float)(count * 10f)), Vector2.Zero, .001f, BulletModel);
                 enemies[i].Target = new Vector2(20f, 0f);
+                count++;
             }
             
             // TODO: Load any ResourceManagementMode.Manual content
