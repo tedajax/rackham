@@ -23,16 +23,19 @@ namespace Tanks
 
         BitmapFont Times;
 
+        Collision CollisionManager = new Collision();
+
         //Create the First player object;
-        Player Player1 = new Player(new Vector2(10, 0), Keys.D1, 5);
-        Player Player2 = new Player(new Vector2(550,0), Keys.D2, 5);
-        Player Player3 = new Player(new Vector2(10, 450), Keys.D3, 5);
+        Player Player1 = new Player(new Vector2(10, 0), Keys.D1, 2.5f);
+        Player Player2 = new Player(new Vector2(550,0), Keys.D2, 2.5f);
+        Player Player3 = new Player(new Vector2(10, 450), Keys.D3, 2.5f);
         //Create the ground
         Model BulletModel;
-        Bullet[] BulletClass = new Bullet[100];
+        List<Bullet> BulletClass = new List<Bullet>();
         
         //Position of the Camera in world space, for our view matrix
-        Vector3 cameraPosition = new Vector3(0.0f, 80.0f, .1f);
+        float CameraY = 1.0f;
+        Vector3 cameraPosition = new Vector3(0.0f, 1.0f, .1f);
 
         //Aspect ratio to use for the projection matrix
         float aspectRatio = 640.0f / 480.0f;
@@ -41,8 +44,6 @@ namespace Tanks
         KeyboardState KeyState;
         bool KeyReleased;
 
-        //Collision
-        Collision CollisionHandler = new Collision();
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -61,10 +62,14 @@ namespace Tanks
             // TODO: Add your initialization logic here
             KeyState = Keyboard.GetState();
             Times = new BitmapFont("Content/newfont.xml");
+            Player1.Type = 1;
+            Player2.Type = 2;
+            Player3.Type = 3;
             base.Initialize();
+
         }
 
-
+        Model PlayerModel;
         /// <summary>
         /// Load your graphics content.  If loadAllContent is true, you should
         /// load content from both ResourceManagementMode pools.  Otherwise, just
@@ -75,8 +80,8 @@ namespace Tanks
         {
             if (loadAllContent)
             {
-
-                Player1.Model = content.Load<Model>("Models\\Tank");
+                PlayerModel = content.Load<Model>("Models\\Tank");
+                Player1.Model = PlayerModel;
                 Player2.Model = Player1.Model;
                 Player3.Model = Player1.Model;
                 BulletModel = content.Load<Model>("Models\\Sphere");
@@ -115,24 +120,50 @@ namespace Tanks
             // Allows the default game to exit on Xbox 360 and Windows
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
+            CameraY = MathHelper.SmoothStep(CameraY, 80f, .05f);
+            cameraPosition.Y = CameraY;
             KeyState = Keyboard.GetState();
-
-            // TODO: Add your update logic here
-            foreach (Bullet x in BulletClass)
+            
+            if (KeyState.IsKeyDown(Keys.D1) && Player1.getReadyState() ==6)
             {
-                if (x != null) x.Update(gameTime, CollisionHandler);
+                Collision.AllGamePlayObjects.Remove(Player1);
+                Player1 = new Player(new Vector2(10, 0), Keys.D1, 2.5f);
+                Player1.Model = PlayerModel;
+                Player1.Type = 1;
+            }
+            if (KeyState.IsKeyDown(Keys.D2) && Player2.getReadyState() == 6)
+            {
+                Collision.AllGamePlayObjects.Remove(Player2);
+                Player2 = new Player(new Vector2(550, 0), Keys.D2, 2.5f);
+                Player2.Model = PlayerModel;
+                Player2.Type = 2;
             }
 
-            Player2.Update(KeyState, KeyReleased, gameTime, CollisionHandler, BulletClass);
-            Player1.Update(KeyState, KeyReleased, gameTime, CollisionHandler, BulletClass);
-           
-            Player3.Update(KeyState, KeyReleased, gameTime, CollisionHandler, BulletClass);
 
-            
-            Player1.CheckCollision(CollisionHandler);
-            Player2.CheckCollision(CollisionHandler);
-            Player3.CheckCollision(CollisionHandler);
+            Player1.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
+            Player2.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
+            Player3.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
+            CollisionManager.Update(gameTime.ElapsedGameTime.Milliseconds);
+
+            for (int i = 0; i < BulletClass.Count; ++i)
+            {
+
+                if (Math.Abs(BulletClass[i].Position.X) > 500f || Math.Abs(BulletClass[i].Position.Y) > 500f)
+                {
+                    Collision.KillList.Add(BulletClass[i]);
+                    BulletClass[i].killme = true;
+                }
+                if (BulletClass[i].killme == true)
+                {
+                    Bullet O = BulletClass[i];
+                    BulletClass.Remove(O);
+                    O = null;
+                    
+                }
+                
+
+            }
+
             base.Update(gameTime);
             //Update the Keyboard
             if (KeyState.GetPressedKeys().Length == 0)

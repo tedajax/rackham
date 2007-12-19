@@ -11,20 +11,22 @@ using XNAExtras;
 
 namespace Tanks
 {
-    class Player
+    class Player : GameplayObject
     {
         public string Name;
         public int Health;
         public Model Model;
-        public Vector3 Position;
-        public Vector3 Velocity;
-        public float Rotation;
+
+
+        
         public int CollisionNum;
-        public float radius;
+
 
         public float speed;
 
-        private int ShotTime;
+
+
+        private TimeSpan ShotTime;
         private Vector2 DrawBase;
         private int Ready;
         private Keys Upkey;
@@ -38,27 +40,32 @@ namespace Tanks
             Name = null;
             Health = 100;
             Model = null;
-            Position = new Vector3(0.0f, 0.0f, 0.0f);
+            Position = new Vector2();
             Rotation = 0.0f;
             this.DrawBase = DrawBase;
             Ready = 0;
             Action = Start;
             this.radius = radius;
-            speed = .0004f;
-            Velocity = Vector3.Zero;
-        }
-        public void setupCollision(Collision CollisionHandle)
-        {
-            CollisionNum = CollisionHandle.AddBoundingSphere(Position, radius, 1);
+            speed = .00004f;
+            Velocity = Vector2.Zero;
+            type = 1;
+       
+            //base.Initialize();
 
         }
+
+        public override void Initialize()
+        {
+            base.Initialize();
+        }
+
 
         public void Draw(Vector3 Camera, float aspectRatio, BitmapFont Font)
         {
             if (Ready == 6)
             {
                 DisplayModel(Camera, aspectRatio);
-                Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, CollisionNum.ToString());
+                Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, Health.ToString());
 
             }
             else
@@ -70,8 +77,12 @@ namespace Tanks
 
 
         }
-        public void Update(KeyboardState Pressed, bool KeyReleased, GameTime Gametime, Collision CollisionHandle, Bullet[] BulletClass)
+    
+
+
+        public void Update(KeyboardState Pressed, bool KeyReleased, GameTime Gametime, Collision CollisionHandle, List<Bullet> BulletClass)
         {
+            collidedThisFrame = false;
             if (Ready == 6)
             {
                 ControlModel(Pressed, Gametime, CollisionHandle,BulletClass);
@@ -79,68 +90,71 @@ namespace Tanks
             else
             {
                 Initial(Pressed, KeyReleased);
-                if (Ready == 6) setupCollision(CollisionHandle);
+                if (Ready == 6) base.Initialize();
+                
             }
         }
 
-        public void ControlModel(KeyboardState Pressed, GameTime Gametime, Collision CollisionHandle, Bullet[] BulletClass)
+        public override bool Touch(GameplayObject target)
         {
+            Health -= (int)(target.Mass*5f);
+            return true;
+        }
+
+        public void ControlModel(KeyboardState Pressed, GameTime Gametime, Collision CollisionHandle, List<Bullet> BulletClass)
+        {
+       
            
             if (Pressed.IsKeyDown(Upkey))
             {
 
-                Velocity.Z -= speed * Gametime.ElapsedGameTime.Milliseconds;
+                velocity.Y -= speed * Gametime.ElapsedGameTime.Milliseconds;
                 Rotation = 90.0f;
 
             }
              if (Pressed.IsKeyDown(Downkey))
             {
-
-                Velocity.Z += speed * Gametime.ElapsedGameTime.Milliseconds;
+               
+                velocity.Y += speed * Gametime.ElapsedGameTime.Milliseconds;
                 Rotation = -90.0f;
 
             }
             if (Pressed.IsKeyDown(Leftkey))
             {
 
-                Velocity.X -= speed * Gametime.ElapsedGameTime.Milliseconds;
+                velocity.X -= speed * Gametime.ElapsedGameTime.Milliseconds;
                 Rotation = 180.0f;
 
             }
              if (Pressed.IsKeyDown(Rightkey))
             {
-                Velocity.X += speed * Gametime.ElapsedGameTime.Milliseconds;
+                velocity.X += speed * Gametime.ElapsedGameTime.Milliseconds;
                 Rotation = 0.0f;
 
             }
-             if (Pressed.IsKeyDown(StopKey))
+            Velocity *= .99f;
+             if (Pressed.IsKeyDown(StopKey) && Gametime.TotalGameTime.CompareTo(ShotTime)>0)
             {
-                Velocity *= .95f;
+
+                Bullet newbullet = new Bullet(Position,5* new Vector2((float)(Math.Cos((double)MathHelper.ToRadians(Rotation)) / 100),(float)(Math.Sin((double)MathHelper.ToRadians(Rotation))) / -100), 0.5f, CollisionHandle);
+                 BulletClass.Add(newbullet);
+                 newbullet.Mass = 0.5f;
+                 newbullet.NoCollide.Add(type);
+                 ShotTime = Gametime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 200);
             }
-            Position += Velocity;
+        
            
-            CollisionHandle.MoveObject(Position, radius, CollisionNum);
-            if (Pressed.IsKeyDown(Keys.LeftShift) && Gametime.TotalGameTime.Seconds> ShotTime)
+            
+            /*if (Pressed.IsKeyDown(Keys.LeftShift) && Gametime.TotalGameTime.Seconds> ShotTime)
             {
                 int z = 0;
                 while (BulletClass[z] != null) z++;
                 BulletClass[z] = new Bullet(Position, new Vector3((float)(Math.Cos((double)MathHelper.ToRadians(Rotation))/100), 0.0f, (float)(Math.Sin((double)MathHelper.ToRadians(Rotation)))/-100), 0.5f, CollisionHandle);
                 ShotTime = Gametime.TotalGameTime.Seconds + 3;
-            }
+            }*/
 
         }
-        public void CheckCollision(Collision CollisionHandle)
-        {
-            if (Ready == 6)
-            {
-                 int[] groupofints = {1};
-                if (CollisionHandle.StartCheckCollision(CollisionNum,groupofints)  == true)
-                {
-                    Velocity = Velocity / 2 * -1f;
-                    
-                }
-            }
-        }
+ 
             
         public float ToAngle(float oldvalue, float newvalue, float speed, float tolerance)
         {
@@ -244,6 +258,7 @@ namespace Tanks
         {
             Matrix[] transforms = new Matrix[Model.Bones.Count];
             Model.CopyAbsoluteBoneTransformsTo(transforms);
+            Vector3 NewPosition = new Vector3(Position.X, 0, Position.Y);
             //Draw the model, a model can have multiple meshes, so loop
             foreach (ModelMesh mesh in Model.Meshes)
             {
@@ -254,7 +269,7 @@ namespace Tanks
                 {
                     effect.EnableDefaultLighting();
                     effect.World = transforms[mesh.ParentBone.Index] * Matrix.CreateRotationY(MathHelper.ToRadians(Rotation))
-                     * Matrix.CreateTranslation(Position)
+                     * Matrix.CreateTranslation(NewPosition)
                      * Matrix.CreateScale(1.0f);
 
                     effect.View = Matrix.CreateLookAt(Camera, Vector3.Zero, new Vector3(0, 1, 0));
@@ -264,6 +279,8 @@ namespace Tanks
                 mesh.Draw();
             }
         }
+
+        public int getReadyState() { return Ready; }
 
 
 
