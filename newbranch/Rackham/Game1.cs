@@ -1,4 +1,4 @@
-//Gokul is stupid
+//Gokul is a bit weird
 #region Using Statements
 using System;
 using System.Collections.Generic;
