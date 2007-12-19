@@ -29,7 +29,8 @@ namespace Tanks
             enemyModel = m;
             speed = spd;
             this.radius = .2f;
-            this.Mass = 5f;
+    
+            
             Initialize();
         }
 
@@ -41,12 +42,14 @@ namespace Tanks
             enemyModel = m;
             speed = spd;
             this.radius = .2f;
-            this.Mass = 5f;
+            
             Initialize();
         }
 
         public override void Initialize()
         {
+            this.Mass = 0.5f;
+            this.type = 20;
             base.Initialize();
         }
 
