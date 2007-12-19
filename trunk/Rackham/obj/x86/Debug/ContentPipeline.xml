@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline" xmlns:Graphics="Microsoft.Xna.Framework.Graphics" xmlns:Processors="Microsoft.Xna.Framework.Content.Pipeline.Processors">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Content\newfont-0.png</Source>
+      <Name>Content\newfont-0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Content\newfont-0.xnb</Output>
+      <Time>2007-04-07T13:57:14.53125-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\TankTex.bmp</Source>
+      <Name>Models\TankTex</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\TankTex.xnb</Output>
+      <Time>2007-04-07T09:05:47.28125-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Road.bmp</Source>
+      <Name>Models\Road</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\Road.xnb</Output>
+      <Time>2007-04-08T20:37:21.0625-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Tank.x</Source>
+      <Name>Models\Tank</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\Tank.xnb</Output>
+      <Time>2007-04-07T15:48:17.6875-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\Tank%0.xml</Key>
+        <Value>2007-12-18T20:28:13.234375-05:00</Value>
+      </Dependency>
+      <Request>bin\x86\Debug\Models\tanktex%0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\Sphere.x</Source>
+      <Name>Models\Sphere</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\Sphere.xnb</Output>
+      <Time>2007-04-09T21:56:58.359375-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\Sphere%0.xml</Key>
+        <Value>2007-12-18T20:28:14.28125-05:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\Tank.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\Tank%0.xml</Output>
+      <Time>2007-04-07T15:48:17.6875-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\tanktex.bmp</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\tanktex%0.xnb</Output>
+      <Time>2007-04-07T09:05:47.28125-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Sphere.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\Sphere%0.xml</Output>
+      <Time>2007-04-09T21:56:58.359375-04:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <RootDirectory>C:\Documents and Settings\Gokul\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\</RootDirectory>
+      <LoggerRootDirectory>C:\Documents and Settings\Gokul\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Documents and Settings\Gokul\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Documents and Settings\Gokul\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>c:\Program Files\Microsoft XNA\XNA Game Studio\v2.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2007-11-28T13:08:00-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>c:\Program Files\Microsoft XNA\XNA Game Studio\v2.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2007-11-28T13:08:42-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>c:\Program Files\Microsoft XNA\XNA Game Studio\v2.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2007-11-28T13:08:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>c:\Program Files\Microsoft XNA\XNA Game Studio\v2.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2007-11-28T13:07:44-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\WINDOWS\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\2.0.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2007-12-18T17:38:02.65625-05:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
