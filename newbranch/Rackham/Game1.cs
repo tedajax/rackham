@@ -1,5 +1,6 @@
 //Gokul is not stupid
 //Infact, ted is the stupid one
+//No I would say Gokul is the stupid one
 
 #region Using Statements
 using System;
