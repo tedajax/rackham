@@ -1,7 +1,5 @@
-//Gokul is not stupid
-//Infact, ted is the stupid one
-//No I would say Gokul is the stupid one
 
+//Well i guess we can just agree that we are equal
 #region Using Statements
 using System;
 using System.Collections.Generic;
@@ -65,7 +63,7 @@ namespace Tanks
         {
             // TODO: Add your initialization logic here
             KeyState = Keyboard.GetState();
-            Times = new BitmapFont("Content/newfont.xml");
+            HelloTimes = new BitmapFont("Content/newfont.xml");
             base.Initialize();
         }
 
@@ -87,9 +85,9 @@ namespace Tanks
                 BulletModel = content.Load<Model>("Models\\Sphere");
                 // TODO: Load any ResourceManagementMode.Automatic content
             }
-            Times.Reset(graphics.GraphicsDevice);
-            Times.KernEnable = false;
-            Times.TextColor = Color.White;
+            HelloTimes.Reset(graphics.GraphicsDevice);
+            HelloTimes.KernEnable = false;
+            HelloTimes.TextColor = Color.White;
             // TODO: Load any ResourceManagementMode.Manual content
         }
 
