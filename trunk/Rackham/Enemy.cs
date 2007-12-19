@@ -30,6 +30,7 @@ namespace Tanks
             speed = spd;
             this.radius = .2f;
             this.Mass = 5f;
+            Initialize();
         }
 
         public Enemy(Vector2 pos, Vector2 vel, float spd, Model m, Vector2 tar)
@@ -41,6 +42,12 @@ namespace Tanks
             speed = spd;
             this.radius = .2f;
             this.Mass = 5f;
+            Initialize();
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
         }
 
         public void Update(GameTime GameTime, Collision CollisionHandle)
