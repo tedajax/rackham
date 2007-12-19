@@ -23,6 +23,7 @@ namespace Tanks
             Position = Pos;
             Velocity = Velo;
             Radius = Rad;
+            Mass = 0.5f;
             base.Initialize();
             this.type = 11;
             

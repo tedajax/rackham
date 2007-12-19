@@ -150,7 +150,7 @@ namespace Tanks
             {
                  Bullet newbullet = new Bullet(Position,5* new Vector2((float)(Math.Cos((double)MathHelper.ToRadians(Rotation)) / 100),(float)(Math.Sin((double)MathHelper.ToRadians(Rotation))) / -100), 0.5f, CollisionHandle);
                  BulletClass.Add(newbullet);
-                 newbullet.Mass = 0.5f;
+                 
                  newbullet.NoCollide.Add(type);
                  ShotTime = Gametime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 200);
             }
