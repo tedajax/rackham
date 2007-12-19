@@ -158,6 +158,11 @@ namespace Tanks
             Player1.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
             Player2.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
             Player3.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
+
+            foreach (Enemy e in enemies)
+                e.Update(gameTime, CollisionManager);
+
+
             CollisionManager.Update(gameTime.ElapsedGameTime.Milliseconds);
 
             for (int i = 0; i < BulletClass.Count; ++i)
@@ -177,9 +182,7 @@ namespace Tanks
                 }
             }
 
-            foreach (Enemy e in enemies)
-                e.Update(gameTime, CollisionManager);
-
+           
             base.Update(gameTime);
             //Update the Keyboard
             if (KeyState.GetPressedKeys().Length == 0)
