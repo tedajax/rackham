@@ -163,6 +163,8 @@ namespace Tanks
             foreach (Enemy e in enemies)
                 e.Update(gameTime, CollisionManager);
 
+            foreach (Enemy e in enemies)
+                e.Target = Player1.Position;
 
             CollisionManager.Update(gameTime.ElapsedGameTime.Milliseconds);
 
