@@ -10,69 +10,54 @@ using Microsoft.Xna.Framework.Storage;
 using XNAExtras;
 namespace Tanks
 {
+    //This is going to be a godly Collision System
     class Collision
     {
-        BoundingSphere[] CollisionObj = new BoundingSphere[500];
-        int[] type = new int[500];
-        int Max;
+        #region Helper Types
+
+
+        /// <summary>
+        /// The result of a collision query.
+        /// </summary>
+        struct CollisionResult
+        {
+            /// <summary>
+            /// How far away did the collision occur down the ray
+            /// </summary>
+            public float Distance;
+
+            /// <summary>
+            /// The collision "direction"
+            /// </summary>
+            public Vector2 Normal;
+
+            /// <summary>
+            /// What caused the collison (what the source ran into)
+            /// </summary>
+            public GameplayObject GameplayObject;
+
+
+            public static int Compare(CollisionResult a, CollisionResult b)
+            {
+                return a.Distance.CompareTo(b.Distance);
+            }
+        }
+
+
+        #endregion
+
+        public static List<GameplayObject> AllGameplayObjects = new List<GameplayObject>();
+
 
         public Collision()
         {
-            Max = 0;
+
         }
 
-        public int AddBoundingSphere(Vector3 Position, float Radius, int type)
+        public static bool AddGamePlayObject(GameplayObject add)
         {
-            int x = 0;
-            while (CollisionObj[x].Radius != 0) x++;
-            CollisionObj[x] = new BoundingSphere(Position, Radius);
-            if (x > Max) Max = x;
-            this.type[x] = type;
-            return x;
-        }
-        public void MoveObject(Vector3 position, float Radius, int callnum)
-        {
-      
-            CollisionObj[callnum] = new BoundingSphere(position, Radius);
-            
-       
-
-        }
-        public bool StartCheckCollision(int callnum, int[] checktypeS)
-       
-        {
-            return CheckCollision(callnum, checktypeS);
-
+            AllGameplayObjects.Add(add);
         }
 
-        public bool isCheckType(int[] checktypes, int checkagainst)
-        {
-            foreach (int i in checktypes)
-            {
-                if (i == type[checkagainst])
-                    return true;
-            }
-            return false;
-        }
-
-        public bool CheckCollision(int callnum, int[] checktypes)
-        {
-          
-            for (int i = 0; i <= Max; i++)
-            {
-                if (i != callnum)
-                {
-                    if (isCheckType(checktypes, i))
-                    {
-                        if (CollisionObj[i].Intersects(CollisionObj[callnum]))
-                            return true;
-
-                    }
-                }
-               
-            }
-
-            return false;
-        }
     }
 }
