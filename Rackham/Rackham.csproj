@@ -62,6 +62,7 @@
       <Name>Collision</Name>
     </Compile>
     <Compile Include="Enemy.cs" />
+    <Compile Include="GameplayObject.cs" />
     <Compile Include="Player.cs">
       <Name>Player</Name>
     </Compile>
