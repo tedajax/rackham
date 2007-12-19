@@ -14,6 +14,7 @@ using XNAExtras;
 
 namespace Tanks
 {
+    //ROFL KAKEKS
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -23,7 +24,7 @@ namespace Tanks
         //Whoever wrote this comment should be deemed a god.
         GraphicsDeviceManager graphics;
         ContentManager content;
-
+        //bahahaha
         BitmapFont Times;
 
         //Create the First player object;
@@ -63,7 +64,7 @@ namespace Tanks
         {
             // TODO: Add your initialization logic here
             KeyState = Keyboard.GetState();
-            HelloTimes = new BitmapFont("Content/newfont.xml");
+            Times = new BitmapFont("Content/newfont.xml");
             base.Initialize();
         }
 
@@ -85,9 +86,9 @@ namespace Tanks
                 BulletModel = content.Load<Model>("Models\\Sphere");
                 // TODO: Load any ResourceManagementMode.Automatic content
             }
-            HelloTimes.Reset(graphics.GraphicsDevice);
-            HelloTimes.KernEnable = false;
-            HelloTimes.TextColor = Color.White;
+            Times.Reset(graphics.GraphicsDevice);
+            Times.KernEnable = false;
+            Times.TextColor = Color.White;
             // TODO: Load any ResourceManagementMode.Manual content
         }
 
