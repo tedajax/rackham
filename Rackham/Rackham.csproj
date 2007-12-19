@@ -1,6 +1,6 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{5b3adace-80a7-46c8-bba3-db045f659d46}</ProjectGuid>
+    <ProjectGuid>{5B3ADACE-80A7-46C8-BBA3-DB045F659D46}</ProjectGuid>
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -61,6 +61,7 @@
     <Compile Include="Collision.cs">
       <Name>Collision</Name>
     </Compile>
+    <Compile Include="Enemy.cs" />
     <Compile Include="Player.cs">
       <Name>Player</Name>
     </Compile>
@@ -87,13 +88,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Textures\" />
-  </ItemGroup>
-  <ItemGroup>
     <NestedContentProject Include="Content.contentproj">
       <Project>{7cafef34-c8bf-48c7-a775-b47f8c67b25f}</Project>
       <Visible>False</Visible>
     </NestedContentProject>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Textures\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
