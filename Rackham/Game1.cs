@@ -15,7 +15,7 @@ namespace Tanks
 {
     /// <summary>
     /// This is the main type for your game
-    /// </summary>
+    /// </summary>5
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         /// <summary>
@@ -34,6 +34,7 @@ namespace Tanks
         Player Player3 = new Player(new Vector2(10, 450), Keys.D3, 2.5f);
         //Create the ground
         Model BulletModel;
+        Model EnemeyModel;
         List<Bullet> BulletClass = new List<Bullet>();
 
         Enemy[] enemies = new Enemy[5];
@@ -94,6 +95,7 @@ namespace Tanks
                 Player2.Model = Player1.Model;
                 Player3.Model = Player1.Model;
                 BulletModel = content.Load<Model>("Models\\Sphere");
+                EnemeyModel = content.Load<Model>("Models\\cone");
                 // TODO: Load any ResourceManagementMode.Automatic content
             }
             Times.Reset(graphics.GraphicsDevice);
@@ -104,7 +106,7 @@ namespace Tanks
             int count = 0;
             for (int i = 0; i < 5; i++)
             {
-                enemies[i] = new Enemy(new Vector2(-20f, (float)(count * 10f)), Vector2.Zero, .001f, BulletModel);
+                enemies[i] = new Enemy(new Vector2(-20f, (float)(count * 10f)), Vector2.Zero, .001f, EnemeyModel);
                 enemies[i].Target = new Vector2(20f, 0f);
                 count++;
             }
