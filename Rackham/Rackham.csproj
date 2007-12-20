@@ -58,6 +58,7 @@
     <Compile Include="Bullet.cs">
       <Name>Bullet</Name>
     </Compile>
+    <Compile Include="Class1.cs" />
     <Compile Include="Collision.cs">
       <Name>Collision</Name>
     </Compile>
