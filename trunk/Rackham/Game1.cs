@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Storage;
 using XNAExtras;
 #endregion
-
+//Lolololol
 namespace Tanks
 {
     /// <summary>
@@ -18,6 +18,9 @@ namespace Tanks
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        /// <summary>
+        /// Changing Stuff This is fun
+        /// </summary>
         GraphicsDeviceManager graphics;
         ContentManager content;
 
