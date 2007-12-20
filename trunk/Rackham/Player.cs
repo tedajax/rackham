@@ -219,7 +219,7 @@ namespace Tanks
                         if (Guide.IsVisible == false)
                         {
                             
-
+                            ////lololololool
                             GamerName = Gamer.SignedInGamers[0].Gamertag;
                             SelectedGamer = Gamer.SignedInGamers[0];
                             Ready = 1;
