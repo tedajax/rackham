@@ -21,7 +21,11 @@ namespace Tanks
 
         public Model enemyModel;
 
+        public BoundingSphere EnemySightSphere;
+
         public static float MaxVelocity = .4f;
+
+        Vector2 OriginalPosition;
 
         public Enemy(Vector2 pos, Vector2 vel, float spd, Model m)
         {
@@ -31,7 +35,6 @@ namespace Tanks
             enemyModel = m;
             speed = spd;
             this.radius = .2f;
-    
             
             Initialize();
         }
@@ -53,11 +56,27 @@ namespace Tanks
             this.Mass = 0.5f;
             this.type = 20;
             base.Initialize();
+
+            OriginalPosition = Position;
+            EnemySightSphere = new BoundingSphere(new Vector3(Position.X, 0f, Position.Y), 10f);
         }
 
-        public void Update(GameTime GameTime, Collision CollisionHandle)
+        public void Update(GameTime GameTime, Collision CollisionHandle, List<Player> PlayerList)
         {
             CollidedThisFrame = false;
+
+            foreach (Player p in PlayerList)
+            {
+                if (EnemySightSphere.Intersects(p.PresenceSphere) && p.getReadyState() == 6)
+                {
+                    Target = p.Position;
+                    break;
+                }
+                else
+                    Target = OriginalPosition;
+            }
+
+            EnemySightSphere.Center = new Vector3(Position.X, 0f, Position.Y);
 
             if (Position.X > Target.X)
             {

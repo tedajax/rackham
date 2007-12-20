@@ -34,7 +34,7 @@ namespace Tanks
         Player Player3 = new Player(new Vector2(10, 450), Keys.D3, 2.5f);
         //Create the ground
         Model BulletModel;
-        Model EnemeyModel;
+        Model EnemyModel;
         List<Bullet> BulletClass = new List<Bullet>();
 
         Enemy[] enemies = new Enemy[5];
@@ -95,7 +95,7 @@ namespace Tanks
                 Player2.Model = Player1.Model;
                 Player3.Model = Player1.Model;
                 BulletModel = content.Load<Model>("Models\\Sphere");
-                EnemeyModel = content.Load<Model>("Models\\cone");
+                EnemyModel = content.Load<Model>("Models\\cone");
                 // TODO: Load any ResourceManagementMode.Automatic content
             }
             Times.Reset(graphics.GraphicsDevice);
@@ -106,7 +106,7 @@ namespace Tanks
             int count = 0;
             for (int i = 0; i < 5; i++)
             {
-                enemies[i] = new Enemy(new Vector2(-20f, (float)(count * 10f)), Vector2.Zero, .001f, EnemeyModel);
+                enemies[i] = new Enemy(new Vector2(-20f, (float)(count * 10f)), Vector2.Zero, .001f, EnemyModel);
                 enemies[i].Target = new Vector2(20f, 0f);
                 count++;
             }
@@ -141,9 +141,12 @@ namespace Tanks
             // Allows the default game to exit on Xbox 360 and Windows
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-            CameraY = MathHelper.SmoothStep(CameraY, 80f, .05f);
+            //CameraY = MathHelper.SmoothStep(CameraY, 80f, .05f);
             cameraPosition.Y = CameraY;
             KeyState = Keyboard.GetState();
+
+            if (KeyState.IsKeyDown(Keys.Escape))
+                this.Exit();
             
             if (KeyState.IsKeyDown(Keys.D1) && Player1.getReadyState() ==6)
             {
@@ -160,13 +163,22 @@ namespace Tanks
                 Player2.Type = 2;
             }
 
+            if (KeyState.IsKeyDown(Keys.Subtract))
+                CameraY -= 5;
+            if (KeyState.IsKeyDown(Keys.D0))
+                CameraY += 5;
 
             Player1.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
             Player2.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
             Player3.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
 
+            List<Player> PlayerList = new List<Player>();
+            PlayerList.Add(Player1);
+            PlayerList.Add(Player2);
+            PlayerList.Add(Player3);
+
             foreach (Enemy e in enemies)
-                e.Update(gameTime, CollisionManager);
+                e.Update(gameTime, CollisionManager, PlayerList);
 
             foreach (Enemy e in enemies)
                 if (Player1.getReadyState() == 6)

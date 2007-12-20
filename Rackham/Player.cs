@@ -19,7 +19,7 @@ namespace Tanks
         public int Health;
         public Model Model;
 
-
+        public BoundingSphere PresenceSphere;
         
         public int CollisionNum;
 
@@ -56,7 +56,9 @@ namespace Tanks
             speed = .001f;
             Velocity = Vector2.Zero;
             type = 1;
-       
+
+            PresenceSphere = new BoundingSphere(new Vector3(Position.X, 0f, Position.Y), 20f);
+
             //base.Initialize();
 
         }
@@ -172,6 +174,8 @@ namespace Tanks
                 ShotTime = Gametime.TotalGameTime.Seconds + 3;
             }*/
 
+
+            PresenceSphere.Center = new Vector3(Position.X, 0f, Position.Y);
         }
  
             
