@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Net;
 using XNAExtras;
 
 namespace Tanks
@@ -24,6 +26,10 @@ namespace Tanks
 
         public float speed;
 
+        public int SelectedGamerNum = 0;
+        public SignedInGamer SelectedGamer;
+        public String GamerName;
+
 
 
         private TimeSpan ShotTime;
@@ -37,6 +43,7 @@ namespace Tanks
         private Keys Action;
         public Player(Vector2 DrawBase, Keys Start, float radius)
         {
+            
             Name = null;
             Health = 100;
             Model = null;
@@ -65,7 +72,7 @@ namespace Tanks
             if (Ready == 6)
             {
                 DisplayModel(Camera, aspectRatio);
-                Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, Health.ToString());
+                Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, GamerName+":"+Health.ToString());
 
             }
             else
@@ -193,8 +200,35 @@ namespace Tanks
         {
             if (Ready == 0)
             {
-                if (Pressed.IsKeyDown(Action) && KeyReleased == true) Ready++;
+                if (Pressed.IsKeyDown(Action) && KeyReleased == true)
+                {
+                   
+                    Guide.ShowSignIn(1, false);
+                    Ready = 10;
+                    
+                }
             }
+            else if (Ready == 10)
+            {
+                if (Guide.IsVisible == false)
+                {
+                    Ready = 1;
+                    if (Gamer.SignedInGamers.Count > 0)
+                    {
+
+                        if (Guide.IsVisible == false)
+                        {
+                            
+
+                            GamerName = Gamer.SignedInGamers[0].Gamertag;
+                            SelectedGamer = Gamer.SignedInGamers[0];
+                            Ready = 1;
+                            
+                        }
+                    }
+                }
+            }
+           
             else if (Ready == 1)
             {
                 if (KeyReleased == true && Pressed.GetPressedKeys().Length == 1)
@@ -245,6 +279,11 @@ namespace Tanks
 
                 Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, "Press \"" + Action.ToString() + "\" To Enter");
             }
+            if (Ready == 11)
+            {
+                Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, "Select A Profile : "+GamerName);
+            }
+
             if (Ready == 1)
             {
                 Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, "Press Leftkey now");

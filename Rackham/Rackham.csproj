@@ -74,6 +74,7 @@
     <Compile Include="Game1.cs">
       <Name>Game1</Name>
     </Compile>
+    <Compile Include="StaticStuff.cs" />
     <Compile Include="XNAExtras\BitmapFont.cs">
       <Name>BitmapFont</Name>
     </Compile>
