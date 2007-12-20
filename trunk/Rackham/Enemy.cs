@@ -21,6 +21,8 @@ namespace Tanks
 
         public Model enemyModel;
 
+        public static float MaxVelocity = .4f;
+
         public Enemy(Vector2 pos, Vector2 vel, float spd, Model m)
         {
             Position = pos;
@@ -85,6 +87,16 @@ namespace Tanks
                     velocity.Y += speed * 2;
                 else
                     velocity.Y += speed;
+            }
+            if (Math.Abs(velocity.X) > MaxVelocity)
+            {
+                velocity.X /= Math.Abs(velocity.X);
+                velocity.X = MaxVelocity* velocity.X;
+            }
+            if (Math.Abs(Velocity.Y) > MaxVelocity)
+            {
+                velocity.Y /= Math.Abs(velocity.Y);
+                velocity.Y *= MaxVelocity;
             }
         }
 

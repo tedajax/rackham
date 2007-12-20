@@ -84,6 +84,26 @@
       <Output>obj\x86\Debug\Models\Sphere%0.xml</Output>
       <Time>2007-12-20T17:36:56.46875-05:00</Time>
     </Item>
+    <Item>
+      <Source>Models\cone.x</Source>
+      <Name>Models\cone</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\cone.xnb</Output>
+      <Time>2007-12-20T14:09:06.046875-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\cone%0.xml</Key>
+        <Value>2007-12-20T14:09:11.921875-05:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\cone.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\cone%0.xml</Output>
+      <Time>2007-12-20T14:09:06.046875-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
