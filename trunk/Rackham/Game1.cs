@@ -37,8 +37,9 @@ namespace Tanks
         Model EnemyModel;
         List<Bullet> BulletClass = new List<Bullet>();
 
-        Enemy[] enemies = new Enemy[5];
-
+        Swarm Swarm;
+        List<Enemy> enemies = new List<Enemy>();
+        
         //Position of the Camera in world space, for our view matrix
         float CameraY = 80.0f;
         Vector3 cameraPosition = new Vector3(0.0f, 80.0f, .1f);
@@ -104,12 +105,14 @@ namespace Tanks
 
 
             int count = 0;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 15; i++)
             {
-                enemies[i] = new Enemy(new Vector2(-20f, (float)(count * 10f)), Vector2.Zero, .001f, EnemyModel);
-                enemies[i].Target = new Vector2(20f, 0f);
+                enemies.Add(new Enemy(new Vector2(-20f, (float)(count * 10f)), Vector2.Zero, .001f, EnemyModel));
+                //enemies[i].Target = new Vector2(20f, 0f);
                 count++;
             }
+
+            Swarm = new Swarm(new Vector2(-30f, 10f), Vector2.Zero, enemies);
             
             // TODO: Load any ResourceManagementMode.Manual content
         }
@@ -180,12 +183,6 @@ namespace Tanks
             foreach (Enemy e in enemies)
                 e.Update(gameTime, CollisionManager, PlayerList);
 
-            foreach (Enemy e in enemies)
-                if (Player1.getReadyState() == 6)
-                    e.Target = Player1.Position;
-                else
-                    e.Target = e.Position;
-
             CollisionManager.Update(gameTime.ElapsedGameTime.Milliseconds);
 
             for (int i = 0; i < BulletClass.Count; ++i)
@@ -205,7 +202,9 @@ namespace Tanks
                 }
             }
 
-           
+
+            Swarm.Update(gameTime, PlayerList);
+
             base.Update(gameTime);
             //Update the Keyboard
             if (KeyState.GetPressedKeys().Length == 0)
