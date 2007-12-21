@@ -105,14 +105,14 @@ namespace Tanks
 
 
             int count = 0;
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 50; i++)
             {
-                enemies.Add(new Enemy(new Vector2(-20f, (float)(count * 10f)), Vector2.Zero, .001f, EnemyModel));
+                enemies.Add(new Enemy(new Vector2(20f, (float)(count * 1.1f)), Vector2.Zero, .001f, EnemyModel));
                 //enemies[i].Target = new Vector2(20f, 0f);
                 count++;
             }
 
-            Swarm = new Swarm(new Vector2(-30f, 10f), Vector2.Zero, enemies);
+            Swarm = new Swarm(new Vector2(0f, 0f), Vector2.Zero, enemies);
             
             // TODO: Load any ResourceManagementMode.Manual content
         }

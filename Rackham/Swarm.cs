@@ -81,8 +81,8 @@ namespace Tanks
                     double angle = 360 / EnemyCount;
                     foreach (Enemy e in EnemiesInSwarm)
                     {
-                        float ox = (float)Math.Sin(MathHelper.ToRadians((float)((angle * i) + angleOffset))) * (SwarmSightSphere.Radius / 5);
-                        float oy = (float)Math.Cos(MathHelper.ToRadians((float)((angle * i) + angleOffset))) * (SwarmSightSphere.Radius / 5);
+                        float ox = (float)Math.Sin(MathHelper.ToRadians((float)((angle * i) + angleOffset))) * 10;//(SwarmSightSphere.Radius / 5);
+                        float oy = (float)Math.Cos(MathHelper.ToRadians((float)((angle * i) + angleOffset))) * 10;//(SwarmSightSphere.Radius / 5);
 
                         e.Target.X = ox + Position.X;
                         e.Target.Y = oy + Position.Y;
