@@ -20,12 +20,13 @@ namespace Tanks
         public Vector2 Target;
 
         public Model enemyModel;
-
         public BoundingSphere EnemySightSphere;
 
-        public static float MaxVelocity = .4f;
+        public static float MaxVelocity = .2f;
 
         Vector2 OriginalPosition;
+
+        public bool InSwarm = false;
 
         public Enemy(Vector2 pos, Vector2 vel, float spd, Model m)
         {
@@ -65,15 +66,18 @@ namespace Tanks
         {
             CollidedThisFrame = false;
 
-            foreach (Player p in PlayerList)
+            if (InSwarm == false)
             {
-                if (EnemySightSphere.Intersects(p.PresenceSphere) && p.getReadyState() == 6)
+                foreach (Player p in PlayerList)
                 {
-                    Target = p.Position;
-                    break;
+                    if (EnemySightSphere.Intersects(p.PresenceSphere) && p.getReadyState() == 6)
+                    {
+                        Target = p.Position;
+                        break;
+                    }
+                    else
+                        Target = OriginalPosition;
                 }
-                else
-                    Target = OriginalPosition;
             }
 
             EnemySightSphere.Center = new Vector3(Position.X, 0f, Position.Y);
