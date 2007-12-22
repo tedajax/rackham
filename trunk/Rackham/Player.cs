@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Net;
+
 using XNAExtras;
 
 namespace Tanks
@@ -207,7 +207,7 @@ namespace Tanks
                 if (Pressed.IsKeyDown(Action) && KeyReleased == true)
                 {
                    
-                    Guide.ShowSignIn(1, false);
+                    //Guide.ShowSignIn(1, false);
                     Ready = 10;
                     
                 }

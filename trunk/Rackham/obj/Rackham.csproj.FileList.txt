@@ -14,3 +14,4 @@ obj\x86\Debug\Tanks.obj.x86.Debug.Microsoft.Xna.Framework.RuntimeProfile.txt
 obj\x86\Debug\Tanks.exe
 obj\x86\Debug\Tanks.pdb
 bin\x86\Debug\Models\cone.xnb
+bin\x86\Debug\Content\SpriteFont1.xnb

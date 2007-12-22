@@ -50,13 +50,21 @@ namespace Tanks
         //KeyboardStates
         KeyboardState KeyState;
         bool KeyReleased;
-
+        WindowManager windowManager;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             content = new ContentManager(Services);
 
             Components.Add(new GamerServicesComponent(this));
+
+            windowManager = new WindowManager(this);
+
+
+            Components.Add(windowManager);
+
+            windowManager.AddScreen(new TitleScreen(false));
+
             
            
         }
