@@ -58,6 +58,8 @@
     <Compile Include="Bullet.cs">
       <Name>Bullet</Name>
     </Compile>
+    <Compile Include="Class1.cs" />
+    <Compile Include="GamePlayer.cs" />
     <Compile Include="Swarm.cs" />
     <Compile Include="Collision.cs">
       <Name>Collision</Name>
@@ -76,6 +78,12 @@
       <Name>Game1</Name>
     </Compile>
     <Compile Include="StaticStuff.cs" />
+    <Compile Include="TextBox.cs" />
+    <Compile Include="TextboxManager.cs" />
+    <Compile Include="WindowManager\GameWindow.cs" />
+    <Compile Include="WindowManager\MenuItem.cs" />
+    <Compile Include="WindowManager\WindowManager.cs" />
+    <Compile Include="Windows\TitleScreen.cs" />
     <Compile Include="XNAExtras\BitmapFont.cs">
       <Name>BitmapFont</Name>
     </Compile>
@@ -98,6 +106,7 @@
     </NestedContentProject>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Fonts\" />
     <Folder Include="Textures\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
