@@ -71,7 +71,7 @@ namespace Tanks
         {
             SwarmSightSphere.Radius = (float)EnemyCount * 10f;
 
-            if (State.ToUpper().Equals("IDLE"))
+            if (State.ToUpper().Equals("PROTECT"))
             {
                 if (GameTime.TotalGameTime.Milliseconds > MovementTimer.Milliseconds)
                 {
@@ -81,6 +81,7 @@ namespace Tanks
                     double angle = 360 / EnemyCount;
                     foreach (Enemy e in EnemiesInSwarm)
                     {
+                        
                         float ox = (float)Math.Sin(MathHelper.ToRadians((float)((angle * i) + angleOffset))) * 10;//(SwarmSightSphere.Radius / 5);
                         float oy = (float)Math.Cos(MathHelper.ToRadians((float)((angle * i) + angleOffset))) * 10;//(SwarmSightSphere.Radius / 5);
 
@@ -93,6 +94,33 @@ namespace Tanks
                             angleOffset = 0;
                     }
                 }
+            }
+
+            if (State.ToUpper().Equals("IDLE"))
+            {
+                
+                    TimeSpan tempspan = new TimeSpan(0, 0, 0, 0, 200);
+                    MovementTimer.Add(tempspan);// = GameTime.TotalGameTime.Milliseconds + tempspan.TotalMilliseconds;
+                    int i = 0;
+                    double angle = 360 / EnemyCount;
+                    foreach (Enemy e in EnemiesInSwarm)
+                    {
+                        i = MovementRandomizer.Next(0, 360);
+                        float ox = (float)Math.Sin(MathHelper.ToRadians((float)(i))) *10;//(SwarmSightSphere.Radius / 5);
+                        float oy = (float)Math.Cos(MathHelper.ToRadians((float)(i))) *10;//(SwarmSightSphere.Radius / 5);
+                        if (((Vector2)(e.Position - e.Target)).Length() < 1)
+                        {
+                            e.Target.X = ox + Position.X;
+                            e.Target.Y = oy + Position.Y;
+                        }
+                        
+
+                        i++;
+                        angleOffset += 0.05;
+                        if (angleOffset > 359)
+                            angleOffset = 0;
+                    }
+                
             }
 
             SwarmSightSphere.Center = new Vector3(Position.X, 0f, Position.Y);

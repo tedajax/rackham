@@ -380,7 +380,7 @@ namespace Tanks
 
         public override void Draw(GameTime gameTime)
         {
-            graphicsDeviceService.GraphicsDevice.Clear(Color.Black);
+            //graphicsDeviceService.GraphicsDevice.Clear(Color.Black);
             //spriteBatch.Begin();
             foreach(GameWindow window in windows)
             {
