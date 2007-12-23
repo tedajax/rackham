@@ -113,7 +113,7 @@ namespace Tanks
 
 
             int count = 0;
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 10; i++)
             {
                 enemies.Add(new Enemy(new Vector2(20f, (float)(count * 1.1f)), Vector2.Zero, .001f, EnemyModel));
                 //enemies[i].Target = new Vector2(20f, 0f);
