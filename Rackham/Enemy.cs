@@ -82,17 +82,19 @@ namespace Tanks
 
             EnemySightSphere.Center = new Vector3(Position.X, 0f, Position.Y);
 
+            float ExtraSpeed = 4f;
+
             if (Position.X > Target.X)
             {
                 if (Velocity.X > 0)
-                    velocity.X -= speed * 2;
+                    velocity.X -= speed * ExtraSpeed;
                 else
                     velocity.X -= speed;
             }
             if (Position.X < Target.X)
             {
                 if (Velocity.X < 0)
-                    velocity.X += speed * 2;
+                    velocity.X += speed * ExtraSpeed;
                 else
                     velocity.X += speed;
             }
@@ -100,14 +102,14 @@ namespace Tanks
             if (Position.Y > Target.Y)
             {
                 if (Velocity.Y > 0)
-                    velocity.Y -= speed * 2;
+                    velocity.Y -= speed * ExtraSpeed;
                 else
                     velocity.Y -= speed;
             }
             if (Position.Y < Target.Y)
             {
                 if (Velocity.Y < 0)
-                    velocity.Y += speed * 2;
+                    velocity.Y += speed * ExtraSpeed;
                 else
                     velocity.Y += speed;
             }

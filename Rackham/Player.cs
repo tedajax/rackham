@@ -40,6 +40,7 @@ namespace Tanks
         private Keys Leftkey;
         private Keys Rightkey;
         private Keys StopKey;
+        private Keys ShootKey;
         private Keys Action;
         public Player(Vector2 DrawBase, Keys Start, float radius)
         {
@@ -155,13 +156,25 @@ namespace Tanks
             //This is a workaround, when you press down and left at the same time, the model doesn't rotate correctly, this fixes it
             if (Pressed.IsKeyDown(Leftkey) && Pressed.IsKeyDown(Downkey)) Rotation += 180;
             Velocity *= .99f;
-            if (Pressed.IsKeyDown(StopKey) && Gametime.TotalGameTime.CompareTo(ShotTime)>0)
+            if (Pressed.IsKeyDown(ShootKey) && Gametime.TotalGameTime.CompareTo(ShotTime)>0)
             {
-                 Bullet newbullet = new Bullet(Position,5* new Vector2((float)(Math.Cos((double)MathHelper.ToRadians(Rotation)) / 100),(float)(Math.Sin((double)MathHelper.ToRadians(Rotation))) / -100), 0.5f, CollisionHandle);
-                 BulletClass.Add(newbullet);
-                 
-                 newbullet.NoCollide.Add(type);
-                 ShotTime = Gametime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 200);
+                float eangle = 10f;
+
+                List<Bullet> newbullets = new List<Bullet>();
+
+                int maxbullets = 7;
+
+                for (int i = 0; i < maxbullets; i++)
+                {
+                    newbullets.Add(new Bullet(Position, 5 * new Vector2((float)(Math.Cos((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2)))))) / 100), (float)(Math.Sin((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2))))))) / -100), 0.5f, CollisionHandle));
+                }
+                
+                foreach (Bullet b in newbullets)
+                    b.NoCollide.Add(type);
+
+                BulletClass = AddBullets(BulletClass, newbullets);
+
+                ShotTime = Gametime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 200);
             }
         
            
@@ -177,7 +190,14 @@ namespace Tanks
 
             PresenceSphere.Center = new Vector3(Position.X, 0f, Position.Y);
         }
- 
+
+        private List<Bullet> AddBullets(List<Bullet> BulletClass, List<Bullet> BulletList)
+        {
+            foreach (Bullet b in BulletList)
+                BulletClass.Add(b);
+
+            return BulletClass;
+        }
             
         public float ToAngle(float oldvalue, float newvalue, float speed, float tolerance)
         {
@@ -270,7 +290,7 @@ namespace Tanks
             {
                 if (KeyReleased == true && Pressed.GetPressedKeys().Length == 1)
                 {
-                    StopKey = Pressed.GetPressedKeys()[0];
+                    ShootKey = Pressed.GetPressedKeys()[0];
                     Ready++;
                 }
             }
@@ -306,7 +326,7 @@ namespace Tanks
             }
             if (Ready == 5)
             {
-                Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, "Press Stop Key now");
+                Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, "Press Shoot Key now");
             }
         }
         public void DisplayModel(Vector3 Camera, float aspectRatio)
