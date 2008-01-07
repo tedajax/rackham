@@ -106,8 +106,8 @@ namespace Tanks
                     foreach (Enemy e in EnemiesInSwarm)
                     {
                         i = MovementRandomizer.Next(0, 360);
-                        float ox = (float)Math.Sin(MathHelper.ToRadians((float)(i))) *10;//(SwarmSightSphere.Radius / 5);
-                        float oy = (float)Math.Cos(MathHelper.ToRadians((float)(i))) *10;//(SwarmSightSphere.Radius / 5);
+                        float ox = (float)Math.Sin(MathHelper.ToRadians((float)(i))) *5;//(SwarmSightSphere.Radius / 5);
+                        float oy = (float)Math.Cos(MathHelper.ToRadians((float)(i))) *5;//(SwarmSightSphere.Radius / 5);
                         if (((Vector2)(e.Position - e.Target)).Length() < 1)
                         {
                             e.Target.X = ox + Position.X;
