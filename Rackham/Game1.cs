@@ -173,7 +173,7 @@ namespace Tanks
                 Player2.Model = PlayerModel;
                 Player2.Type = 2;
             }
-
+            
             if (KeyState.IsKeyDown(Keys.Subtract))
                 CameraY -= 5;
             if (KeyState.IsKeyDown(Keys.D0))
@@ -209,10 +209,25 @@ namespace Tanks
                     
                 }
             }
+            Matrix Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);
+            Matrix View = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, new Vector3(0, 1, 0));
+            Matrix World = Matrix.CreateTranslation(0, 0, 0);
+
+            Vector3 v;
+            Vector2 mouseLoc = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+            v.X = (((2.0f * mouseLoc.X) / 800) - 1) /Projection.M11;
+            v.Y = -(((2.0f * mouseLoc.Y) / 600) - 1) / Projection.M22;
+            v.Z = 1.0f;
+
+            Matrix m = View * World; 
+            
 
 
+
+            Swarm.Position = new Vector2(m.M41,m.M42);
             Swarm.Update(gameTime, PlayerList);
-
+          
+ 
             base.Update(gameTime);
             //Update the Keyboard
             if (KeyState.GetPressedKeys().Length == 0)
@@ -242,6 +257,10 @@ namespace Tanks
             {
                 if (x!=null) x.Draw(BulletModel, cameraPosition, aspectRatio, Times);
             }
+
+
+            Times.DrawString(0, 300, Swarm.Position.X.ToString());
+            Times.DrawString(0, 310, Swarm.Position.Y.ToString());
 
             foreach (Enemy e in enemies)
                 e.Draw(cameraPosition, aspectRatio);
