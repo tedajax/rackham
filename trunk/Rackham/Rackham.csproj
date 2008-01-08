@@ -87,6 +87,7 @@
       <Name>Game1</Name>
     </Compile>
     <Compile Include="StaticStuff.cs" />
+    <Compile Include="SwarmManager.cs" />
     <Compile Include="TextBox.cs" />
     <Compile Include="TextboxManager.cs" />
     <Compile Include="WindowManager\GameWindow.cs" />

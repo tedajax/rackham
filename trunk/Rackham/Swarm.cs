@@ -14,6 +14,8 @@ namespace Tanks
 {
     class Swarm
     {
+        private String MyId = "NoId";
+
         public Vector2 Position;
         public Vector2 Velocity;
 
@@ -47,9 +49,12 @@ namespace Tanks
 
             SwarmSightSphere = new BoundingSphere(new Vector3(Position.X, 0f, Position.Y), (float)(EnemyCount * 10));
             State = "Idle";
-                        
+
             foreach (Enemy e in EnemiesInSwarm)
+            {
                 e.InSwarm = true;
+                e.mySwarmId = this.MyId;
+            }
 
             MovementRandomizer = new Random();
         }
@@ -58,15 +63,31 @@ namespace Tanks
         {
             EnemiesInSwarm.Add(NewEnemy);
             NewEnemy.InSwarm = true;
+            //Give Every Enemy an Id that references it back to this swarm
+            NewEnemy.mySwarmId = MyId;
             EnemyCount++;
         }
 
         public void LoseEnemy(int index)
         {
             EnemiesInSwarm[index].InSwarm = false;
+            EnemiesInSwarm[index].mySwarmId = "NoId";
             EnemiesInSwarm.Remove(EnemiesInSwarm[index]);
         }
 
+        public void LoseEnemy(Enemy enemy)
+        {
+            if (EnemiesInSwarm.Remove(enemy))
+            {
+                enemy.InSwarm = false;
+                enemy.mySwarmId = "NoId";
+            }
+        }
+        /// <summary>
+        /// This functions updates all the enemies inside its swarm and tells them where to go and what to do.
+        /// </summary>
+        /// <param name="GameTime">gameTime needs to be passed in here to ensure timer based movement</param>
+        /// <param name="PlayerList">A list of players created inside GamePlay.cs is needed for some odd reason</param>
         public void Update(GameTime GameTime, List<Player> PlayerList)
         {
             SwarmSightSphere.Radius = (float)EnemyCount * 10f;
@@ -87,6 +108,8 @@ namespace Tanks
 
                         e.Target.X = ox + Position.X;
                         e.Target.Y = oy + Position.Y;
+
+                        e.Update(GameTime);
 
                         i++;
                         angleOffset += 0.05;
@@ -113,7 +136,8 @@ namespace Tanks
                             e.Target.X = ox + Position.X;
                             e.Target.Y = oy + Position.Y;
                         }
-                        
+
+                        e.Update(GameTime);
 
                         i++;
                         angleOffset += 0.05;
@@ -124,6 +148,17 @@ namespace Tanks
             }
 
             SwarmSightSphere.Center = new Vector3(Position.X, 0f, Position.Y);
+        }
+
+        public String getId() { return MyId; }
+        public void setId(String Id) 
+        { 
+            MyId = Id;
+            foreach (Enemy e in EnemiesInSwarm)
+            {
+                e.mySwarmId = Id;
+            }
+        
         }
     }
 }

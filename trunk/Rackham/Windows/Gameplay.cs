@@ -23,6 +23,10 @@ namespace Tanks
         //This is the Collision Manager that handles doing any collision and letting the objects have permission to move
         Collision CollisionManager = new Collision();
 
+        //This is the Swarm Manager, Enemies need to be created then added into a swarm, the swarm must then me put into
+        //this manager. The manger then updates everything and keeps it all working.
+        SwarmManager SwarmManager = new SwarmManager();
+
         //Create the First player object;
         List<Player> PlayerList;
         
@@ -49,7 +53,8 @@ namespace Tanks
 
         //A Text Manager so we can display text to the screen in a cool fashion
         TextboxManager textManager;
-
+        
+        
         public Gameplay(Vector3 CP, float ar)
         {
             Mode = "Run";
@@ -114,6 +119,8 @@ namespace Tanks
             }
 
             Swarm = new Swarm(new Vector2(0f, 0f), Vector2.Zero, enemies);
+
+            SwarmManager.addSwarm(Swarm);
             
         }
 
@@ -183,14 +190,7 @@ namespace Tanks
             }
 
             //Updates the Swarm
-           Swarm.Update(gameTime, PlayerList);
-
-            //Updates the Enemies
-            foreach (Enemy e in enemies)
-            {
-                e.Update(gameTime, CollisionManager, PlayerList);
-                
-            }
+            SwarmManager.Update(gameTime, PlayerList);
 
             foreach (Bullet b in BulletClass)
             {
