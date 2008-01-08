@@ -19,6 +19,8 @@ namespace Tanks
         public int Health;
         public Model Model;
 
+        public GamePlayer LinkedProfile;
+
         public BoundingSphere PresenceSphere;
         
         public int CollisionNum;
@@ -59,7 +61,7 @@ namespace Tanks
             type = 1;
 
             PresenceSphere = new BoundingSphere(new Vector3(Position.X, 0f, Position.Y), 20f);
-
+            LinkedProfile = null;
             //base.Initialize();
 
         }
@@ -70,18 +72,23 @@ namespace Tanks
         }
 
 
-        public void Draw(Vector3 Camera, float aspectRatio, BitmapFont Font)
+        public void Draw(Vector3 Camera, float aspectRatio, SpriteFont font, SpriteBatch batch)
         {
+            batch.Begin();
             if (Ready == 6)
             {
                 DisplayModel(Camera, aspectRatio);
-                Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, GamerName+":"+Health.ToString());
+                
+                batch.DrawString(font, GamerName + ":" + Health.ToString(), DrawBase, Color.White);
+                
 
             }
             else
             {
-                InitialDraw(Font);
+                InitialDraw(batch, font);
             }
+
+            batch.End();
         }
     
 
@@ -226,108 +233,30 @@ namespace Tanks
             {
                 if (Pressed.IsKeyDown(Action) && KeyReleased == true)
                 {
-                   
-                    //Guide.ShowSignIn(1, false);
-                    Ready = 10;
+
+                    if (LinkedProfile.Loaded == true)
+                    {
+                        Leftkey = LinkedProfile.LeftKey;
+                        Rightkey = LinkedProfile.RightKey;
+                        Upkey = LinkedProfile.UpKey;
+                        Downkey = LinkedProfile.DownKey;
+                        StopKey = LinkedProfile.EnterKey;
+                        Ready = 6;
+                    }
+                    
                     
                 }
             }
-            else if (Ready == 10)
-            {
-                if (Guide.IsVisible == false)
-                {
-                    Ready = 1;
-                    if (Gamer.SignedInGamers.Count > 0)
-                    {
-
-                        if (Guide.IsVisible == false)
-                        {
-                            
-                            ////lololololool
-                            GamerName = Gamer.SignedInGamers[0].Gamertag;
-                            SelectedGamer = Gamer.SignedInGamers[0];
-                            Ready = 1;
-                            
-                        }
-                    }
-                }
-            }
-           
-            else if (Ready == 1)
-            {
-                if (KeyReleased == true && Pressed.GetPressedKeys().Length == 1)
-                {
-                    Leftkey = Pressed.GetPressedKeys()[0];
-                    Ready++;
-                }
-
-            }
-            else if (Ready == 2)
-            {
-                if (KeyReleased == true && Pressed.GetPressedKeys().Length == 1)
-                {
-                    Rightkey = Pressed.GetPressedKeys()[0];
-                    Ready++;
-                }
-            }
-            else if (Ready == 3)
-            {
-                if (KeyReleased == true && Pressed.GetPressedKeys().Length == 1)
-                {
-                    Upkey = Pressed.GetPressedKeys()[0];
-                    Ready++;
-                }
-            }
-            else if (Ready == 4)
-            {
-                if (KeyReleased == true && Pressed.GetPressedKeys().Length == 1)
-                {
-                    Downkey = Pressed.GetPressedKeys()[0];
-                    Ready++;
-                }
-            }
-            else if (Ready == 5)
-            {
-                if (KeyReleased == true && Pressed.GetPressedKeys().Length == 1)
-                {
-                    ShootKey = Pressed.GetPressedKeys()[0];
-                    Ready++;
-                }
-            }
-
         }
-        public void InitialDraw(BitmapFont Font)
+        public void InitialDraw(SpriteBatch batch, SpriteFont font)
         {
             if (Ready == 0)
             {
+                batch.DrawString(font, "Press \"" + Action.ToString() + "\" To Enter", DrawBase, Color.White);
 
-                Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, "Press \"" + Action.ToString() + "\" To Enter");
-            }
-            if (Ready == 11)
-            {
-                Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, "Select A Profile : "+GamerName);
-            }
 
-            if (Ready == 1)
-            {
-                Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, "Press Leftkey now");
             }
-            if (Ready == 2)
-            {
-                Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, "Press Rightkey now");
-            }
-            if (Ready == 3)
-            {
-                Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, "Press Upkey now");
-            }
-            if (Ready == 4)
-            {
-                Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, "Press Downkey now");
-            }
-            if (Ready == 5)
-            {
-                Font.DrawString((int)DrawBase.X, (int)DrawBase.Y, "Press Shoot Key now");
-            }
+            
         }
         public void DisplayModel(Vector3 Camera, float aspectRatio)
         {

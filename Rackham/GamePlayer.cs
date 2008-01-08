@@ -14,6 +14,7 @@ namespace Tanks
         public Keys LeftKey;
         public Keys RightKey;
         public Keys EnterKey;
+        public bool Loaded = false;
 
 
         

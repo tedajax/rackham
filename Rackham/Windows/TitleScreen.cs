@@ -84,7 +84,8 @@ namespace Tanks
         {
             if (textManager.textboxes.Count == 0)
             {
-                textManager.AddTextBox(new TextBox("Main", "Actual Game goes here", new Vector2(400, 300), 0, 5, true));
+                WindowManager.AddScreen(new Gameplay());
+                WindowManager.removeScreen(this);
             }
           
             /*if (RunMode == "Start")

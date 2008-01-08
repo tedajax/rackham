@@ -58,7 +58,7 @@
     <Compile Include="Bullet.cs">
       <Name>Bullet</Name>
     </Compile>
-    <Compile Include="Class1.cs" />
+    <Compile Include="ProfileSaveData.cs" />
     <Compile Include="GamePlayer.cs" />
     <Compile Include="Swarm.cs" />
     <Compile Include="Collision.cs">
@@ -83,6 +83,7 @@
     <Compile Include="WindowManager\GameWindow.cs" />
     <Compile Include="WindowManager\MenuItem.cs" />
     <Compile Include="WindowManager\WindowManager.cs" />
+    <Compile Include="Windows\Gameplay.cs" />
     <Compile Include="Windows\TitleScreen.cs" />
     <Compile Include="XNAExtras\BitmapFont.cs">
       <Name>BitmapFont</Name>

@@ -25,7 +25,7 @@ namespace Tanks
         ContentManager content;
 
         BitmapFont Times;
-
+        
         Collision CollisionManager = new Collision();
 
         //Create the First player object;
@@ -54,10 +54,6 @@ namespace Tanks
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-
-            this.graphics.MinimumVertexShaderProfile = ShaderProfile.VS_1_1;
-            this.graphics.MinimumPixelShaderProfile = ShaderProfile.PS_2_0;
-
             content = new ContentManager(Services);
 
             Components.Add(new GamerServicesComponent(this));
@@ -156,92 +152,94 @@ namespace Tanks
             // Allows the default game to exit on Xbox 360 and Windows
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-            //CameraY = MathHelper.SmoothStep(CameraY, 80f, .05f);
-            cameraPosition.Y = CameraY;
-            KeyState = Keyboard.GetState();
+            /* //CameraY = MathHelper.SmoothStep(CameraY, 80f, .05f);
+             cameraPosition.Y = CameraY;
+             KeyState = Keyboard.GetState();
 
-            if (KeyState.IsKeyDown(Keys.Escape))
-                this.Exit();
+             if (KeyState.IsKeyDown(Keys.Escape))
+                 this.Exit();
             
-            if (KeyState.IsKeyDown(Keys.D1) && Player1.getReadyState() ==6)
-            {
-                Collision.AllGamePlayObjects.Remove(Player1);
-                Player1 = new Player(new Vector2(10, 0), Keys.D1, 2.5f);
-                Player1.Model = PlayerModel;
-                Player1.Type = 1;
-            }
-            if (KeyState.IsKeyDown(Keys.D2) && Player2.getReadyState() == 6)
-            {
-                Collision.AllGamePlayObjects.Remove(Player2);
-                Player2 = new Player(new Vector2(550, 0), Keys.D2, 2.5f);
-                Player2.Model = PlayerModel;
-                Player2.Type = 2;
-            }
+             if (KeyState.IsKeyDown(Keys.D1) && Player1.getReadyState() ==6)
+             {
+                 Collision.AllGamePlayObjects.Remove(Player1);
+                 Player1 = new Player(new Vector2(10, 0), Keys.D1, 2.5f);
+                 Player1.Model = PlayerModel;
+                 Player1.Type = 1;
+             }
+             if (KeyState.IsKeyDown(Keys.D2) && Player2.getReadyState() == 6)
+             {
+                 Collision.AllGamePlayObjects.Remove(Player2);
+                 Player2 = new Player(new Vector2(550, 0), Keys.D2, 2.5f);
+                 Player2.Model = PlayerModel;
+                 Player2.Type = 2;
+             }
             
-            if (KeyState.IsKeyDown(Keys.Subtract))
-                CameraY -= 5;
-            if (KeyState.IsKeyDown(Keys.D0))
-                CameraY += 5;
+             if (KeyState.IsKeyDown(Keys.Subtract))
+                 CameraY -= 5;
+             if (KeyState.IsKeyDown(Keys.D0))
+                 CameraY += 5;
 
-            Player1.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
-            Player2.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
-            Player3.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
+             Player1.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
+             Player2.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
+             Player3.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
 
-            List<Player> PlayerList = new List<Player>();
-            PlayerList.Add(Player1);
-            PlayerList.Add(Player2);
-            PlayerList.Add(Player3);
+             List<Player> PlayerList = new List<Player>();
+             PlayerList.Add(Player1);
+             PlayerList.Add(Player2);
+             PlayerList.Add(Player3);
 
-            foreach (Enemy e in enemies)
-                e.Update(gameTime, CollisionManager, PlayerList);
+             foreach (Enemy e in enemies)
+                 e.Update(gameTime, CollisionManager, PlayerList);
 
-            CollisionManager.Update(gameTime.ElapsedGameTime.Milliseconds);
+             CollisionManager.Update(gameTime.ElapsedGameTime.Milliseconds);
 
-            for (int i = 0; i < BulletClass.Count; ++i)
-            {
+             for (int i = 0; i < BulletClass.Count; ++i)
+             {
 
-                if (Math.Abs(BulletClass[i].Position.X) > 500f || Math.Abs(BulletClass[i].Position.Y) > 500f)
-                {
-                    Collision.KillList.Add(BulletClass[i]);
-                    BulletClass[i].killme = true;
-                }
-                if (BulletClass[i].killme == true)
-                {
-                    Bullet O = BulletClass[i];
-                    BulletClass.Remove(O);
-                    O = null;
+                 if (Math.Abs(BulletClass[i].Position.X) > 500f || Math.Abs(BulletClass[i].Position.Y) > 500f)
+                 {
+                     Collision.KillList.Add(BulletClass[i]);
+                     BulletClass[i].killme = true;
+                 }
+                 if (BulletClass[i].killme == true)
+                 {
+                     Bullet O = BulletClass[i];
+                     BulletClass.Remove(O);
+                     O = null;
                     
-                }
-            }
-            Matrix Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);
-            Matrix View = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, new Vector3(0, 1, 0));
-            Matrix World = Matrix.CreateTranslation(0, 0, 0);
+                 }
+             }
+             Matrix Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);
+             Matrix View = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, new Vector3(0, 1, 0));
+             Matrix World = Matrix.CreateTranslation(0, 0, 0);
 
-            Vector3 v;
-            Vector2 mouseLoc = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-            v.X = (((2.0f * mouseLoc.X) / 800) - 1) /Projection.M11;
-            v.Y = -(((2.0f * mouseLoc.Y) / 600) - 1) / Projection.M22;
-            v.Z = 1.0f;
+             Vector3 v;
+             Vector2 mouseLoc = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+             v.X = (((2.0f * mouseLoc.X) / 800) - 1) /Projection.M11;
+             v.Y = -(((2.0f * mouseLoc.Y) / 600) - 1) / Projection.M22;
+             v.Z = 1.0f;
 
-            Matrix m = View * World; 
+             Matrix m = View * World; 
             
 
 
 
-            Swarm.Position = new Vector2(m.M41,m.M42);
-            Swarm.Update(gameTime, PlayerList);
+             Swarm.Position = new Vector2(m.M41,m.M42);
+             Swarm.Update(gameTime, PlayerList);
           
  
+             base.Update(gameTime);
+             //Update the Keyboard
+             if (KeyState.GetPressedKeys().Length == 0)
+             {
+                 KeyReleased = true;
+             }
+             else
+             {
+                 KeyReleased = false;
+             }
+             * */
             base.Update(gameTime);
-            //Update the Keyboard
-            if (KeyState.GetPressedKeys().Length == 0)
-            {
-                KeyReleased = true;
-            }
-            else
-            {
-                KeyReleased = false;
-            }
         }
 
 
@@ -251,7 +249,7 @@ namespace Tanks
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+            /*graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
             //Draw the ground
@@ -268,12 +266,11 @@ namespace Tanks
 
             foreach (Enemy e in enemies)
                 e.Draw(cameraPosition, aspectRatio);
-            Player1.Draw(cameraPosition, aspectRatio, Times, graphics);
-            Player2.Draw(cameraPosition, aspectRatio, Times, graphics);
-            Player3.Draw(cameraPosition, aspectRatio, Times, graphics);
+            Player1.Draw(cameraPosition, aspectRatio, Times);
+            Player2.Draw(cameraPosition, aspectRatio, Times);
+            Player3.Draw(cameraPosition, aspectRatio, Times);*/
             base.Draw(gameTime);
         }
-
         protected void DrawModel(Model Model, Vector3 Camera, float aspectratio)
         {
             Matrix[] transforms = new Matrix[Model.Bones.Count];
@@ -281,6 +278,8 @@ namespace Tanks
             //Draw the model, a model can have multiple meshes, so loop
             foreach (ModelMesh mesh in Model.Meshes)
             {
+
+
                 //This is where the mesh orientation is set, as well as our camera and projection
                 foreach (BasicEffect effect in mesh.Effects)
                 {
