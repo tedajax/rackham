@@ -23,7 +23,7 @@ namespace Tanks
 
         public BoundingSphere PresenceSphere;
         
-        public int CollisionNum;
+    
 
 
         public float speed;
@@ -79,7 +79,7 @@ namespace Tanks
             {
                 DisplayModel(Camera, aspectRatio);
                 
-                batch.DrawString(font, GamerName + ":" + Health.ToString(), DrawBase, Color.White);
+                batch.DrawString(font, Velocity.ToString(), DrawBase, Color.White);
                 
 
             }
@@ -103,7 +103,12 @@ namespace Tanks
             else
             {
                 Initial(Pressed, KeyReleased);
-                if (Ready == 6) base.Initialize();
+                if (Ready == 6)
+                {
+                    this.Position = new Vector2(0, -12);
+                    this.velocity = new Vector2(2, 0);
+                    base.Initialize();
+                }
                 
             }
         }
@@ -183,17 +188,6 @@ namespace Tanks
 
                 ShotTime = Gametime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 200);
             }
-        
-           
-            
-            /*if (Pressed.IsKeyDown(Keys.LeftShift) && Gametime.TotalGameTime.Seconds> ShotTime)
-            {
-                int z = 0;
-                while (BulletClass[z] != null) z++;
-                BulletClass[z] = new Bullet(Position, new Vector3((float)(Math.Cos((double)MathHelper.ToRadians(Rotation))/100), 0.0f, (float)(Math.Sin((double)MathHelper.ToRadians(Rotation)))/-100), 0.5f, CollisionHandle);
-                ShotTime = Gametime.TotalGameTime.Seconds + 3;
-            }*/
-
 
             PresenceSphere.Center = new Vector3(Position.X, 0f, Position.Y);
         }
@@ -241,6 +235,7 @@ namespace Tanks
                         Upkey = LinkedProfile.UpKey;
                         Downkey = LinkedProfile.DownKey;
                         StopKey = LinkedProfile.EnterKey;
+                        ShootKey = LinkedProfile.EnterKey;
                         Ready = 6;
                     }
                     

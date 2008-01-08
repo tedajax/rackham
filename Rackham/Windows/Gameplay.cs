@@ -140,9 +140,10 @@ namespace Tanks
         {
             //Updates the Keyboard
             KeyboardState KeyState = WindowManager.NewState;
+            KeyboardState OldState = WindowManager.OldState;
             bool KeyReleased;
              //Update the Keyboard
-            if (KeyState.GetPressedKeys().Length == 0)
+            if (OldState.GetPressedKeys().Length == 0)
             {
                 KeyReleased = true;
             }
