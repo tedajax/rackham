@@ -18,12 +18,6 @@ namespace Tanks
         SpriteFont gameFont;
         ContentManager content;
 
-        
-
-
-   
-
-
         //String Mode;
 
         //This is the Collision Manager that handles doing any collision and letting the objects have permission to move
@@ -46,19 +40,22 @@ namespace Tanks
 
         //Position of the Camera in world space, for our view matrix
         static float CameraY = 80.0f;
-        static Vector3 cameraPosition = new Vector3(0.0f, 80.0f, .1f);
+        static Vector3 cameraPosition;
 
         //Aspect ratio to use for the projection matrix
-        static float aspectRatio = 640.0f / 480.0f;
+        static float aspectRatio;
 
+        int numExplosionParticles;
 
         //A Text Manager so we can display text to the screen in a cool fashion
         TextboxManager textManager;
 
-        public Gameplay()
+        public Gameplay(Vector3 CP, float ar)
         {
             Mode = "Run";
             textManager = new TextboxManager();
+            cameraPosition = CP;
+            aspectRatio = ar;
         }
 
         public override void Init()
@@ -87,6 +84,8 @@ namespace Tanks
                 p.LinkedProfile = WindowManager.GamePlayers[i];
                 i++;
             }
+
+            numExplosionParticles = 20;
         }
 
         public override void LoadGraphicsContent(bool LoadAllContent)
@@ -129,6 +128,9 @@ namespace Tanks
 
         public override void Update(GameTime gametime)
         {
+            if (WindowManager.NewState.IsKeyDown(Keys.Escape))
+                WindowManager.Game.Exit();
+
             if (Mode == "Run") Run(gametime);
 
 
@@ -150,9 +152,11 @@ namespace Tanks
             }
 
             //Escape Provision
+
             
+
             //Allows Player 1 to Respawn himself (Needs update/simplification)
-            if (KeyState.IsKeyDown(Keys.D1) && PlayerList[0].getReadyState() == 6)
+            if (WindowManager.NewState.IsKeyDown(Keys.D1) && PlayerList[0].getReadyState() == 6)
             {
                 Player Player1 = PlayerList[0];
                 Collision.AllGamePlayObjects.Remove(Player1);
@@ -162,13 +166,14 @@ namespace Tanks
             }
            
             //Allows Camera to zoom in and out
-            if (KeyState.IsKeyDown(Keys.Subtract))
+            if (WindowManager.NewState.IsKeyDown(Keys.D9))
                 CameraY -= 5;
-            if (KeyState.IsKeyDown(Keys.D0))
+            if (WindowManager.NewState.IsKeyDown(Keys.D0))
                 CameraY += 5;
 
             //Sets the CameraY
             cameraPosition.Y = CameraY;
+            WindowManager.cameraPosition.Y = cameraPosition.Y;
             
             //Updates Each Player
             foreach (Player p in PlayerList)
@@ -181,7 +186,21 @@ namespace Tanks
 
             //Updates the Enemies
             foreach (Enemy e in enemies)
+            {
                 e.Update(gameTime, CollisionManager, PlayerList);
+                
+            }
+
+            foreach (Bullet b in BulletClass)
+            {
+                b.Update(gameTime, CollisionManager);
+            }
+
+            if (WindowManager.NewState.IsKeyDown(Keys.Space) && WindowManager.OldState.IsKeyUp(Keys.Space))
+            {
+                for (int i = 0; i < 20; i++)
+                    WindowManager.ExplosionParticleSystem.AddParticle(Vector3.Zero, Vector3.Zero);
+            }
 
             //Updates the Collision Manager
             CollisionManager.Update(gameTime.ElapsedGameTime.Milliseconds);
@@ -198,6 +217,8 @@ namespace Tanks
                 if (BulletClass[i].killme == true)
                 {
                     Bullet O = BulletClass[i];
+                    for (int x = 0; x < numExplosionParticles; x++)
+                        WindowManager.ExplosionParticleSystem.AddParticle(new Vector3(O.Position.X, 0f, O.Position.Y), new Vector3(O.Velocity.X, 0f, O.Velocity.Y));
                     BulletClass.Remove(O);
                     O = null;
 
@@ -227,7 +248,7 @@ namespace Tanks
                 p.Draw(cameraPosition, aspectRatio, gameFont, WindowManager.SpriteBatch);
             }
 
-           
+            
         }
 
 

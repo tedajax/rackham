@@ -69,8 +69,6 @@ namespace Tanks
                 killme = true;
             }
             return true;
-        
-
         }
 
 

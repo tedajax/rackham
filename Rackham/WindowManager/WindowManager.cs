@@ -28,6 +28,9 @@ namespace Tanks
 
         ContentManager content;
 
+        public Vector3 cameraPosition = new Vector3(0.0f, 80.0f, .1f);
+        float aspectRatio = 800f / 600f;
+
         //GraphicsDevice graphicsDevice;
         SpriteBatch spriteBatch;
         SpriteFont gameFont;
@@ -45,6 +48,8 @@ namespace Tanks
         private Keys[] KeysForPlayer;
 
         private TextboxManager WindowManagerTextBoxes;
+
+        ExplosionParticleSystem explosionParticle;
 
         
         #region exposestuff
@@ -70,12 +75,25 @@ namespace Tanks
             get { return spriteBatch; }
         }
 
+        public ParticleSystem ExplosionParticleSystem
+        {
+            get { return explosionParticle; }
+        }
 
+        public Vector3 CameraPosition
+        {
+            get { return cameraPosition; }
+        }
+
+        public float AspectRatio
+        {
+            get { return aspectRatio; }
+        }
 
 
 #endregion
 
-        public WindowManager(Game game)
+        public WindowManager(Game game, ParticleSystem eps)
             : base(game)
         {
             content = new ContentManager(game.Services);
@@ -92,6 +110,9 @@ namespace Tanks
             CurrentGamer = null;
             GamePlayers = new GamePlayer[4];
             WindowManagerTextBoxes = new TextboxManager();
+
+            explosionParticle = (ExplosionParticleSystem)eps;
+            explosionParticle.DrawOrder = 100;
         }
 
         protected override void LoadGraphicsContent(bool loadAllContent)
@@ -371,6 +392,8 @@ namespace Tanks
             }
             //Save the Keyboard State
             OldState = NewState;
+
+            explosionParticle.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -384,6 +407,15 @@ namespace Tanks
             }
             if (LoadNewProfile) LoadNewProfileDraw();
             //spriteBatch.End();
+
+            Matrix view = Matrix.CreateLookAt(cameraPosition,
+                                              new Vector3(0, 0, 0), Vector3.Up);
+
+            Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
+                                                                   aspectRatio,
+                                                                   1, 10000);
+
+            ExplosionParticleSystem.SetCamera(view, projection);    
         }
 
 
