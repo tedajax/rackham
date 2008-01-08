@@ -298,23 +298,18 @@ namespace Tanks
                 //File.Create(GamePlayers[0].Gamer.ToString() + ".PROFILE");
                 XmlSerializer serializer = new XmlSerializer(typeof(ProfileSaveData));
                 
-                TextWriter profilewriter = new StreamWriter(GamePlayers[0].Gamer.ToString() + ".PROFILE");
+                TextWriter profilewriter = new StreamWriter(GamePlayers[GamerNumToLoad].Gamer.ToString() + ".PROFILE");
                 
                 serializer.Serialize(profilewriter,new ProfileSaveData(GamePlayers[GamerNumToLoad]));
                 
-                /*
-                profilewriter.WriteLine("Left :"+GamePlayers[0].LeftKey.ToString());
-                profilewriter.WriteLine("Right :"+GamePlayers[0].RightKey.ToString());
-                profilewriter.WriteLine("Up :"+GamePlayers[0].UpKey.ToString());
-                profilewriter.WriteLine("Down :"+GamePlayers[0].DownKey.ToString());
-                profilewriter.WriteLine("Enter :"+GamePlayers[0].EnterKey.ToString());
-                 */
+    
                 foreach (TextBox t in WindowManagerTextBoxes.textboxes) t.Mode = "Die";
                 LoadProfileMode = "Finish";
                 profilewriter.Close();
             }
             if (LoadProfileMode == "Finish")
             {
+                GamePlayers[GamerNumToLoad].Loaded = true;
                 if (WindowManagerTextBoxes.textboxes.Count == 0)
                 {
                     WindowManagerTextBoxes.AddTextBox(new TextBox("Completed", "Profile "+GamePlayers[GamerNumToLoad].Gamer.ToString()+" was Loaded Successfully\nPress Enter to Continue", new Vector2(400, 300), 0, 5, true));
@@ -380,7 +375,7 @@ namespace Tanks
 
         public override void Draw(GameTime gameTime)
         {
-            //graphicsDeviceService.GraphicsDevice.Clear(Color.Black);
+            graphicsDeviceService.GraphicsDevice.Clear(Color.Black);
             //spriteBatch.Begin();
             foreach(GameWindow window in windows)
             {

@@ -36,7 +36,7 @@ namespace Tanks
            
 
         }
-        public void Draw(Model Model, Vector3 Camera, float aspectRatio, BitmapFont Font)
+        public void Draw(Model Model, Vector3 Camera, float aspectRatio)
         {
             Matrix[] transforms = new Matrix[Model.Bones.Count];
             Model.CopyAbsoluteBoneTransformsTo(transforms);
