@@ -67,17 +67,17 @@ namespace Tanks
         {
             //Create 3 New Players
             Player Player1 = new Player(new Vector2(10, 0), Keys.D1, 2.5f);
-            Player Player2 = new Player(new Vector2(550, 0), Keys.D2, 2.5f);
-            Player Player3 = new Player(new Vector2(10, 450), Keys.D3, 2.5f);
+           // Player Player2 = new Player(new Vector2(550, 0), Keys.D2, 2.5f);
+            //Player Player3 = new Player(new Vector2(10, 450), Keys.D3, 2.5f);
             Player1.Type = 1;
-            Player2.Type = 2;
-            Player3.Type = 3;
+            //Player2.Type = 2;
+            //Player3.Type = 3;
             //Initialize the List that holds all the players
             PlayerList = new List<Player>();
             //Insert the players into the list for later access
             PlayerList.Add(Player1);
-            PlayerList.Add(Player2);
-            PlayerList.Add(Player3);
+            //PlayerList.Add(Player2);
+            //PlayerList.Add(Player3);
             int i = 0;
             foreach (Player p in PlayerList)
             {
@@ -157,7 +157,7 @@ namespace Tanks
             
 
             //Allows Player 1 to Respawn himself (Needs update/simplification)
-            if (WindowManager.NewState.IsKeyDown(Keys.D1) && PlayerList[0].getReadyState() == 6)
+            if (WindowManager.NewState.IsKeyDown(Keys.D1) && KeyReleased != false)
             {
                 Player Player1 = PlayerList[0];
                 Collision.AllGamePlayObjects.Remove(Player1);
@@ -183,7 +183,7 @@ namespace Tanks
             }
 
             //Updates the Swarm
-            Swarm.Update(gameTime, PlayerList);
+           Swarm.Update(gameTime, PlayerList);
 
             //Updates the Enemies
             foreach (Enemy e in enemies)
@@ -210,7 +210,7 @@ namespace Tanks
             for (int i = 0; i < BulletClass.Count; ++i)
             {
 
-                if (Math.Abs(BulletClass[i].Position.X) > 500f || Math.Abs(BulletClass[i].Position.Y) > 500f)
+                if (Math.Abs(BulletClass[i].Position.X) > 50f || Math.Abs(BulletClass[i].Position.Y) > 50f)
                 {
                     Collision.KillList.Add(BulletClass[i]);
                     BulletClass[i].killme = true;

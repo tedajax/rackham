@@ -155,5 +155,18 @@ namespace Tanks
                 mesh.Draw();
             }
         }
+
+        public override bool Touch(GameplayObject target)
+        {
+            if (target.Type == 11)
+            {
+                Vector3 pos = new Vector3(Position.X, 0f, Position.Y);
+                Vector3 vel = new Vector3(Velocity.X, 0f, Velocity.Y);
+                for (int x = 0; x < 10; x++)
+                    WindowManager.explosionParticle.AddParticle(pos, vel);
+            }
+
+            return base.Touch(target);
+        }
     }
 }

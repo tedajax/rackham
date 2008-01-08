@@ -105,8 +105,8 @@ namespace Tanks
                 Initial(Pressed, KeyReleased);
                 if (Ready == 6)
                 {
-                    this.Position = new Vector2(0, -12);
-                    this.velocity = new Vector2(2, 0);
+                     this.Position = new Vector2(0, -12);
+                   // this.velocity = new Vector2(-3, 0);
                     base.Initialize();
                 }
                 
@@ -174,7 +174,7 @@ namespace Tanks
 
                 List<Bullet> newbullets = new List<Bullet>();
 
-                int maxbullets = 7;
+                int maxbullets = 3;
 
                 for (int i = 0; i < maxbullets; i++)
                 {

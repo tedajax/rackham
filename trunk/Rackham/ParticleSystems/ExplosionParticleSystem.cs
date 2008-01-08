@@ -19,7 +19,7 @@ namespace Tanks
     /// <summary>
     /// Custom particle system for creating the fiery part of the explosions.
     /// </summary>
-    class ExplosionParticleSystem : ParticleSystem
+    public class ExplosionParticleSystem : ParticleSystem
     {
         public ExplosionParticleSystem(Game game, ContentManager content)
             : base(game, content)
@@ -35,11 +35,11 @@ namespace Tanks
             settings.Duration = TimeSpan.FromSeconds(2);
             settings.DurationRandomness = 1;
 
-            settings.MinHorizontalVelocity = 20;
-            settings.MaxHorizontalVelocity = 30;
+            settings.MinHorizontalVelocity = 2;
+            settings.MaxHorizontalVelocity = 3;
 
-            settings.MinVerticalVelocity = -20;
-            settings.MaxVerticalVelocity = 20;
+            settings.MinVerticalVelocity = -2;
+            settings.MaxVerticalVelocity = 29;
 
             settings.EndVelocity = 0;
 
@@ -49,11 +49,11 @@ namespace Tanks
             settings.MinRotateSpeed = -1;
             settings.MaxRotateSpeed = 1;
 
-            settings.MinStartSize = 10;
-            settings.MaxStartSize = 10;
+            settings.MinStartSize = 1;
+            settings.MaxStartSize = 1;
 
-            settings.MinEndSize = 100;
-            settings.MaxEndSize = 200;
+            settings.MinEndSize = 10;
+            settings.MaxEndSize = 20;
 
             // Use additive blending.
             settings.SourceBlend = Blend.SourceAlpha;

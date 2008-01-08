@@ -8,7 +8,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Content\newfont-0.xnb</Output>
-      <Time>2008-01-07T19:52:39.84375-05:00</Time>
+      <Time>2008-01-08T09:14:55.640625-05:00</Time>
     </Item>
     <Item>
       <Source>Models\TankTex.bmp</Source>
@@ -17,7 +17,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\TankTex.xnb</Output>
-      <Time>2008-01-07T19:52:36.375-05:00</Time>
+      <Time>2008-01-08T09:14:46.46875-05:00</Time>
     </Item>
     <Item>
       <Source>Models\Road.bmp</Source>
@@ -26,7 +26,34 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\Road.xnb</Output>
-      <Time>2008-01-07T19:52:36.359375-05:00</Time>
+      <Time>2008-01-08T09:14:46.421875-05:00</Time>
+    </Item>
+    <Item>
+      <Source>explosion.png</Source>
+      <Name>explosion</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\explosion.xnb</Output>
+      <Time>2008-01-08T09:14:55.8125-05:00</Time>
+    </Item>
+    <Item>
+      <Source>fire.png</Source>
+      <Name>fire</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\fire.xnb</Output>
+      <Time>2008-01-08T09:14:55.84375-05:00</Time>
+    </Item>
+    <Item>
+      <Source>smoke.png</Source>
+      <Name>smoke</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\smoke.xnb</Output>
+      <Time>2008-01-08T09:14:55.78125-05:00</Time>
     </Item>
     <Item>
       <Source>Models\Tank.x</Source>
@@ -35,10 +62,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\Tank.xnb</Output>
-      <Time>2008-01-07T19:52:36.359375-05:00</Time>
+      <Time>2008-01-08T09:14:46.421875-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Tank%0.xml</Key>
-        <Value>2008-01-07T19:57:06.9375-05:00</Value>
+        <Value>2008-01-08T09:15:23.484375-05:00</Value>
       </Dependency>
       <Request>bin\x86\Debug\Models\tanktex%0.xnb</Request>
     </Item>
@@ -49,10 +76,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\Sphere.xnb</Output>
-      <Time>2008-01-07T19:52:36.390625-05:00</Time>
+      <Time>2008-01-08T09:14:46.484375-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Sphere%0.xml</Key>
-        <Value>2008-01-07T19:57:08.484375-05:00</Value>
+        <Value>2008-01-08T09:15:23.984375-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -62,10 +89,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\cone.xnb</Output>
-      <Time>2008-01-07T19:52:36.375-05:00</Time>
+      <Time>2008-01-08T09:14:46.453125-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\cone%0.xml</Key>
-        <Value>2008-01-07T19:57:08.96875-05:00</Value>
+        <Value>2008-01-08T09:15:24.03125-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -75,14 +102,23 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Content\SpriteFont1.xnb</Output>
-      <Time>2008-01-07T19:52:39.859375-05:00</Time>
+      <Time>2008-01-08T09:15:34.265625-05:00</Time>
+    </Item>
+    <Item>
+      <Source>ParticleEffect.fx</Source>
+      <Name>ParticleEffect</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\ParticleEffect.xnb</Output>
+      <Time>2008-01-08T09:14:55.75-05:00</Time>
     </Item>
     <Item>
       <Source>Models\Tank.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\Tank%0.xml</Output>
-      <Time>2008-01-07T19:52:36.359375-05:00</Time>
+      <Time>2008-01-08T09:14:46.421875-05:00</Time>
     </Item>
     <Item>
       <Source>Models\tanktex.bmp</Source>
@@ -97,66 +133,30 @@
       </Parameters>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\tanktex%0.xnb</Output>
-      <Time>2008-01-07T19:52:36.375-05:00</Time>
+      <Time>2008-01-08T09:14:46.46875-05:00</Time>
     </Item>
     <Item>
       <Source>Models\Sphere.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\Sphere%0.xml</Output>
-      <Time>2008-01-07T19:52:36.390625-05:00</Time>
+      <Time>2008-01-08T09:14:46.484375-05:00</Time>
     </Item>
     <Item>
       <Source>Models\cone.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\cone%0.xml</Output>
-      <Time>2008-01-07T19:52:36.375-05:00</Time>
-    </Item>
-    <Item>
-      <Source>explosion.png</Source>
-      <Name>explosion</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>bin\x86\Debug\explosion.xnb</Output>
-      <Time>2008-01-07T20:03:22.015625-05:00</Time>
-    </Item>
-    <Item>
-      <Source>fire.png</Source>
-      <Name>fire</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>bin\x86\Debug\fire.xnb</Output>
-      <Time>2008-01-07T20:03:22.015625-05:00</Time>
-    </Item>
-    <Item>
-      <Source>smoke.png</Source>
-      <Name>smoke</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>bin\x86\Debug\smoke.xnb</Output>
-      <Time>2008-01-07T20:03:29.65625-05:00</Time>
-    </Item>
-    <Item>
-      <Source>ParticleEffect.fx</Source>
-      <Name>ParticleEffect</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>bin\x86\Debug\ParticleEffect.xnb</Output>
-      <Time>2008-01-07T20:03:29.65625-05:00</Time>
+      <Time>2008-01-08T09:14:46.453125-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
       <BuildConfiguration>Debug</BuildConfiguration>
-      <RootDirectory>C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\</RootDirectory>
-      <LoggerRootDirectory>C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\</OutputDirectory>
+      <RootDirectory>C:\Rackham\Rackham\</RootDirectory>
+      <LoggerRootDirectory>C:\Rackham\Rackham\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Rackham\Rackham\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Rackham\Rackham\bin\x86\Debug\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -177,7 +177,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\WINDOWS\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\2.0.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2007-12-18T17:23:41.421875-05:00</Value>
+        <Value>2007-12-19T09:42:34.75-05:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

@@ -15,3 +15,7 @@ obj\x86\Debug\Tanks.exe
 obj\x86\Debug\Tanks.pdb
 bin\x86\Debug\Models\cone.xnb
 bin\x86\Debug\Content\SpriteFont1.xnb
+bin\x86\Debug\explosion.xnb
+bin\x86\Debug\fire.xnb
+bin\x86\Debug\smoke.xnb
+bin\x86\Debug\ParticleEffect.xnb
