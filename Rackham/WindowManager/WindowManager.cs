@@ -49,7 +49,7 @@ namespace Tanks
 
         private TextboxManager WindowManagerTextBoxes;
 
-        ExplosionParticleSystem explosionParticle;
+        public static ExplosionParticleSystem explosionParticle;
 
         
         #region exposestuff

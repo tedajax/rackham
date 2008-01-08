@@ -75,14 +75,18 @@ namespace Tanks
 
         public void Update(float elapsedTime)
         {
-            for (int i = 0; i < allGameplayObjects.Count; ++i)
+            for (int i = 0; i < allGameplayObjects.Count; i++)
             {
            
                 if (allGameplayObjects[i].Active)
                 {
-                
+                    if (allGameplayObjects[i].Velocity.X != 0f)
+                    {
+                        int a = 1;
+                    }
                     // determine how far they are going to move
                     Vector2 movement = allGameplayObjects[i].Velocity * elapsedTime;
+
                     // only allow collisionManager that have not collided yet 
                     // collisionManager frame to collide
                     // -- otherwise, objects can "double-hit" and trade their momentum

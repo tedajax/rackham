@@ -24,7 +24,7 @@ namespace Tanks
         GraphicsDeviceManager graphics;
         ContentManager content;
 
-        ParticleSystem explosionParticle;
+        public static ParticleSystem explosionParticle;
         WindowManager windowManager;
         public Game1()
         {
@@ -61,7 +61,7 @@ namespace Tanks
 
         }
 
-        Model PlayerModel;
+       
         /// <summary>
         /// Load your graphics content.  If loadAllContent is true, you should
         /// load content from both ResourceManagementMode pools.  Otherwise, just
