@@ -30,3 +30,7 @@ C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rack
 C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham_svn\Rackham\obj\x86\Debug\Tanks.pdb
 C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\Models\cone.xnb
 C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\Content\SpriteFont1.xnb
+C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\explosion.xnb
+C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\fire.xnb
+C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\smoke.xnb
+C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\ParticleEffect.xnb

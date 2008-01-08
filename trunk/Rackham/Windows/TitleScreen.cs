@@ -84,7 +84,7 @@ namespace Tanks
         {
             if (textManager.textboxes.Count == 0)
             {
-                WindowManager.AddScreen(new Gameplay());
+                WindowManager.AddScreen(new Gameplay(WindowManager.CameraPosition, WindowManager.AspectRatio));
                 WindowManager.removeScreen(this);
             }
           

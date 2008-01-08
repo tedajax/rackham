@@ -24,6 +24,8 @@ namespace Tanks
         GraphicsDeviceManager graphics;
         ContentManager content;
 
+        ParticleSystem explosionParticle;
+
         BitmapFont Times;
         
         Collision CollisionManager = new Collision();
@@ -54,19 +56,21 @@ namespace Tanks
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+
+            graphics.MinimumPixelShaderProfile = ShaderProfile.PS_2_0;
             content = new ContentManager(Services);
 
             Components.Add(new GamerServicesComponent(this));
 
-            windowManager = new WindowManager(this);
+            explosionParticle = new ExplosionParticleSystem(this, content);
+            Components.Add(explosionParticle);
+
+            windowManager = new WindowManager(this, explosionParticle);
 
 
             Components.Add(windowManager);
 
             windowManager.AddScreen(new TitleScreen(false));
-
-            
-           
         }
 
 
@@ -80,7 +84,7 @@ namespace Tanks
         {
             // TODO: Add your initialization logic here
             KeyState = Keyboard.GetState();
-            Times = new BitmapFont("Content/newfont.xml");
+            Times = new BitmapFont("Content\\newfont.xml");
             Player1.Type = 1;
             Player2.Type = 2;
             Player3.Type = 3;

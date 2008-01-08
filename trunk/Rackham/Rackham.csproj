@@ -58,6 +58,15 @@
     <Compile Include="Bullet.cs">
       <Name>Bullet</Name>
     </Compile>
+    <Compile Include="ParticleEmitter.cs" />
+    <Compile Include="ParticleSettings.cs" />
+    <Compile Include="ParticleSystem.cs" />
+    <Compile Include="ParticleSystems\ExplosionParticleSystem.cs" />
+    <Compile Include="ParticleSystems\ExplosionSmokeParticleSystem.cs" />
+    <Compile Include="ParticleSystems\FireParticleSystem.cs" />
+    <Compile Include="ParticleSystems\ProjectileTrailParticleSystem.cs" />
+    <Compile Include="ParticleSystems\SmokePlumeParticleSystem.cs" />
+    <Compile Include="ParticleVertex.cs" />
     <Compile Include="ProfileSaveData.cs" />
     <Compile Include="GamePlayer.cs" />
     <Compile Include="Swarm.cs" />
