@@ -54,6 +54,10 @@ namespace Tanks
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+
+            this.graphics.MinimumVertexShaderProfile = ShaderProfile.VS_1_1;
+            this.graphics.MinimumPixelShaderProfile = ShaderProfile.PS_2_0;
+
             content = new ContentManager(Services);
 
             Components.Add(new GamerServicesComponent(this));
@@ -264,11 +268,12 @@ namespace Tanks
 
             foreach (Enemy e in enemies)
                 e.Draw(cameraPosition, aspectRatio);
-            Player1.Draw(cameraPosition, aspectRatio, Times);
-            Player2.Draw(cameraPosition, aspectRatio, Times);
-            Player3.Draw(cameraPosition, aspectRatio, Times);
+            Player1.Draw(cameraPosition, aspectRatio, Times, graphics);
+            Player2.Draw(cameraPosition, aspectRatio, Times, graphics);
+            Player3.Draw(cameraPosition, aspectRatio, Times, graphics);
             base.Draw(gameTime);
         }
+
         protected void DrawModel(Model Model, Vector3 Camera, float aspectratio)
         {
             Matrix[] transforms = new Matrix[Model.Bones.Count];
@@ -276,8 +281,6 @@ namespace Tanks
             //Draw the model, a model can have multiple meshes, so loop
             foreach (ModelMesh mesh in Model.Meshes)
             {
-
-
                 //This is where the mesh orientation is set, as well as our camera and projection
                 foreach (BasicEffect effect in mesh.Effects)
                 {
