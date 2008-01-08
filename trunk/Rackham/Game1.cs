@@ -25,33 +25,6 @@ namespace Tanks
         ContentManager content;
 
         ParticleSystem explosionParticle;
-
-        BitmapFont Times;
-        
-        Collision CollisionManager = new Collision();
-
-        //Create the First player object;
-        Player Player1 = new Player(new Vector2(10, 0), Keys.D1, 2.5f);
-        Player Player2 = new Player(new Vector2(550,0), Keys.D2, 2.5f);
-        Player Player3 = new Player(new Vector2(10, 450), Keys.D3, 2.5f);
-        //Create the ground
-        Model BulletModel;
-        Model EnemyModel;
-        List<Bullet> BulletClass = new List<Bullet>();
-
-        Swarm Swarm;
-        List<Enemy> enemies = new List<Enemy>();
-        
-        //Position of the Camera in world space, for our view matrix
-        float CameraY = 80.0f;
-        Vector3 cameraPosition = new Vector3(0.0f, 80.0f, .1f);
-
-        //Aspect ratio to use for the projection matrix
-        float aspectRatio = 640.0f / 480.0f;
-
-        //KeyboardStates
-        KeyboardState KeyState;
-        bool KeyReleased;
         WindowManager windowManager;
         public Game1()
         {
@@ -83,11 +56,7 @@ namespace Tanks
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            KeyState = Keyboard.GetState();
-            Times = new BitmapFont("Content\\newfont.xml");
-            Player1.Type = 1;
-            Player2.Type = 2;
-            Player3.Type = 3;
+           
             base.Initialize();
 
         }
@@ -103,29 +72,10 @@ namespace Tanks
         {
             if (loadAllContent)
             {
-                PlayerModel = content.Load<Model>("Models\\Tank");
-                Player1.Model = PlayerModel;
-                Player2.Model = Player1.Model;
-                Player3.Model = Player1.Model;
-                BulletModel = content.Load<Model>("Models\\Sphere");
-                EnemyModel = content.Load<Model>("Models\\cone");
+               
                 // TODO: Load any ResourceManagementMode.Automatic content
             }
-            Times.Reset(graphics.GraphicsDevice);
-            Times.KernEnable = false;
-            Times.TextColor = Color.White;
-
-
-            int count = 0;
-            for (int i = 0; i < 10; i++)
-            {
-                enemies.Add(new Enemy(new Vector2(20f, (float)(count * 1.1f)), Vector2.Zero, .001f, EnemyModel));
-                //enemies[i].Target = new Vector2(20f, 0f);
-                count++;
-            }
-
-            Swarm = new Swarm(new Vector2(0f, 0f), Vector2.Zero, enemies);
-            
+          
             // TODO: Load any ResourceManagementMode.Manual content
         }
 
@@ -275,30 +225,6 @@ namespace Tanks
             Player3.Draw(cameraPosition, aspectRatio, Times);*/
             base.Draw(gameTime);
         }
-        protected void DrawModel(Model Model, Vector3 Camera, float aspectratio)
-        {
-            Matrix[] transforms = new Matrix[Model.Bones.Count];
-            Model.CopyAbsoluteBoneTransformsTo(transforms);
-            //Draw the model, a model can have multiple meshes, so loop
-            foreach (ModelMesh mesh in Model.Meshes)
-            {
-
-
-                //This is where the mesh orientation is set, as well as our camera and projection
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.EnableDefaultLighting();
-                    effect.World = transforms[mesh.ParentBone.Index]
-                     * Matrix.CreateTranslation(Vector3.Zero)
-                     * Matrix.CreateScale(new Vector3(13.8f, 0.0f, 10.5f));
-
-                    effect.View = Matrix.CreateLookAt(Camera, Vector3.Zero, new Vector3(0, 1, 0));
-                    effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);
-                }
-                //Draw the mesh, will use the effects set above.
-                mesh.Draw();
-            }
-        }
-
+        
     }
 }

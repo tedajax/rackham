@@ -77,9 +77,10 @@ namespace Tanks
         {
             for (int i = 0; i < allGameplayObjects.Count; ++i)
             {
+           
                 if (allGameplayObjects[i].Active)
                 {
-                   
+                
                     // determine how far they are going to move
                     Vector2 movement = allGameplayObjects[i].Velocity * elapsedTime;
                     // only allow collisionManager that have not collided yet 
@@ -90,6 +91,7 @@ namespace Tanks
                         movement = MoveAndCollide(allGameplayObjects[i], movement);
                     }
                     // determine the new position
+                    
                     allGameplayObjects[i].Position += movement;
                 }
             }
