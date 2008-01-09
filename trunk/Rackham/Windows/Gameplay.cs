@@ -196,6 +196,10 @@ namespace Tanks
             foreach (Player p in PlayerList)
             {
                 p.Update(WindowManager.NewState, KeyReleased, gameTime, CollisionManager, BulletClass);
+                if (p.getReadyState() == 6)
+                    if (p.Health < 20)
+                        for (int i = 0; i < 5; i++)
+                            WindowManager.explosionParticle.AddParticle(Vector3FromVector2(p.Position), Vector3FromVector2(p.Velocity));
             }
 
             //Updates the Swarm
@@ -279,9 +283,9 @@ namespace Tanks
             {
                 if (x != null)
                 {
-                    onscrnsphere.Center = Vector3FromVector2(x.Position);
+                    /*onscrnsphere.Center = Vector3FromVector2(x.Position);
                     onscrnsphere.Radius = x.Radius;
-                    if (WindowManager.ScreenFrustum.Intersects(onscrnsphere))
+                    if (WindowManager.ScreenFrustum.Intersects(onscrnsphere))*/
                         x.Draw(BulletModel, cameraPosition, aspectRatio);
                 }
             }
