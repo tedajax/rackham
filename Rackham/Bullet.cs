@@ -13,12 +13,9 @@ namespace Tanks
 {
     class Bullet : GameplayObject
     {
-        
-        Vector2 CollisionNum;
-
         public bool killme = false;
 
-        public Bullet(Vector2 Pos, Vector2 Velo, float Rad, Collision CollisionHandle)
+        public Bullet(Vector2 Pos, Vector2 Velo, float Rad)
         {
             Position = Pos;
             Velocity = Velo;
@@ -29,7 +26,7 @@ namespace Tanks
             
             //CollisionHandle.AddBoundingSphere(Position, Radius, 2);
         }
-        public void Update(GameTime Gametime, Collision CollisionHandle)
+        public void Update(GameTime Gametime)
         {
             collidedThisFrame = false;
             //Position = (Position + Velocity) * Gametime.ElapsedGameTime.Milliseconds;

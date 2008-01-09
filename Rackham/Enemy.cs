@@ -59,6 +59,7 @@ namespace Tanks
         {
             this.Mass = 0.5f;
             this.type = 20;
+            this.NoCollide.Add(this.type);
             base.Initialize();
 
             OriginalPosition = Position;
@@ -75,6 +76,9 @@ namespace Tanks
 
 
                 EnemySightSphere.Center = new Vector3(Position.X, 0f, Position.Y);
+
+                //position.X = MathHelper.SmoothStep(Position.X, Target.X, .1f);
+                //position.Y = MathHelper.SmoothStep(Position.Y, Target.Y, .1f);
 
                 float ExtraSpeed = 4f;
 

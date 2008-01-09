@@ -114,7 +114,7 @@ namespace Tanks
             Random RANDOM = new Random();
             for (int j = 0; j<5; j++)
             {
-               Vector2 position = new Vector2(RANDOM.Next(-50,50),RANDOM.Next(-50,50));
+               Vector2 position = new Vector2(RANDOM.Next(-500,500),RANDOM.Next(-500,500));
                List<Enemy>  EnemyList = new List<Enemy>();
 
                 int count = 0;
@@ -201,9 +201,32 @@ namespace Tanks
             //Updates the Swarm
             SwarmManager.Update(gameTime, PlayerList);
 
+            if (SwarmManager.CountSwarms() == 0)
+            {
+                Random RANDOM = new Random();
+                for (int j = 0; j < 5; j++)
+                {
+                    Vector2 position = new Vector2(RANDOM.Next(-500, 500), RANDOM.Next(-500, 500));
+                    List<Enemy> EnemyList = new List<Enemy>();
+
+                    int count = 0;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        EnemyList.Add(new Enemy(position + new Vector2(0f, (float)(count * 1.1f)), Vector2.Zero, .001f, EnemyModel));
+                        count++;
+                    }
+
+                    Swarm = new Swarm(position, Vector2.Zero, EnemyList);
+
+                    SwarmManager.addSwarm(Swarm);
+                }
+                Swarm newswarm = SwarmManager.getSwarm(0);
+                newswarm.moveSwarm(newswarm.Position + new Vector2(0, 50));
+            }
+
             foreach (Bullet b in BulletClass)
             {
-                b.Update(gameTime, CollisionManager);
+                b.Update(gameTime);
             }
 
             if (WindowManager.NewState.IsKeyDown(Keys.Space) && WindowManager.OldState.IsKeyUp(Keys.Space))
@@ -219,7 +242,7 @@ namespace Tanks
             for (int i = 0; i < BulletClass.Count; ++i)
             {
 
-                if (Math.Abs(BulletClass[i].Position.X) > 50f || Math.Abs(BulletClass[i].Position.Y) > 50f)
+                if (Math.Abs(BulletClass[i].Position.X) > 500f || Math.Abs(BulletClass[i].Position.Y) > 500f)
                 {
                     Collision.KillList.Add(BulletClass[i]);
                     BulletClass[i].killme = true;
@@ -234,15 +257,15 @@ namespace Tanks
 
                 }
             }
-            Swarm newswarm = SwarmManager.getSwarm(0);
-            if (KeyState.IsKeyDown(Keys.Left))
+           
+            /*if (KeyState.IsKeyDown(Keys.Left))
             {
                 newswarm.moveSwarm(newswarm.Position + new Vector2(-1, 0));
             }
             if (KeyState.IsKeyDown(Keys.Right))
             {
                 newswarm.moveSwarm(newswarm.Position + new Vector2(1, 0));
-            }
+            }*/
 
             base.Update(gameTime);
            

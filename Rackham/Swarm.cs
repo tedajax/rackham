@@ -93,52 +93,41 @@ namespace Tanks
             SwarmSightSphere.Radius = (float)EnemyCount * 10f;
             if (State.ToUpper().Equals("MOVE"))
             {
-                int numberofenemieswithindist = 0;
-                float distancetobewithin = 5f;
+
+                TimeSpan tempspan = new TimeSpan(0, 0, 0, 0, 200);
+                MovementTimer.Add(tempspan);// = GameTime.TotalGameTime.Milliseconds + tempspan.TotalMilliseconds;
+                int i = 0;
+                double angle = 360 / EnemyCount;
+                int count = 0;
                 foreach (Enemy e in EnemiesInSwarm)
                 {
-                    e.Target.X = Position.X + MovementRandomizer.Next(-15,15);
-                    e.Target.Y = Position.Y + MovementRandomizer.Next(-15,15);
+                    i = MovementRandomizer.Next(0, 360);
+                    float ox = (float)Math.Sin(MathHelper.ToRadians((float)(i))) * 5;//(SwarmSightSphere.Radius / 5);
+                    float oy = (float)Math.Cos(MathHelper.ToRadians((float)(i))) * 5;//(SwarmSightSphere.Radius / 5);
+                 
+                    e.Target.X = ox + Position.X;
+                    e.Target.Y = oy + Position.Y;
 
-                    float distance = (float) Math.Sqrt(Math.Pow(e.Position.Y - e.Target.Y, 2) + Math.Pow(e.Position.X - e.Target.X, 2));
-                    if (distance <= distancetobewithin)
+                    if (Math.Sqrt((Math.Pow(e.Position.Y - Position.Y, 2)) + Math.Pow(e.Position.X - Position.X, 2)) < 3)
                     {
-                        numberofenemieswithindist++;
+                        
+                        count++;
                     }
 
                     e.Update(GameTime);
+
+                    i++;
+                    angleOffset += 0.05;
+                    if (angleOffset > 359)
+                        angleOffset = 0;
                 }
-                if (numberofenemieswithindist > (EnemiesInSwarm.Count * 4) / 5)
-                {
+
+                if (count > EnemiesInSwarm.Count * (4.0 / 5.0))
                     State = "IDLE";
-                }
+
             }
-            else if (State.ToUpper().Equals("PROTECT"))
-            {
-                if (GameTime.TotalGameTime.Milliseconds > MovementTimer.Milliseconds)
-                {
-                    TimeSpan tempspan = new TimeSpan(0, 0, 0, 0, 200);
-                    MovementTimer = GameTime.TotalGameTime.Add(tempspan);
-                    int i = 0;
-                    double angle = 360 / EnemyCount;
-                    foreach (Enemy e in EnemiesInSwarm)
-                    {
-                        
-                        float ox = (float)Math.Sin(MathHelper.ToRadians((float)((angle * i) + angleOffset))) * 10;//(SwarmSightSphere.Radius / 5);
-                        float oy = (float)Math.Cos(MathHelper.ToRadians((float)((angle * i) + angleOffset))) * 10;//(SwarmSightSphere.Radius / 5);
 
-                        e.Target.X = ox + Position.X;
-                        e.Target.Y = oy + Position.Y;
 
-                        e.Update(GameTime);
-
-                        i++;
-                        angleOffset += 0.05;
-                        if (angleOffset > 359)
-                            angleOffset = 0;
-                    }
-                }
-            }
 
             else if (State.ToUpper().Equals("IDLE"))
             {
@@ -188,7 +177,7 @@ namespace Tanks
         public void moveSwarm(Vector2 newPosition)
         {
             Position = newPosition;
-            State = "IDLE";
+            State = "MOVE";
         }
     }
 }

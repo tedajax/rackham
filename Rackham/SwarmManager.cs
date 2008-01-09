@@ -68,7 +68,7 @@ namespace Tanks
                     if (PlayerList.Count > 0)
                     {
                         if (PlayerList[0].getReadyState() == 6)
-                            s.Position = PlayerList[0].Position;
+                            s.moveSwarm(PlayerList[0].Position);
                     }
                     s.Update(gameTime, PlayerList);
                 }
@@ -114,6 +114,11 @@ namespace Tanks
                 return SwarmList[Index];
             }
             return null;
+        }
+
+        public int CountSwarms()
+        {
+            return SwarmList.Count;
         }
     }
 }
