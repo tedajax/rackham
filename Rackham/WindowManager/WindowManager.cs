@@ -51,12 +51,18 @@ namespace Tanks
 
         public static ExplosionParticleSystem explosionParticle;
 
+        public static BoundingFrustum ScreenFrustum;
         
         #region exposestuff
 
         new public Game Game
         {
             get { return base.Game; }
+        }
+
+        public BoundingFrustum ScreenViewFrustum
+        {
+            get { if (ScreenFrustum != null) return ScreenFrustum; else return null; }
         }
 
         new public GraphicsDevice GraphicsDevice
@@ -409,13 +415,18 @@ namespace Tanks
             //spriteBatch.End();
 
             Matrix view = Matrix.CreateLookAt(cameraPosition,
-                                              new Vector3(0, 0, 0), Vector3.Up);
+                                              new Vector3(cameraPosition.X, 0, cameraPosition.Z), Vector3.Up);
 
             Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
                                                                    aspectRatio,
-                                                                   1, 10000);
+                                                                   1, 1000);
 
-            ExplosionParticleSystem.SetCamera(view, projection);    
+            ExplosionParticleSystem.SetCamera(view, projection);
+
+            if (ScreenFrustum == null)
+                ScreenFrustum = new BoundingFrustum(view);
+            else
+                ScreenFrustum.Matrix = view;
         }
 
 
