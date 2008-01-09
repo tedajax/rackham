@@ -65,6 +65,11 @@ namespace Tanks
                 }
                 else
                 {
+                    if (PlayerList.Count > 0)
+                    {
+                        if (PlayerList[0].getReadyState() == 6)
+                            s.Position = PlayerList[0].Position;
+                    }
                     s.Update(gameTime, PlayerList);
                 }
             }
@@ -89,6 +94,26 @@ namespace Tanks
 
             }
             EnemiesToDestroy.Clear();
+        }
+
+        public void DrawSwarms(Vector3 CameraPosition, float aspectRatio)
+        {
+            foreach (Swarm s in SwarmList)
+            {
+                foreach (Enemy e in s.EnemiesInSwarm)
+                {
+                    e.Draw(CameraPosition, aspectRatio);
+                }
+            }
+        }
+
+        public Swarm getSwarm(int Index)
+        {
+            if (Index < SwarmList.Count)
+            {
+                return SwarmList[Index];
+            }
+            return null;
         }
     }
 }

@@ -111,16 +111,25 @@ namespace Tanks
 
 
             }
-            int count = 0;
-            for (int i = 0; i < 10; i++)
+            Random RANDOM = new Random();
+            for (int j = 0; j<5; j++)
             {
-                enemies.Add(new Enemy(new Vector2(20f, (float)(count * 1.1f)), Vector2.Zero, .001f, EnemyModel));
-                count++;
+               Vector2 position = new Vector2(RANDOM.Next(-50,50),RANDOM.Next(-50,50));
+               List<Enemy>  EnemyList = new List<Enemy>();
+
+                int count = 0;
+                for (int i = 0; i < 5; i++)
+                {
+                   EnemyList.Add(new Enemy(position+new Vector2(0f, (float)(count * 1.1f)), Vector2.Zero, .001f, EnemyModel));
+                   count++;
+                }
+
+                Swarm = new Swarm(position, Vector2.Zero, EnemyList);
+
+                SwarmManager.addSwarm(Swarm);
             }
-
-            Swarm = new Swarm(new Vector2(0f, 0f), Vector2.Zero, enemies);
-
-            SwarmManager.addSwarm(Swarm);
+            Swarm newswarm = SwarmManager.getSwarm(0);
+            newswarm.moveSwarm(newswarm.Position + new Vector2(0, 50));
             
         }
 
@@ -225,7 +234,15 @@ namespace Tanks
 
                 }
             }
-         
+            Swarm newswarm = SwarmManager.getSwarm(0);
+            if (KeyState.IsKeyDown(Keys.Left))
+            {
+                newswarm.moveSwarm(newswarm.Position + new Vector2(-1, 0));
+            }
+            if (KeyState.IsKeyDown(Keys.Right))
+            {
+                newswarm.moveSwarm(newswarm.Position + new Vector2(1, 0));
+            }
 
             base.Update(gameTime);
            
@@ -240,8 +257,7 @@ namespace Tanks
             }
 
             //Draw Each Enemy onto the screen
-            foreach (Enemy e in enemies)
-                e.Draw(cameraPosition, aspectRatio);
+            SwarmManager.DrawSwarms(cameraPosition, aspectRatio);
 
             //Draw each player onto the screen
             foreach (Player p in PlayerList)

@@ -91,13 +91,34 @@ namespace Tanks
         public void Update(GameTime GameTime, List<Player> PlayerList)
         {
             SwarmSightSphere.Radius = (float)EnemyCount * 10f;
+            if (State.ToUpper().Equals("MOVE"))
+            {
+                int numberofenemieswithindist = 0;
+                float distancetobewithin = 5f;
+                foreach (Enemy e in EnemiesInSwarm)
+                {
+                    e.Target.X = Position.X + MovementRandomizer.Next(-15,15);
+                    e.Target.Y = Position.Y + MovementRandomizer.Next(-15,15);
 
-            if (State.ToUpper().Equals("PROTECT"))
+                    float distance = (float) Math.Sqrt(Math.Pow(e.Position.Y - e.Target.Y, 2) + Math.Pow(e.Position.X - e.Target.X, 2));
+                    if (distance <= distancetobewithin)
+                    {
+                        numberofenemieswithindist++;
+                    }
+
+                    e.Update(GameTime);
+                }
+                if (numberofenemieswithindist > (EnemiesInSwarm.Count * 4) / 5)
+                {
+                    State = "IDLE";
+                }
+            }
+            else if (State.ToUpper().Equals("PROTECT"))
             {
                 if (GameTime.TotalGameTime.Milliseconds > MovementTimer.Milliseconds)
                 {
                     TimeSpan tempspan = new TimeSpan(0, 0, 0, 0, 200);
-                    MovementTimer.Add(tempspan);// = GameTime.TotalGameTime.Milliseconds + tempspan.TotalMilliseconds;
+                    MovementTimer = GameTime.TotalGameTime.Add(tempspan);
                     int i = 0;
                     double angle = 360 / EnemyCount;
                     foreach (Enemy e in EnemiesInSwarm)
@@ -119,7 +140,7 @@ namespace Tanks
                 }
             }
 
-            if (State.ToUpper().Equals("IDLE"))
+            else if (State.ToUpper().Equals("IDLE"))
             {
                 
                     TimeSpan tempspan = new TimeSpan(0, 0, 0, 0, 200);
@@ -159,6 +180,15 @@ namespace Tanks
                 e.mySwarmId = Id;
             }
         
+        }
+        /// <summary>
+        /// Tells the swarm to move all its units to a new position
+        /// </summary>
+        /// <param name="newPosition">position to move to</param>
+        public void moveSwarm(Vector2 newPosition)
+        {
+            Position = newPosition;
+            State = "IDLE";
         }
     }
 }
