@@ -13,6 +13,7 @@ namespace Tanks
 {
     class Bullet : GameplayObject
     {
+
         public bool killme = false;
 
         public Bullet(Vector2 Pos, Vector2 Velo, float Rad)

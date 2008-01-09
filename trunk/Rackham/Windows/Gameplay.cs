@@ -195,7 +195,7 @@ namespace Tanks
             //Updates Each Player
             foreach (Player p in PlayerList)
             {
-                p.Update(KeyState, KeyReleased, gameTime, CollisionManager, BulletClass);
+                p.Update(WindowManager.NewState, KeyReleased, gameTime, CollisionManager, BulletClass);
             }
 
             //Updates the Swarm
@@ -239,7 +239,7 @@ namespace Tanks
             CollisionManager.Update(gameTime.ElapsedGameTime.Milliseconds);
 
             //Removes Bullets that are too far out of the screen (this needs to be moved somewhere else!)
-            for (int i = 0; i < BulletClass.Count; ++i)
+            for (int i = BulletClass.Count - 1; i >= 0; i--)
             {
 
                 if (Math.Abs(BulletClass[i].Position.X) > 500f || Math.Abs(BulletClass[i].Position.Y) > 500f)
@@ -274,9 +274,16 @@ namespace Tanks
         public override void Draw(GameTime gameTime)
         {
             //Draw Each Bullet onto the screen
+            BoundingSphere onscrnsphere = new BoundingSphere();
             foreach (Bullet x in BulletClass)
             {
-                if (x != null) x.Draw(BulletModel, cameraPosition, aspectRatio);
+                if (x != null)
+                {
+                    onscrnsphere.Center = Vector3FromVector2(x.Position);
+                    onscrnsphere.Radius = x.Radius;
+                    if (WindowManager.ScreenFrustum.Intersects(onscrnsphere))
+                        x.Draw(BulletModel, cameraPosition, aspectRatio);
+                }
             }
 
             //Draw Each Enemy onto the screen
@@ -291,7 +298,18 @@ namespace Tanks
             
         }
 
+        public bool BoundingSphereIsOnScreen(BoundingSphere sphere)
+        {
+            if (WindowManager.ScreenFrustum.Intersects(sphere))
+                return true;
+            else
+                return false;
+        }
 
-        
+        public Vector3 Vector3FromVector2(Vector2 vec2)
+        {
+            Vector3 vec3 = new Vector3(vec2.X, 0f, vec2.Y);
+            return vec3;
+        }
     }
 }
