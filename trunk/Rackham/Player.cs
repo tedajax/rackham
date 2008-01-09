@@ -178,7 +178,7 @@ namespace Tanks
 
                 for (int i = 0; i < maxbullets; i++)
                 {
-                    newbullets.Add(new Bullet(Position, 5 * new Vector2((float)(Math.Cos((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2)))))) / 100), (float)(Math.Sin((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2))))))) / -100), 0.5f, CollisionHandle));
+                    newbullets.Add(new Bullet(Position, 5 * new Vector2((float)(Math.Cos((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2)))))) / 100), (float)(Math.Sin((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2))))))) / -100), 0.5f));
                 }
                 
                 foreach (Bullet b in newbullets)
