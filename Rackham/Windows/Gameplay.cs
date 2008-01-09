@@ -242,7 +242,7 @@ namespace Tanks
             for (int i = BulletClass.Count - 1; i >= 0; i--)
             {
 
-                if (Math.Abs(BulletClass[i].Position.X) > 500f || Math.Abs(BulletClass[i].Position.Y) > 500f)
+                if (Math.Abs(BulletClass[i].Position.X) > 200f || Math.Abs(BulletClass[i].Position.Y) > 200f)
                 {
                     Collision.KillList.Add(BulletClass[i]);
                     BulletClass[i].killme = true;
