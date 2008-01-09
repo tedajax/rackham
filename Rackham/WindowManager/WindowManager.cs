@@ -415,7 +415,7 @@ namespace Tanks
             //spriteBatch.End();
 
             Matrix view = Matrix.CreateLookAt(cameraPosition,
-                                              new Vector3(cameraPosition.X, 0, cameraPosition.Z), Vector3.Up);
+                                              new Vector3(0f, 0f, 0f), Vector3.Up);
 
             Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
                                                                    aspectRatio,
@@ -423,10 +423,10 @@ namespace Tanks
 
             ExplosionParticleSystem.SetCamera(view, projection);
 
-            if (ScreenFrustum == null)
+            /*if (ScreenFrustum == null)
                 ScreenFrustum = new BoundingFrustum(view);
             else
-                ScreenFrustum.Matrix = view;
+                ScreenFrustum.Matrix = view;*/
         }
 
 
