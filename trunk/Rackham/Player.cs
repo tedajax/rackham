@@ -51,7 +51,7 @@ namespace Tanks
         {
             
             Name = null;
-            Health = 19;
+            Health = 10;
             Model = null;
             Position = new Vector2();
             Rotation = 0.0f;
@@ -82,7 +82,7 @@ namespace Tanks
             {
                 DisplayModel(Camera, aspectRatio);
                 
-                batch.DrawString(font, Velocity.ToString(), DrawBase, Color.White);
+                batch.DrawString(font,Health.ToString(), DrawBase, Color.White);
                 
 
             }
@@ -119,6 +119,16 @@ namespace Tanks
         public override bool Touch(GameplayObject target)
         {
             Health -= (int)(target.Mass*5f);
+            if (Health <= 0)
+            {
+                Ready = 0;
+                Health = 100;
+                for (int i = 0; i < 10; i++)
+                {
+                    WindowManager.explosionParticle.AddParticle(new Vector3(position.X,0f,position.Y), new Vector3
+                        (velocity.X,0f,velocity.Y));
+                }
+            }
             return true;
         }
 
