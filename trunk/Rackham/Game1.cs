@@ -25,6 +25,9 @@ namespace Tanks
         ContentManager content;
 
         public static ParticleSystem explosionParticle;
+        public static ParticleSystem fireParticle;
+        public static ParticleSystem smokeParticle;
+
         WindowManager windowManager;
         public Game1()
         {
@@ -36,9 +39,15 @@ namespace Tanks
             Components.Add(new GamerServicesComponent(this));
 
             explosionParticle = new ExplosionParticleSystem(this, content);
-            Components.Add(explosionParticle);
+            fireParticle = new FireParticleSystem(this, content);
+            smokeParticle = new SmokePlumeParticleSystem(this, content);
 
-            windowManager = new WindowManager(this, explosionParticle);
+            Components.Add(explosionParticle);
+            Components.Add(fireParticle);
+            Components.Add(smokeParticle);
+
+            windowManager = new WindowManager(this);
+            windowManager.SetParticles((ExplosionParticleSystem)explosionParticle, (FireParticleSystem)fireParticle, (SmokePlumeParticleSystem)smokeParticle);
 
 
             Components.Add(windowManager);

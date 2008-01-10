@@ -50,6 +50,8 @@ namespace Tanks
         private TextboxManager WindowManagerTextBoxes;
 
         public static ExplosionParticleSystem explosionParticle;
+        public static FireParticleSystem fireParticle;
+        public static SmokePlumeParticleSystem smokeParticle;
 
         public static BoundingFrustum ScreenFrustum;
         
@@ -86,6 +88,16 @@ namespace Tanks
             get { return explosionParticle; }
         }
 
+        public ParticleSystem FireParticleSystem
+        {
+            get { return fireParticle; }
+        }
+
+        public ParticleSystem SmokeParticleSystem
+        {
+            get { return smokeParticle; }
+        }
+
         public Vector3 CameraPosition
         {
             get { return cameraPosition; }
@@ -99,7 +111,7 @@ namespace Tanks
 
 #endregion
 
-        public WindowManager(Game game, ParticleSystem eps)
+        public WindowManager(Game game)
             : base(game)
         {
             content = new ContentManager(game.Services);
@@ -117,8 +129,18 @@ namespace Tanks
             GamePlayers = new GamePlayer[4];
             WindowManagerTextBoxes = new TextboxManager();
 
+            
+        }
+
+        public void SetParticles(ExplosionParticleSystem eps, FireParticleSystem fps, SmokePlumeParticleSystem sps)
+        {
             explosionParticle = (ExplosionParticleSystem)eps;
+            fireParticle = (FireParticleSystem)fps;
+            smokeParticle = (SmokePlumeParticleSystem)sps;
+
             explosionParticle.DrawOrder = 100;
+            fireParticle.DrawOrder = 200;
+            smokeParticle.DrawOrder = 300;
         }
 
         protected override void LoadGraphicsContent(bool loadAllContent)
@@ -415,13 +437,13 @@ namespace Tanks
             //spriteBatch.End();
             
             Matrix view =   Matrix.CreateLookAt(cameraPosition,
-                                                new Vector3(cameraPosition.X, 0f, cameraPosition.Y), Vector3.Up);
+                                                new Vector3(cameraPosition.X, 0f, cameraPosition.Z - 0.1f), Vector3.Up);
 
             Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45),
                                                                    aspectRatio,
                                                                    1, 1000);
 
-            ExplosionParticleSystem.SetCamera(view, projection);
+            
             
             /*if (ScreenFrustum == null)
                 ScreenFrustum = new BoundingFrustum(view);

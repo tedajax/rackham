@@ -19,7 +19,7 @@ namespace Tanks
     /// <summary>
     /// Custom particle system for creating a flame effect.
     /// </summary>
-    class FireParticleSystem : ParticleSystem
+    public class FireParticleSystem : ParticleSystem
     {
         public FireParticleSystem(Game game, ContentManager content)
             : base(game, content)
@@ -37,22 +37,22 @@ namespace Tanks
             settings.DurationRandomness = 1;
 
             settings.MinHorizontalVelocity = 0;
-            settings.MaxHorizontalVelocity = 15;
+            settings.MaxHorizontalVelocity = 2;
 
-            settings.MinVerticalVelocity = -10;
-            settings.MaxVerticalVelocity = 10;
+            settings.MinVerticalVelocity = -1;
+            settings.MaxVerticalVelocity = 1;
 
             // Set gravity upside down, so the flames will 'fall' upward.
-            settings.Gravity = new Vector3(0, 15, 0);
+            settings.Gravity = new Vector3(0, 2, 0);
 
             settings.MinColor = new Color(255, 255, 255, 10);
             settings.MaxColor = new Color(255, 255, 255, 40);
 
-            settings.MinStartSize = 5;
-            settings.MaxStartSize = 10;
+            settings.MinStartSize = 1;
+            settings.MaxStartSize = 3;
 
-            settings.MinEndSize = 10;
-            settings.MaxEndSize = 40;
+            settings.MinEndSize = 1;
+            settings.MaxEndSize = 4;
 
             // Use additive blending.
             settings.SourceBlend = Blend.SourceAlpha;
