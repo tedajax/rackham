@@ -197,9 +197,13 @@ namespace Tanks
             {
                 p.Update(WindowManager.NewState, KeyReleased, gameTime, CollisionManager, BulletClass);
                 if (p.getReadyState() == 6)
-                    if (p.Health < 20)
-                        for (int i = 0; i < 30; i++)
-                            WindowManager.explosionParticle.AddParticle(new Vector3(p.Position.X, 1f, p.Position.Y), Vector3FromVector2(p.Velocity));
+                    if (p.Health < 20 && gameTime.TotalGameTime.CompareTo(p.OnFire) > 0)
+                    {
+                        for (int i = 0; i < 3; i++)
+                            WindowManager.smokeParticle.AddParticle(Vector3FromVector2(p.Position), Vector3FromVector2(p.Velocity));//.explosionParticle.AddParticle(new Vector3(p.Position.X, 1f, p.Position.Y), Vector3FromVector2(p.Velocity));
+
+                        p.OnFire = gameTime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 50);
+                    }
             }
 
             if (PlayerList[0].getReadyState() == 6)
@@ -210,7 +214,7 @@ namespace Tanks
             //Updates the Swarm
             SwarmManager.Update(gameTime, PlayerList);
 
-            if (SwarmManager.CountSwarms() == 0)
+            if (SwarmManager.CountSwarms() < 0)
             {
                 Random RANDOM = new Random();
                 for (int j = 0; j < 5; j++)
@@ -324,6 +328,14 @@ namespace Tanks
                     effect.View = Matrix.CreateLookAt(cameraPosition, new Vector3(cameraPosition.X, 0f, cameraPosition.Z - .1f), new Vector3(0, 1, 0));
                     effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);
                 }
+
+                Matrix view = Matrix.CreateLookAt(cameraPosition, new Vector3(cameraPosition.X, 0f, cameraPosition.Z - .1f), new Vector3(0, 1, 0));
+                Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);
+
+                WindowManager.explosionParticle.SetCamera(view, projection);
+                WindowManager.smokeParticle.SetCamera(view, projection);
+                WindowManager.fireParticle.SetCamera(view, projection);
+
                 //Draw the mesh, will use the effects set above.
                 mesh.Draw();
             }

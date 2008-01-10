@@ -44,11 +44,14 @@ namespace Tanks
         private Keys StopKey;
         private Keys ShootKey;
         private Keys Action;
+
+        public TimeSpan OnFire = new TimeSpan();
+
         public Player(Vector2 DrawBase, Keys Start, float radius)
         {
             
             Name = null;
-            Health = 100;
+            Health = 19;
             Model = null;
             Position = new Vector2();
             Rotation = 0.0f;
@@ -168,7 +171,7 @@ namespace Tanks
             //This is a workaround, when you press down and left at the same time, the model doesn't rotate correctly, this fixes it
             if (Pressed.IsKeyDown(Leftkey) && Pressed.IsKeyDown(Downkey)) Rotation += 180;
             Velocity *= .99f;
-            if (Pressed.IsKeyDown(ShootKey) && Gametime.TotalGameTime.CompareTo(ShotTime)>0)
+            if (Pressed.IsKeyDown(ShootKey) && Gametime.TotalGameTime.CompareTo(ShotTime) > 0)
             {
                 float eangle = 10f;
 

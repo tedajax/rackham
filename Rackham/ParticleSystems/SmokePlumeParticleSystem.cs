@@ -19,7 +19,7 @@ namespace Tanks
     /// <summary>
     /// Custom particle system for creating a giant plume of long lasting smoke.
     /// </summary>
-    class SmokePlumeParticleSystem : ParticleSystem
+    public class SmokePlumeParticleSystem : ParticleSystem
     {
         public SmokePlumeParticleSystem(Game game, ContentManager content)
             : base(game, content)
