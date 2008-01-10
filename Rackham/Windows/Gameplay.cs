@@ -198,8 +198,13 @@ namespace Tanks
                 p.Update(WindowManager.NewState, KeyReleased, gameTime, CollisionManager, BulletClass);
                 if (p.getReadyState() == 6)
                     if (p.Health < 20)
-                        for (int i = 0; i < 5; i++)
-                            WindowManager.explosionParticle.AddParticle(Vector3FromVector2(p.Position), Vector3FromVector2(p.Velocity));
+                        for (int i = 0; i < 30; i++)
+                            WindowManager.explosionParticle.AddParticle(new Vector3(p.Position.X, 1f, p.Position.Y), Vector3FromVector2(p.Velocity));
+            }
+
+            if (PlayerList[0].getReadyState() == 6)
+            {
+                cameraPosition = new Vector3(PlayerList[0].Position.X, CameraY, PlayerList[0].Position.Y - .1f);
             }
 
             //Updates the Swarm
@@ -254,8 +259,11 @@ namespace Tanks
                 if (BulletClass[i].killme == true)
                 {
                     Bullet O = BulletClass[i];
-                    for (int x = 0; x < numExplosionParticles; x++)
-                        WindowManager.ExplosionParticleSystem.AddParticle(new Vector3(O.Position.X, 0f, O.Position.Y), new Vector3(O.Velocity.X, 0f, O.Velocity.Y));
+                    if (isOnScreen(O.Position))
+                    {
+                        for (int x = 0; x < numExplosionParticles; x++)
+                            WindowManager.ExplosionParticleSystem.AddParticle(new Vector3(O.Position.X, 0f, O.Position.Y), new Vector3(O.Velocity.X, 0f, O.Velocity.Y));
+                    }
                     BulletClass.Remove(O);
                     O = null;
 
@@ -278,14 +286,11 @@ namespace Tanks
         public override void Draw(GameTime gameTime)
         {
             //Draw Each Bullet onto the screen
-            BoundingSphere onscrnsphere = new BoundingSphere();
             foreach (Bullet x in BulletClass)
             {
                 if (x != null)
                 {
-                    /*onscrnsphere.Center = Vector3FromVector2(x.Position);
-                    onscrnsphere.Radius = x.Radius;
-                    if (WindowManager.ScreenFrustum.Intersects(onscrnsphere))*/
+                    if (isOnScreen(x.Position))
                         x.Draw(BulletModel, cameraPosition, aspectRatio);
                 }
             }
@@ -299,15 +304,38 @@ namespace Tanks
                 p.Draw(cameraPosition, aspectRatio, gameFont, WindowManager.SpriteBatch);
             }
 
+            Model model = EnemyModel;
+
+            Matrix[] transforms = new Matrix[model.Bones.Count];
+            model.CopyAbsoluteBoneTransformsTo(transforms);
+            //Draw the model, a model can have multiple meshes, so loop
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+
+
+                //This is where the mesh orientation is set, as well as our camera and projection
+                foreach (BasicEffect effect in mesh.Effects)
+                {
+                    effect.EnableDefaultLighting();
+                    effect.World = transforms[mesh.ParentBone.Index]
+                     * Matrix.CreateTranslation(Vector3.Zero)
+                     * Matrix.CreateScale(1.0f);
+
+                    effect.View = Matrix.CreateLookAt(cameraPosition, new Vector3(cameraPosition.X, 0f, cameraPosition.Z - .1f), new Vector3(0, 1, 0));
+                    effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);
+                }
+                //Draw the mesh, will use the effects set above.
+                mesh.Draw();
+            }
             
         }
 
-        public bool BoundingSphereIsOnScreen(BoundingSphere sphere)
+        public bool isOnScreen(Vector2 pos)
         {
-            if (WindowManager.ScreenFrustum.Intersects(sphere))
-                return true;
-            else
+            if (pos.X > cameraPosition.X + 50 || pos.Y > cameraPosition.Z + 50 || pos.X < cameraPosition.X - 50 || pos.Y < cameraPosition.Z - 50)
                 return false;
+            else
+                return true;
         }
 
         public Vector3 Vector3FromVector2(Vector2 vec2)

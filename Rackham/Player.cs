@@ -56,7 +56,7 @@ namespace Tanks
             Ready = 0;
             Action = Start;
             this.radius = radius;
-            speed = .001f;
+            speed = .002f;
             Velocity = Vector2.Zero;
             type = 1;
 
@@ -271,7 +271,7 @@ namespace Tanks
                      * Matrix.CreateTranslation(NewPosition)
                      * Matrix.CreateScale(1.0f);
 
-                    effect.View = Matrix.CreateLookAt(Camera, Vector3.Zero, new Vector3(0, 1, 0));
+                    effect.View = Matrix.CreateLookAt(Camera, new Vector3(Camera.X, 0f, Camera.Z - .1f), new Vector3(0, 1, 0));
                     effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);
                 }
                 //Draw the mesh, will use the effects set above.
