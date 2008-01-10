@@ -28,7 +28,7 @@ namespace Tanks
 
         ContentManager content;
 
-        public Vector3 cameraPosition = new Vector3(0.0f, 80.0f, .1f);
+        public Vector3 cameraPosition = new Vector3(0.0f, 80.0f, 5f);
         float aspectRatio = 800f / 600f;
 
         //GraphicsDevice graphicsDevice;
@@ -413,16 +413,16 @@ namespace Tanks
             }
             if (LoadNewProfile) LoadNewProfileDraw();
             //spriteBatch.End();
+            
+            Matrix view =   Matrix.CreateLookAt(cameraPosition,
+                                                new Vector3(cameraPosition.X, 0f, cameraPosition.Y), Vector3.Up);
 
-            Matrix view = Matrix.CreateLookAt(cameraPosition,
-                                              new Vector3(0f, 0f, 0f), Vector3.Up);
-
-            Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
+            Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45),
                                                                    aspectRatio,
                                                                    1, 1000);
 
             ExplosionParticleSystem.SetCamera(view, projection);
-
+            
             /*if (ScreenFrustum == null)
                 ScreenFrustum = new BoundingFrustum(view);
             else

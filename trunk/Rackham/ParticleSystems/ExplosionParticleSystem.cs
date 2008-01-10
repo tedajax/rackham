@@ -30,7 +30,7 @@ namespace Tanks
         {
             settings.TextureName = "explosion";
 
-            settings.MaxParticles = 1000;
+            settings.MaxParticles = 6000;
 
             settings.Duration = TimeSpan.FromSeconds(2);
             settings.DurationRandomness = 1;
