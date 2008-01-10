@@ -199,10 +199,10 @@ namespace Tanks
                 if (p.getReadyState() == 6)
                     if (p.Health < 20 && gameTime.TotalGameTime.CompareTo(p.OnFire) > 0)
                     {
-                        for (int i = 0; i < 3; i++)
+                        for (int i = 0; i < 1; i++)
                             WindowManager.smokeParticle.AddParticle(Vector3FromVector2(p.Position), Vector3FromVector2(p.Velocity));//.explosionParticle.AddParticle(new Vector3(p.Position.X, 1f, p.Position.Y), Vector3FromVector2(p.Velocity));
 
-                        p.OnFire = gameTime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 50);
+                        p.OnFire = gameTime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 200);
                     }
             }
 

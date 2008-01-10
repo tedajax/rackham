@@ -32,7 +32,7 @@ namespace Tanks
 
             settings.MaxParticles = 200;
 
-            settings.Duration = TimeSpan.FromSeconds(4);
+            settings.Duration = TimeSpan.FromMilliseconds(500);
 
             settings.MinHorizontalVelocity = 0;
             settings.MaxHorizontalVelocity = 50;
@@ -40,7 +40,7 @@ namespace Tanks
             settings.MinVerticalVelocity = -10;
             settings.MaxVerticalVelocity = 50;
 
-            settings.Gravity = new Vector3(0, -20, 0);
+            settings.Gravity = new Vector3(0, -2, 0);
 
             settings.EndVelocity = 0;
 
@@ -50,11 +50,11 @@ namespace Tanks
             settings.MinRotateSpeed = -2;
             settings.MaxRotateSpeed = 2;
 
-            settings.MinStartSize = 10;
-            settings.MaxStartSize = 10;
+            settings.MinStartSize = 1;
+            settings.MaxStartSize = 1;
 
-            settings.MinEndSize = 100;
-            settings.MaxEndSize = 200;
+            settings.MinEndSize = 5;
+            settings.MaxEndSize = 10;
         }
     }
 }
