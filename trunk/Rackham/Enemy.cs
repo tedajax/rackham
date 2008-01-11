@@ -165,7 +165,7 @@ namespace Tanks
             {
                 Vector3 pos = new Vector3(Position.X, 0f, Position.Y);
                 Vector3 vel = new Vector3(Velocity.X, 0f, Velocity.Y);
-                for (int x = 0; x < 10; x++)
+                for (int x = 0; x < 50; x++)
                     WindowManager.explosionParticle.AddParticle(pos, vel);
                 SwarmManager.EnemiesToDestroy.Add(this);
             }

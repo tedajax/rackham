@@ -202,7 +202,7 @@ namespace Tanks
                         for (int i = 0; i < 1; i++)
                             WindowManager.smokeParticle.AddParticle(Vector3FromVector2(p.Position), Vector3FromVector2(p.Velocity));//.explosionParticle.AddParticle(new Vector3(p.Position.X, 1f, p.Position.Y), Vector3FromVector2(p.Velocity));
 
-                        p.OnFire = gameTime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 200);
+                        p.OnFire = gameTime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 10);
                     }
             }
 
@@ -214,7 +214,7 @@ namespace Tanks
             //Updates the Swarm
             SwarmManager.Update(gameTime, PlayerList);
 
-            if (SwarmManager.CountSwarms() < 0)
+            if (KeyState.IsKeyDown(Keys.F1)&&!OldState.IsKeyDown(Keys.F1))
             {
                 Random RANDOM = new Random();
                 for (int j = 0; j < 5; j++)
@@ -255,11 +255,7 @@ namespace Tanks
             for (int i = BulletClass.Count - 1; i >= 0; i--)
             {
 
-                if (Math.Abs(BulletClass[i].Position.X) > 200f || Math.Abs(BulletClass[i].Position.Y) > 200f)
-                {
-                    Collision.KillList.Add(BulletClass[i]);
-                    BulletClass[i].killme = true;
-                }
+                
                 if (BulletClass[i].killme == true)
                 {
                     Bullet O = BulletClass[i];

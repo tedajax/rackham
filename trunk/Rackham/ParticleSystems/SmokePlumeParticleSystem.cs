@@ -33,12 +33,12 @@ namespace Tanks
             settings.MaxParticles = 600;
 
             settings.Duration = TimeSpan.FromSeconds(10);
-
+            
             settings.MinHorizontalVelocity = 0;
-            settings.MaxHorizontalVelocity = 15;
+            settings.MaxHorizontalVelocity = 1.5f;
 
-            settings.MinVerticalVelocity = 10;
-            settings.MaxVerticalVelocity = 20;
+            settings.MinVerticalVelocity = 1;
+            settings.MaxVerticalVelocity = 2;
 
             // Create a wind effect by tilting the gravity vector sideways.
             settings.Gravity = new Vector3(-20, -5, 0);
@@ -48,11 +48,11 @@ namespace Tanks
             settings.MinRotateSpeed = -1;
             settings.MaxRotateSpeed = 1;
 
-            settings.MinStartSize = 5;
-            settings.MaxStartSize = 10;
+            settings.MinStartSize = 1;
+            settings.MaxStartSize = 5;
 
-            settings.MinEndSize = 50;
-            settings.MaxEndSize = 200;
+            settings.MinEndSize = 10;
+            settings.MaxEndSize = 20;
         }
     }
 }
