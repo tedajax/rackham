@@ -96,12 +96,12 @@ namespace Tanks
     
 
 
-        public void Update(KeyboardState Pressed, bool KeyReleased, GameTime Gametime, Collision CollisionHandle, List<Bullet> BulletClass)
+        public void Update(KeyboardState Pressed, bool KeyReleased, GameTime Gametime)
         {
             collidedThisFrame = false;
             if (Ready == 6)
             {
-                ControlModel(Pressed, Gametime, CollisionHandle,BulletClass);
+                ControlModel(Pressed, Gametime);
             }
             else
             {
@@ -141,11 +141,12 @@ namespace Tanks
             return true;
         }
 
-        public void ControlModel(KeyboardState Pressed, GameTime Gametime, Collision CollisionHandle, List<Bullet> BulletClass)
+        public void ControlModel(KeyboardState Pressed, GameTime Gametime)
         {
             float OldRotation = Rotation;
             Rotation = 0.0f;
-            int NumberRot = 0; 
+            int NumberRot = 0;
+            Vector2 OldVelocity = new Vector2(Velocity.X, Velocity.Y);
             if (Pressed.IsKeyDown(Upkey))
             {
 
@@ -177,6 +178,7 @@ namespace Tanks
                 NumberRot++;
 
             }
+            if (Velocity.X + Velocity.Y > 2) Velocity = OldVelocity;
             //If you pressed keys (increaes numberRot) then you should divide rotation by number of keys pressed (to get angle in between)
             if (NumberRot > 0)
             {
@@ -200,13 +202,17 @@ namespace Tanks
 
                 for (int i = 0; i < maxbullets; i++)
                 {
+                 
                     newbullets.Add(new Bullet(Position, new Vector2((float)(Math.Cos((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2)))))) / 10), (float)(Math.Sin((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2))))))) / -10), 0.5f));
                 }
-                
-                foreach (Bullet b in newbullets)
-                    b.NoCollide.Add(type);
 
-                BulletClass = AddBullets(BulletClass, newbullets);
+                foreach (Bullet b in newbullets)
+                {
+                    b.NoCollide.Add(type);
+                    BulletManager.AddBullet(b, Gametime);
+                }
+
+                
 
                 ShotTime = Gametime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 200);
             }
@@ -214,13 +220,7 @@ namespace Tanks
             PresenceSphere.Center = new Vector3(Position.X, 0f, Position.Y);
         }
 
-        private List<Bullet> AddBullets(List<Bullet> BulletClass, List<Bullet> BulletList)
-        {
-            foreach (Bullet b in BulletList)
-                BulletClass.Add(b);
-
-            return BulletClass;
-        }
+      
             
         public float ToAngle(float oldvalue, float newvalue, float speed, float tolerance)
         {

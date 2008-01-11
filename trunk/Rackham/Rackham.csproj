@@ -58,6 +58,7 @@
     <Compile Include="Bullet.cs">
       <Name>Bullet</Name>
     </Compile>
+    <Compile Include="BulletManager.cs" />
     <Compile Include="ParticleEmitter.cs" />
     <Compile Include="ParticleSettings.cs" />
     <Compile Include="ParticleSystem.cs" />

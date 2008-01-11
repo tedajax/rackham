@@ -79,6 +79,7 @@ namespace Tanks
         {
             foreach (Enemy e in EnemiesToDestroy)
             {
+                Collision.KillList.Add(e);
                 int i = 0;
                 while (i < SwarmList.Count)
                 {
@@ -86,6 +87,7 @@ namespace Tanks
                     i++;
                     if (swarm.getId().Equals(e.mySwarmId))
                     {
+                        
                         swarm.LoseEnemy(e);
                         i = SwarmList.Count;
                     }

@@ -28,7 +28,7 @@ namespace Tanks
 
         ContentManager content;
 
-        public Vector3 cameraPosition = new Vector3(0.0f, 80.0f, 5f);
+        public Vector3 cameraPosition = new Vector3(0.0f, 120.0f, 5f);
         float aspectRatio = 800f / 600f;
 
         //GraphicsDevice graphicsDevice;

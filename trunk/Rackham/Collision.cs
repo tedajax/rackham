@@ -294,7 +294,7 @@ namespace Tanks
 
         private void RemoveDeadObjects()
         {
-            for (int i =0; i<killList.Count; i++)
+            for (int i =KillList.Count-1; i>=0; i--)
             {
                 GameplayObject o = KillList[i];
                 killList.Remove(o);

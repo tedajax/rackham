@@ -10,13 +10,18 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Storage;
 using XNAExtras;
 #endregion
+using System.Collections;
 
 namespace Tanks
 {
     class Gameplay : GameWindow
     {
+        
         SpriteFont gameFont;
         ContentManager content;
+        
+
+        
 
         //String Mode;
 
@@ -43,7 +48,7 @@ namespace Tanks
         List<Enemy> enemies = new List<Enemy>();
 
         //Position of the Camera in world space, for our view matrix
-        static float CameraY = 80.0f;
+        static float CameraY = 180.0f;
         static Vector3 cameraPosition;
 
         //Aspect ratio to use for the projection matrix
@@ -53,6 +58,8 @@ namespace Tanks
 
         //A Text Manager so we can display text to the screen in a cool fashion
         TextboxManager textManager;
+
+        BulletManager BulletManager = new BulletManager();
         
         
         public Gameplay(Vector3 CP, float ar)
@@ -111,7 +118,7 @@ namespace Tanks
 
 
             }
-            Random RANDOM = new Random();
+            /*Random RANDOM = new Random();
             for (int j = 0; j<5; j++)
             {
                Vector2 position = new Vector2(RANDOM.Next(-500,500),RANDOM.Next(-500,500));
@@ -129,7 +136,7 @@ namespace Tanks
                 SwarmManager.addSwarm(Swarm);
             }
             Swarm newswarm = SwarmManager.getSwarm(0);
-            newswarm.moveSwarm(newswarm.Position + new Vector2(0, 50));
+            newswarm.moveSwarm(newswarm.Position + new Vector2(0, 50));*/
             
         }
 
@@ -195,7 +202,7 @@ namespace Tanks
             //Updates Each Player
             foreach (Player p in PlayerList)
             {
-                p.Update(WindowManager.NewState, KeyReleased, gameTime, CollisionManager, BulletClass);
+                p.Update(WindowManager.NewState, KeyReleased, gameTime);
                 if (p.getReadyState() == 6)
                     if (p.Health < 20 && gameTime.TotalGameTime.CompareTo(p.OnFire) > 0)
                     {
@@ -237,10 +244,7 @@ namespace Tanks
                 newswarm.moveSwarm(newswarm.Position + new Vector2(0, 50));
             }
 
-            foreach (Bullet b in BulletClass)
-            {
-                b.Update(gameTime);
-            }
+           
 
             if (WindowManager.NewState.IsKeyDown(Keys.Space) && WindowManager.OldState.IsKeyUp(Keys.Space))
             {
@@ -250,9 +254,9 @@ namespace Tanks
 
             //Updates the Collision Manager
             CollisionManager.Update(gameTime.ElapsedGameTime.Milliseconds);
-
+            BulletManager.Update(gameTime);
             //Removes Bullets that are too far out of the screen (this needs to be moved somewhere else!)
-            for (int i = BulletClass.Count - 1; i >= 0; i--)
+            /*for (int i = BulletClass.Count - 1; i >= 0; i--)
             {
 
                 
@@ -268,7 +272,7 @@ namespace Tanks
                     O = null;
 
                 }
-            }
+            }*/
            
             /*if (KeyState.IsKeyDown(Keys.Left))
             {
@@ -278,7 +282,8 @@ namespace Tanks
             {
                 newswarm.moveSwarm(newswarm.Position + new Vector2(1, 0));
             }*/
-
+            if (NewState.IsKeyDown(Keys.A)) screenadder += .1f;
+            if (NewState.IsKeyDown(Keys.B)) screenadder -= .1f;
             base.Update(gameTime);
            
         }
@@ -286,14 +291,7 @@ namespace Tanks
         public override void Draw(GameTime gameTime)
         {
             //Draw Each Bullet onto the screen
-            foreach (Bullet x in BulletClass)
-            {
-                if (x != null)
-                {
-                    if (isOnScreen(x.Position))
-                        x.Draw(BulletModel, cameraPosition, aspectRatio);
-                }
-            }
+            BulletManager.Draw(BulletModel, cameraPosition, aspectRatio);
 
             //Draw Each Enemy onto the screen
             SwarmManager.DrawSwarms(cameraPosition, aspectRatio);
@@ -335,12 +333,18 @@ namespace Tanks
                 //Draw the mesh, will use the effects set above.
                 mesh.Draw();
             }
-            
-        }
 
-        public bool isOnScreen(Vector2 pos)
+            WindowManager.SpriteBatch.Begin();
+            WindowManager.SpriteBatch.DrawString(gameFont, CameraY.ToString()+Environment.NewLine+screenadder.ToString(), new Vector2(0, 40), Color.White);
+            WindowManager.SpriteBatch.End();
+
+        }
+        //static float screenadder = 55;
+        static float screenadder = 95;
+        public static bool isOnScreen(Vector2 pos)
         {
-            if (pos.X > cameraPosition.X + 50 || pos.Y > cameraPosition.Z + 50 || pos.X < cameraPosition.X - 50 || pos.Y < cameraPosition.Z - 50)
+            
+            if (pos.X > cameraPosition.X + screenadder || pos.Y > cameraPosition.Z + screenadder || pos.X < cameraPosition.X - screenadder || pos.Y < cameraPosition.Z - screenadder)
                 return false;
             else
                 return true;

@@ -15,6 +15,7 @@ namespace Tanks
     {
 
         public bool killme = false;
+        public string mykey;
 
         public Bullet(Vector2 Pos, Vector2 Velo, float Rad)
         {
@@ -24,6 +25,7 @@ namespace Tanks
             Mass = 50f;
             base.Initialize();
             this.type = 11;
+            
             
             //CollisionHandle.AddBoundingSphere(Position, Radius, 2);
         }
@@ -64,7 +66,7 @@ namespace Tanks
             if (target.Type < 10)
             {
                 Collision.KillList.Add(this);
-                killme = true;
+                BulletManager.BulletsToRemove.Add(mykey);
             }
             return true;
         }

@@ -29,6 +29,7 @@ namespace Tanks
         public static ParticleSystem smokeParticle;
 
         WindowManager windowManager;
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -115,7 +116,8 @@ namespace Tanks
             // Allows the default game to exit on Xbox 360 and Windows
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-            /* //CameraY = MathHelper.SmoothStep(CameraY, 80f, .05f);
+            //*///CameraY = MathHelper.SmoothStep(CameraY, 80f, .05f);
+            /*
              cameraPosition.Y = CameraY;
              KeyState = Keyboard.GetState();
 
