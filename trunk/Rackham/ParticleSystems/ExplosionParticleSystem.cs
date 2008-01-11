@@ -35,11 +35,11 @@ namespace Tanks
             settings.Duration = TimeSpan.FromSeconds(2);
             settings.DurationRandomness = 1;
 
-            settings.MinHorizontalVelocity = 2;
-            settings.MaxHorizontalVelocity = 3;
+            settings.MinHorizontalVelocity = 5;
+            settings.MaxHorizontalVelocity = 9;
 
             settings.MinVerticalVelocity = -2;
-            settings.MaxVerticalVelocity = 29;
+            settings.MaxVerticalVelocity = 2;
 
             settings.EndVelocity = 0;
 
@@ -50,7 +50,7 @@ namespace Tanks
             settings.MaxRotateSpeed = 1;
 
             settings.MinStartSize = 1;
-            settings.MaxStartSize = 1;
+            settings.MaxStartSize = 5;
 
             settings.MinEndSize = 10;
             settings.MaxEndSize = 20;

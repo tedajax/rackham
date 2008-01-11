@@ -121,12 +121,21 @@ namespace Tanks
             Health -= (int)(target.Mass*5f);
             if (Health <= 0)
             {
+                Random exploderandom = new Random();
+
                 Ready = 0;
                 Health = 100;
-                for (int i = 0; i < 10; i++)
+                int explosions = 10;
+                int exploderadius = 20;
+                Vector2 explodepos = new Vector2();
+                for (int j = 0; j < explosions; j++)
                 {
-                    WindowManager.explosionParticle.AddParticle(new Vector3(position.X,0f,position.Y), new Vector3
-                        (velocity.X,0f,velocity.Y));
+                    explodepos = new Vector2(exploderandom.Next(exploderadius) - (exploderadius / 2), exploderandom.Next(exploderadius) - (exploderadius / 2));
+                    for (int i = 0; i < 10; i++)
+                    {
+                        WindowManager.explosionParticle.AddParticle(new Vector3(position.X + explodepos.X, 0f, position.Y + explodepos.Y), new Vector3
+                            (velocity.X + explodepos.X, 0f, velocity.Y + explodepos.Y));
+                    }
                 }
             }
             return true;
@@ -250,9 +259,7 @@ namespace Tanks
                         StopKey = LinkedProfile.EnterKey;
                         ShootKey = LinkedProfile.EnterKey;
                         Ready = 6;
-                    }
-                    
-                    
+                    }  
                 }
             }
         }
