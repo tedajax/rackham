@@ -26,8 +26,6 @@ namespace Tanks
                 }
                 else
                     b.Update(gameTime);
-               
-               
             }
         }
 

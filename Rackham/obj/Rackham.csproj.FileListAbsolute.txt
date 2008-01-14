@@ -34,3 +34,5 @@ C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rack
 C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\Content\SpriteFont1.xnb
 C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\ParticleEffect.xnb
 C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\Models\tanktex%0.xnb
+C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\Models\collect.xnb
+C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\Models\collect%0.xnb
