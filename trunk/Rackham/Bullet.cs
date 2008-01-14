@@ -65,10 +65,15 @@ namespace Tanks
         {
             if (target.Type < 10)
             {
-                Collision.KillList.Add(this);
-                BulletManager.BulletsToRemove.Add(mykey);
+                Kamikazie();
             }
             return true;
+        }
+
+        public void Kamikazie()
+        {
+            Collision.KillList.Add(this);
+            BulletManager.BulletsToRemove.Add(mykey);
         }
 
 

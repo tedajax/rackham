@@ -22,7 +22,7 @@ namespace Tanks
                 Bullet b = (Bullet)de.Value;
                 if (Math.Abs(b.Position.X) > 200 || Math.Abs(b.Position.Y) > 200)
                 {
-                    BulletsToRemove.Add(b.mykey);
+                    b.Kamikazie();
                 }
                 else
                     b.Update(gameTime);

@@ -63,7 +63,7 @@ namespace Tanks
 
         BulletManager BulletManager = new BulletManager();
 
-        CollectablesManager CollectManager = new CollectablesManager();
+        //CollectablesManager CollectManager = new CollectablesManager();
         
         public Gameplay(Vector3 CP, float ar)
         {
@@ -117,7 +117,7 @@ namespace Tanks
                 }
                 BulletModel = content.Load<Model>("Models\\Sphere");
                 EnemyModel = content.Load<Model>("Models\\cone");
-                CollectItemModel = content.Load<Model>("Models\\collect");
+                //CollectItemModel = content.Load<Model>("Models\\collect");
             }
             /*Random RANDOM = new Random();
             for (int j = 0; j<5; j++)
@@ -139,12 +139,14 @@ namespace Tanks
             Swarm newswarm = SwarmManager.getSwarm(0);
             newswarm.moveSwarm(newswarm.Position + new Vector2(0, 50));*/
 
+            /*
             Collect c1 = new Collect(CollectItemModel, new Vector2(0f, 50f));
             Collect c2 = new Collect(CollectItemModel, new Vector2(50f, 0f));
             Collect c3 = new Collect(CollectItemModel, new Vector2(-50f, 0f));
             CollectManager.Add(c1);
             CollectManager.Add(c2);
             CollectManager.Add(c3);
+            */
         }
 
         public override void UnloadGraphicsContent(bool unloadAllContent)
@@ -262,7 +264,7 @@ namespace Tanks
             //Updates the Collision Manager
             CollisionManager.Update(gameTime.ElapsedGameTime.Milliseconds);
             BulletManager.Update(gameTime);
-            CollectManager.Update(gameTime);
+            //CollectManager.Update(gameTime);
             //Removes Bullets that are too far out of the screen (this needs to be moved somewhere else!)
             /*for (int i = BulletClass.Count - 1; i >= 0; i--)
             {
@@ -310,7 +312,11 @@ namespace Tanks
                 p.Draw(cameraPosition, aspectRatio, gameFont, WindowManager.SpriteBatch);
             }
 
-            CollectManager.Draw(cameraPosition, aspectRatio);
+            WindowManager.SpriteBatch.Begin();
+            WindowManager.SpriteBatch.DrawString(gameFont, Collision.AllGamePlayObjects.Count.ToString(), new Vector2(0, 100), Color.White);
+            WindowManager.SpriteBatch.End();
+
+            //CollectManager.Draw(cameraPosition, aspectRatio);
 
             Model model = EnemyModel;
 

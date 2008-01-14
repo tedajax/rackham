@@ -191,7 +191,7 @@ namespace Tanks
             }
             //This is a workaround, when you press down and left at the same time, the model doesn't rotate correctly, this fixes it
             if (Pressed.IsKeyDown(Leftkey) && Pressed.IsKeyDown(Downkey)) Rotation += 180;
-            Velocity *= .99f;
+            Velocity *= .95f;
             if (Pressed.IsKeyDown(ShootKey) && Gametime.TotalGameTime.CompareTo(ShotTime) > 0)
             {
                 float eangle = 10f;
@@ -203,7 +203,7 @@ namespace Tanks
                 for (int i = 0; i < maxbullets; i++)
                 {
                  
-                    newbullets.Add(new Bullet(Position, new Vector2((float)(Math.Cos((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2)))))) / 10), (float)(Math.Sin((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2))))))) / -10), 0.5f));
+                    newbullets.Add(new Bullet(Position, 2.5f * new Vector2((float)(Math.Cos((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2)))))) / 10), (float)(Math.Sin((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2))))))) / -10), 0.5f));
                 }
 
                 foreach (Bullet b in newbullets)
