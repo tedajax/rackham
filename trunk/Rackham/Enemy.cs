@@ -22,7 +22,7 @@ namespace Tanks
         public Model enemyModel;
         public BoundingSphere EnemySightSphere;
 
-        public static float MaxVelocity = .2f;
+        public static float MaxVelocity = .05f;
 
         Vector2 OriginalPosition;
 
@@ -80,7 +80,7 @@ namespace Tanks
                 //position.X = MathHelper.SmoothStep(Position.X, Target.X, .1f);
                 //position.Y = MathHelper.SmoothStep(Position.Y, Target.Y, .1f);
 
-                float ExtraSpeed = 4f;
+                float ExtraSpeed = 6f;
 
                 if (Position.X > Target.X)
                 {
