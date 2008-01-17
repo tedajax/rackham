@@ -19,12 +19,14 @@ namespace Tanks
         public Vector2 Position;
         public Vector2 Velocity;
 
+        private TimeSpan MovementTimer;
+
         public List<Enemy> EnemiesInSwarm;
         public int EnemyCount;
 
         public BoundingSphere SwarmSightSphere;
 
-        private TimeSpan MovementTimer;
+        private TimeSpan BurstTimer;
 
         public string State;
 
@@ -49,6 +51,8 @@ namespace Tanks
 
             SwarmSightSphere = new BoundingSphere(new Vector3(Position.X, 0f, Position.Y), (float)(EnemyCount * 10));
             State = "Idle";
+
+            BurstTimer = new TimeSpan();
 
             foreach (Enemy e in EnemiesInSwarm)
             {
@@ -91,26 +95,53 @@ namespace Tanks
         public void Update(GameTime GameTime, List<Player> PlayerList)
         {
             SwarmSightSphere.Radius = (float)EnemyCount * 10f;
-            if (State.ToUpper().Equals("MOVE"))
+            if (State.ToUpper().Equals("BURST"))
             {
 
                 TimeSpan tempspan = new TimeSpan(0, 0, 0, 0, 200);
                 MovementTimer.Add(tempspan);// = GameTime.TotalGameTime.Milliseconds + tempspan.TotalMilliseconds;
+                BurstTimer.Add(GameTime.ElapsedGameTime);
+                foreach (Enemy e in EnemiesInSwarm)
+                {
+                    if (BurstTimer.TotalSeconds > 5)
+                    {
+                        State = "MOVE";
+                    }
+                    else
+                    {
+                        foreach (Enemy eout in EnemiesInSwarm)
+                        {
+                            Vector2 outmove = new Vector2();
+                            outmove.X = (float)Math.Sin((double)MathHelper.Distance(this.Position.X, eout.Position.X)) * 5;
+                            outmove.Y = (float)Math.Cos((double)MathHelper.Distance(this.Position.Y, eout.Position.Y)) * 5;
+
+                            eout.Target = outmove;
+                        }
+                    }
+                }
+            }
+
+            else if (State.ToUpper().Equals("MOVE"))
+            {
+
+                TimeSpan tempspan = new TimeSpan(0, 0, 0, 0, 200);
+                MovementTimer.Add(tempspan);// = GameTime.TotalGameTime.Milliseconds + tempspan.TotalMilliseconds;
+                BurstTimer = BurstTimer.Negate();
                 int i = 0;
                 double angle = 360 / EnemyCount;
                 int count = 0;
                 foreach (Enemy e in EnemiesInSwarm)
                 {
+                
                     i = MovementRandomizer.Next(0, 360);
-                    float ox = (float)Math.Sin(MathHelper.ToRadians((float)(i))) * 5;//(SwarmSightSphere.Radius / 5);
-                    float oy = (float)Math.Cos(MathHelper.ToRadians((float)(i))) * 5;//(SwarmSightSphere.Radius / 5);
-                 
+                    float ox = (float)Math.Sin(MathHelper.ToRadians((float)(i))) * 25;//(SwarmSightSphere.Radius / 5);
+                    float oy = (float)Math.Cos(MathHelper.ToRadians((float)(i))) * 25;//(SwarmSightSphere.Radius / 5);
+
                     e.Target.X = ox + Position.X;
                     e.Target.Y = oy + Position.Y;
 
                     if (Math.Sqrt((Math.Pow(e.Position.Y - Position.Y, 2)) + Math.Pow(e.Position.X - Position.X, 2)) < 3)
                     {
-                        
                         count++;
                     }
 
@@ -120,6 +151,7 @@ namespace Tanks
                     angleOffset += 0.05;
                     if (angleOffset > 359)
                         angleOffset = 0;
+                    
                 }
 
                 if (count > EnemiesInSwarm.Count * (4.0 / 5.0))
@@ -127,34 +159,32 @@ namespace Tanks
 
             }
 
-
-
             else if (State.ToUpper().Equals("IDLE"))
             {
-                
-                    TimeSpan tempspan = new TimeSpan(0, 0, 0, 0, 200);
-                    MovementTimer.Add(tempspan);// = GameTime.TotalGameTime.Milliseconds + tempspan.TotalMilliseconds;
-                    int i = 0;
-                    double angle = 360 / EnemyCount;
-                    foreach (Enemy e in EnemiesInSwarm)
+                BurstTimer = BurstTimer.Negate();
+                TimeSpan tempspan = new TimeSpan(0, 0, 0, 0, 200);
+                MovementTimer.Add(tempspan);// = GameTime.TotalGameTime.Milliseconds + tempspan.TotalMilliseconds;
+                int i = 0;
+                double angle = 360 / EnemyCount;
+                foreach (Enemy e in EnemiesInSwarm)
+                {
+                    i = MovementRandomizer.Next(0, 360);
+                    float ox = (float)Math.Sin(MathHelper.ToRadians((float)(i))) *5;//(SwarmSightSphere.Radius / 5);
+                    float oy = (float)Math.Cos(MathHelper.ToRadians((float)(i))) *5;//(SwarmSightSphere.Radius / 5);
+                    if (((Vector2)(e.Position - e.Target)).Length() < 1)
                     {
-                        i = MovementRandomizer.Next(0, 360);
-                        float ox = (float)Math.Sin(MathHelper.ToRadians((float)(i))) *5;//(SwarmSightSphere.Radius / 5);
-                        float oy = (float)Math.Cos(MathHelper.ToRadians((float)(i))) *5;//(SwarmSightSphere.Radius / 5);
-                        if (((Vector2)(e.Position - e.Target)).Length() < 1)
-                        {
-                            e.Target.X = ox + Position.X;
-                            e.Target.Y = oy + Position.Y;
-                        }
-
-                        e.Update(GameTime);
-
-                        i++;
-                        angleOffset += 0.05;
-                        if (angleOffset > 359)
-                            angleOffset = 0;
+                        e.Target.X = ox + Position.X;
+                        e.Target.Y = oy + Position.Y;
                     }
-                
+
+                    e.Update(GameTime);
+
+                    i++;
+                    angleOffset += 0.05;
+                    if (angleOffset > 359)
+                        angleOffset = 0;
+                }
+            
             }
 
             SwarmSightSphere.Center = new Vector3(Position.X, 0f, Position.Y);
@@ -177,7 +207,9 @@ namespace Tanks
         public void moveSwarm(Vector2 newPosition)
         {
             Position = newPosition;
-            State = "MOVE";
+            State = "BURST";
         }
+
+       
     }
 }
