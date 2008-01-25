@@ -15,12 +15,13 @@ namespace Tanks
         //Save the last Id so that you can generate a new unique ID Next Time
         String LastId;
 
+        Random formationGenerator;
 
         public SwarmManager()
         {
             SwarmId = 0;
             LastId = "";
-
+            formationGenerator = new Random();
         }
 
        /// <summary>
@@ -57,18 +58,35 @@ namespace Tanks
         {
             cleanUpSwarm();
             for (int i =0; i<SwarmList.Count; i++)
-            {
+             {
                 Swarm s = SwarmList[i];
                 if (s.EnemiesInSwarm.Count == 0)
                 {
                     SwarmList.Remove(s);
                 }
                 else
-                {
-                    if (PlayerList.Count > 0)
-                    {
+                 {
+                     if (PlayerList.Count > 0)
+                     {
                         if (PlayerList[0].getReadyState() == 6)
-                            s.moveSwarm(PlayerList[0].Position);
+                        {
+                            /*if (gameTime.TotalGameTime.Milliseconds - s.ChangeFormation.Milliseconds > s.NextChange.Milliseconds)
+                            {
+                                int nextformation = formationGenerator.Next(10);
+                                if (nextformation < 8)
+                                {*/
+                                    s.moveSwarm(PlayerList[0].Position);
+                                    s.NextChange = new TimeSpan(0, 0, 0, 0, 5000);
+                                /*}
+                                else
+                                {
+                                    s.burstSwarm();
+                                    s.NextChange = new TimeSpan(0, 0, 0, 0, 500);
+                                }
+
+                                s.ChangeFormation = gameTime.TotalGameTime;
+                            }*/
+                        }
                     }
                     s.Update(gameTime, PlayerList);
                 }

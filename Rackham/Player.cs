@@ -32,7 +32,7 @@ namespace Tanks
         public SignedInGamer SelectedGamer;
         public String GamerName;
 
-
+        private bool NoKeyPressed;
 
         private TimeSpan ShotTime;
         private Vector2 DrawBase;
@@ -146,22 +146,25 @@ namespace Tanks
             float OldRotation = Rotation;
             Rotation = 0.0f;
             int NumberRot = 0;
+
+            NoKeyPressed = true;
+
             Vector2 OldVelocity = new Vector2(Velocity.X, Velocity.Y);
             if (Pressed.IsKeyDown(Upkey))
             {
-
                 velocity.Y -= speed ;
                 Rotation += 90.0f;
                 NumberRot++;
-
+                NoKeyPressed = false;
             }
-             if (Pressed.IsKeyDown(Downkey))
+            
+            if (Pressed.IsKeyDown(Downkey))
             {
                
                 velocity.Y += speed ;
                 Rotation += -90.0f;
                 NumberRot++;
-
+                NoKeyPressed = false;
             }
             if (Pressed.IsKeyDown(Leftkey))
             {
@@ -169,15 +172,19 @@ namespace Tanks
                 velocity.X -= speed ;
                 Rotation += 180.0f;
                 NumberRot++;
-
+                NoKeyPressed = false;
             }
              if (Pressed.IsKeyDown(Rightkey))
             {
                 velocity.X += speed ;
                 Rotation += 0.0f;
                 NumberRot++;
-
+                NoKeyPressed = false;
             }
+
+            if (NoKeyPressed)
+                Velocity *= .95f;
+
             if (Velocity.X + Velocity.Y > 2) Velocity = OldVelocity;
             //If you pressed keys (increaes numberRot) then you should divide rotation by number of keys pressed (to get angle in between)
             if (NumberRot > 0)
@@ -191,7 +198,9 @@ namespace Tanks
             }
             //This is a workaround, when you press down and left at the same time, the model doesn't rotate correctly, this fixes it
             if (Pressed.IsKeyDown(Leftkey) && Pressed.IsKeyDown(Downkey)) Rotation += 180;
-            Velocity *= .95f;
+            
+            
+                        
             if (Pressed.IsKeyDown(ShootKey) && Gametime.TotalGameTime.CompareTo(ShotTime) > 0)
             {
                 float eangle = 10f;

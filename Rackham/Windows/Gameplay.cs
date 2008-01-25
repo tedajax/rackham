@@ -9,8 +9,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Storage;
 using XNAExtras;
-#endregion
 using System.Collections;
+#endregion
 
 namespace Tanks
 {
@@ -18,10 +18,7 @@ namespace Tanks
     {
         
         SpriteFont gameFont;
-        ContentManager content;
-        
-
-        
+        ContentManager content;    
 
         //String Mode;
 
@@ -352,6 +349,7 @@ namespace Tanks
 
             WindowManager.SpriteBatch.Begin();
             WindowManager.SpriteBatch.DrawString(gameFont, CameraY.ToString()+Environment.NewLine+screenadder.ToString(), new Vector2(0, 40), Color.White);
+            WindowManager.SpriteBatch.DrawString(gameFont, PlayerList[0].Position.ToString(), new Vector2(0, 200), Color.White);
             WindowManager.SpriteBatch.End();
 
         }
