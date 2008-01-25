@@ -22,7 +22,7 @@ namespace Tanks
         public Model enemyModel;
         public BoundingSphere EnemySightSphere;
 
-        public static float MaxVelocity = .05f;
+        public static float MaxVelocity = .2f;
 
         Vector2 OriginalPosition;
 

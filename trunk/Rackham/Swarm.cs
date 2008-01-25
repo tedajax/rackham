@@ -17,7 +17,11 @@ namespace Tanks
         private String MyId = "NoId";
 
         public Vector2 Position;
+        public Vector2 AvgPosition;
         public Vector2 Velocity;
+
+        public TimeSpan NextChange = new TimeSpan();
+        public TimeSpan ChangeFormation = new TimeSpan();
 
         private TimeSpan MovementTimer;
 
@@ -25,8 +29,6 @@ namespace Tanks
         public int EnemyCount;
 
         public BoundingSphere SwarmSightSphere;
-
-        private TimeSpan BurstTimer;
 
         public string State;
 
@@ -51,8 +53,6 @@ namespace Tanks
 
             SwarmSightSphere = new BoundingSphere(new Vector3(Position.X, 0f, Position.Y), (float)(EnemyCount * 10));
             State = "Idle";
-
-            BurstTimer = new TimeSpan();
 
             foreach (Enemy e in EnemiesInSwarm)
             {
@@ -95,28 +95,29 @@ namespace Tanks
         public void Update(GameTime GameTime, List<Player> PlayerList)
         {
             SwarmSightSphere.Radius = (float)EnemyCount * 10f;
+            AvgPosition = Vector2.Zero;
+
+            foreach (Enemy e in EnemiesInSwarm)
+            {
+                AvgPosition.X += e.Position.X;
+                AvgPosition.Y += e.Position.Y;
+            }
+
+            AvgPosition.X /= EnemiesInSwarm.Count;
+            AvgPosition.Y /= EnemiesInSwarm.Count;
+            
             if (State.ToUpper().Equals("BURST"))
             {
-
-                TimeSpan tempspan = new TimeSpan(0, 0, 0, 0, 200);
-                MovementTimer.Add(tempspan);// = GameTime.TotalGameTime.Milliseconds + tempspan.TotalMilliseconds;
-                BurstTimer.Add(GameTime.ElapsedGameTime);
                 foreach (Enemy e in EnemiesInSwarm)
                 {
-                    if (BurstTimer.TotalSeconds > 5)
+                    foreach (Enemy eout in EnemiesInSwarm)
                     {
-                        State = "MOVE";
-                    }
-                    else
-                    {
-                        foreach (Enemy eout in EnemiesInSwarm)
-                        {
-                            Vector2 outmove = new Vector2();
-                            outmove.X = (float)Math.Sin((double)MathHelper.Distance(this.Position.X, eout.Position.X)) * 5;
-                            outmove.Y = (float)Math.Cos((double)MathHelper.Distance(this.Position.Y, eout.Position.Y)) * 5;
+                        Vector2 outmove = new Vector2();
+                        outmove.X = eout.Position.X - this.AvgPosition.X;
+                        outmove.Y = eout.Position.Y - this.AvgPosition.Y;
 
-                            eout.Target = outmove;
-                        }
+                        outmove = Vector2.Normalize(outmove);
+                        eout.Velocity = outmove;
                     }
                 }
             }
@@ -126,7 +127,6 @@ namespace Tanks
 
                 TimeSpan tempspan = new TimeSpan(0, 0, 0, 0, 200);
                 MovementTimer.Add(tempspan);// = GameTime.TotalGameTime.Milliseconds + tempspan.TotalMilliseconds;
-                BurstTimer = BurstTimer.Negate();
                 int i = 0;
                 double angle = 360 / EnemyCount;
                 int count = 0;
@@ -161,7 +161,6 @@ namespace Tanks
 
             else if (State.ToUpper().Equals("IDLE"))
             {
-                BurstTimer = BurstTimer.Negate();
                 TimeSpan tempspan = new TimeSpan(0, 0, 0, 0, 200);
                 MovementTimer.Add(tempspan);// = GameTime.TotalGameTime.Milliseconds + tempspan.TotalMilliseconds;
                 int i = 0;
@@ -193,6 +192,7 @@ namespace Tanks
         public String getId() { return MyId; }
         public void setId(String Id) 
         { 
+            
             MyId = Id;
             foreach (Enemy e in EnemiesInSwarm)
             {
@@ -207,9 +207,12 @@ namespace Tanks
         public void moveSwarm(Vector2 newPosition)
         {
             Position = newPosition;
-            State = "BURST";
+            State = "MOVE";
         }
 
-       
+        public void burstSwarm()
+        {
+            State = "BURST";
+        }
     }
 }
