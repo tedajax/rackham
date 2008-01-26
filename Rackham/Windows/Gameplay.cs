@@ -116,17 +116,17 @@ namespace Tanks
                 EnemyModel = content.Load<Model>("Models\\cone");
                 //CollectItemModel = content.Load<Model>("Models\\collect");
             }
-            /*Random RANDOM = new Random();
-            for (int j = 0; j<5; j++)
+            Random RANDOM = new Random();
+            for (int j = 0; j < 7; j++)
             {
-               Vector2 position = new Vector2(RANDOM.Next(-500,500),RANDOM.Next(-500,500));
-               List<Enemy>  EnemyList = new List<Enemy>();
+                Vector2 position = new Vector2(RANDOM.Next(-500, 500), RANDOM.Next(-500, 500));
+                List<Enemy> EnemyList = new List<Enemy>();
 
                 int count = 0;
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 15; i++)
                 {
-                   EnemyList.Add(new Enemy(position+new Vector2(0f, (float)(count * 1.1f)), Vector2.Zero, .001f, EnemyModel));
-                   count++;
+                    EnemyList.Add(new Enemy(position + new Vector2(0f, (float)(count * 1.1f)), Vector2.Zero, .001f, EnemyModel));
+                    count++;
                 }
 
                 Swarm = new Swarm(position, Vector2.Zero, EnemyList);
@@ -134,16 +134,8 @@ namespace Tanks
                 SwarmManager.addSwarm(Swarm);
             }
             Swarm newswarm = SwarmManager.getSwarm(0);
-            newswarm.moveSwarm(newswarm.Position + new Vector2(0, 50));*/
-
-            /*
-            Collect c1 = new Collect(CollectItemModel, new Vector2(0f, 50f));
-            Collect c2 = new Collect(CollectItemModel, new Vector2(50f, 0f));
-            Collect c3 = new Collect(CollectItemModel, new Vector2(-50f, 0f));
-            CollectManager.Add(c1);
-            CollectManager.Add(c2);
-            CollectManager.Add(c3);
-            */
+            newswarm.moveSwarm(newswarm.Position + new Vector2(0, 50));
+            
         }
 
         public override void UnloadGraphicsContent(bool unloadAllContent)
@@ -228,25 +220,7 @@ namespace Tanks
 
             if (KeyState.IsKeyDown(Keys.F1)&&!OldState.IsKeyDown(Keys.F1))
             {
-                Random RANDOM = new Random();
-                for (int j = 0; j < 1; j++)
-                {
-                    Vector2 position = new Vector2(RANDOM.Next(-500, 500), RANDOM.Next(-500, 500));
-                    List<Enemy> EnemyList = new List<Enemy>();
-
-                    int count = 0;
-                    for (int i = 0; i < 15; i++)
-                    {
-                        EnemyList.Add(new Enemy(position + new Vector2(0f, (float)(count * 1.1f)), Vector2.Zero, .001f, EnemyModel));
-                        count++;
-                    }
-
-                    Swarm = new Swarm(position, Vector2.Zero, EnemyList);
-
-                    SwarmManager.addSwarm(Swarm);
-                }
-                Swarm newswarm = SwarmManager.getSwarm(0);
-                newswarm.moveSwarm(newswarm.Position + new Vector2(0, 50));
+                
             }
             //Updates the Swarm
             SwarmManager.Update(gameTime, PlayerList, BulletManager);
