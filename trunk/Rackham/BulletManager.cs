@@ -14,13 +14,13 @@ namespace Tanks
         static TimeSpan lasttime;
         
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Player p)
         {
             RemoveDeadBullets();
             foreach (DictionaryEntry de in bullethashtable)
             {
                 Bullet b = (Bullet)de.Value;
-                if (Math.Abs(b.Position.X) > 200 || Math.Abs(b.Position.Y) > 200)
+                if (Math.Abs(b.Position.X) > 200 + Math.Abs(p.Position.X) || Math.Abs(b.Position.Y) > 200 + Math.Abs(p.Position.Y))
                 {
                     b.Kamikazie();
                 }
@@ -28,6 +28,8 @@ namespace Tanks
                     b.Update(gameTime);
             }
         }
+
+        public System.Collections.Hashtable GetBulletHashTable() { return bullethashtable; }
 
         public void Draw(Microsoft.Xna.Framework.Graphics.Model m, Vector3 CameraPosition, float AspectRatio)
         {
