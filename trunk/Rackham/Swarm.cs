@@ -37,6 +37,8 @@ namespace Tanks
 
         Random MovementRandomizer;
 
+        private int PlayerToTarget;
+
         public Swarm(Vector2 pos, Vector2 vel, List<Enemy> elist)
         {
             Position = pos;
@@ -126,7 +128,7 @@ namespace Tanks
 
             else if (State.ToUpper().Equals("MOVE"))
             {
-
+                
                 TimeSpan tempspan = new TimeSpan(0, 0, 0, 0, 200);
                 MovementTimer.Add(tempspan);// = GameTime.TotalGameTime.Milliseconds + tempspan.TotalMilliseconds;
                 int i = 0;
@@ -189,6 +191,28 @@ namespace Tanks
             }
 
             ChangeFormation += GameTime.ElapsedGameTime;
+            else if (State.ToUpper().Equals("ABOVE"))
+            {
+
+                Vector2 positionabove = Position + new Vector2(0, 1);
+                int enemiesplaced = 0;
+                float rowmodifier = -1;
+                foreach (Enemy e in EnemiesInSwarm)
+                {
+                    e.Target = positionabove + new Vector2(rowmodifier, 0);
+                    rowmodifier += 0.5f;
+                    enemiesplaced++;
+                    if (enemiesplaced > 5)
+                    {
+                        enemiesplaced = 0;
+                        positionabove += new Vector2(0, .5f);
+                        rowmodifier = -1;
+                    }
+                }
+            }
+                   
+
+
             SwarmSightSphere.Center = new Vector3(Position.X, 0f, Position.Y);
         }
 
@@ -216,6 +240,12 @@ namespace Tanks
         public void burstSwarm()
         {
             State = "BURST";
+        }
+
+        public void marchSwarm(Vector2 position)
+        {
+            this.Position = position;
+            State = "ABOVE";
         }
     }
 }
