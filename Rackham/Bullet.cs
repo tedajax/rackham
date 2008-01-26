@@ -63,7 +63,7 @@ namespace Tanks
         }
         public override bool Touch(GameplayObject target)
         {
-            if (target.Type < 10)
+            if (target.Type < 10 || target.Type == 20)
             {
                 Kamikazie();
             }
