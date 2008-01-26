@@ -22,7 +22,7 @@ namespace Tanks
         public Model enemyModel;
         public BoundingSphere EnemySightSphere;
 
-        public static float MaxVelocity = .1f;
+        public static float MaxVelocity = .05f;
 
         Vector2 OriginalPosition;
 
@@ -159,18 +159,36 @@ namespace Tanks
             }
         }
 
+        public override void BoundingSphereTouch(int type)
+        {
+            Collision.addboundlist.Add(new RegisteredBoundingSphere(new BoundingSphere(new Vector3(position.X, 0, position.Y), 10), 1, new TimeSpan(0, 0, 0, 0, 100)));
+            Kamikazi();
+        }
+
         public override bool Touch(GameplayObject target)
         {
             if (target.Type == 11)
             {
-                Vector3 pos = new Vector3(Position.X, 0f, Position.Y);
-                Vector3 vel = new Vector3(Velocity.X, 0f, Velocity.Y);
-                for (int x = 0; x < 50; x++)
-                    WindowManager.explosionParticle.AddParticle(pos, vel);
-                SwarmManager.EnemiesToDestroy.Add(this);
+                Collision.addboundlist.Add(new RegisteredBoundingSphere(new BoundingSphere(new Vector3(position.X, 0, position.Y), 10), 1, new TimeSpan(0, 0, 0, 0, 100)));
             }
 
+
+            Kamikazi();
+
             return base.Touch(target);
+        }
+
+        public void Kamikazi()
+        {
+            Vector3 pos = new Vector3(Position.X, 0f, Position.Y);
+            //Vector3 vel = new Vector3(Velocity.X, 0f, Velocity.Y);
+            Vector3 vel = Vector3.Zero;
+            this.active = false;
+            for (int x = 0; x < 50; x++)
+                WindowManager.explosionParticle.AddParticle(pos, vel);
+            SwarmManager.EnemiesToDestroy.Add(this);
+//            Collision.addboundlist.Add(new RegisteredBoundingSphere(new BoundingSphere(new Vector3(position.X, 0, position.Y), 10), 1, new TimeSpan(0, 0, 0, 0, 100)));
+              
         }
     }
 }

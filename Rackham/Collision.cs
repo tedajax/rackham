@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
+using System.Collections;
 using XNAExtras;
 namespace Tanks
 {
@@ -45,8 +46,12 @@ namespace Tanks
 
 
         #endregion
+        public static List<RegisteredBoundingSphere> addboundlist = new List<RegisteredBoundingSphere>();
+        public static List<RegisteredBoundingSphere> boundlist = new List<RegisteredBoundingSphere>();
 
-       
+       // public static Hashtable addboundlist = new Hashtable();
+       // public static Hashtable
+
         private static List<GameplayObject> killList = new List<GameplayObject>();
         public static List<GameplayObject> KillList
         {
@@ -75,15 +80,25 @@ namespace Tanks
 
         public void Update(float elapsedTime)
         {
+            for (int i = 0; i < addboundlist.Count; i++)
+            {
+                boundlist.Add(addboundlist[i]);
+                addboundlist.Remove(addboundlist[i]);
+            }
+            
             for (int i = 0; i < allGameplayObjects.Count; i++)
             {
-           
+                for (int j = 0; j < boundlist.Count; j++)
+                {
+                    RegisteredBoundingSphere r = boundlist[j];
+                    BoundingSphere b = r.boundingsphere;
+                    if (new BoundingSphere(new Vector3(allGameplayObjects[i].Position.X, 0, allGameplayObjects[i].Position.Y), allGameplayObjects[i].Radius).Intersects(b)) allGameplayObjects[i].BoundingSphereTouch(r.type);
+
+                  
+                }
                 if (allGameplayObjects[i].Active)
                 {
-                    if (allGameplayObjects[i].Velocity.X != 0f)
-                    {
-                        int a = 1;
-                    }
+                   
                     // determine how far they are going to move
                     Vector2 movement = allGameplayObjects[i].Velocity * elapsedTime;
 
@@ -97,7 +112,12 @@ namespace Tanks
                     // determine the new position
                     
                     allGameplayObjects[i].Position += movement;
+                   
                 }
+            }
+            for (int i = 0; i < boundlist.Count; i++)
+            {
+                boundlist.Remove(boundlist[i]);
             }
             RemoveDeadObjects();
         }

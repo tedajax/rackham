@@ -17,7 +17,10 @@ namespace Tanks
         public bool killme = false;
         public string mykey;
 
-        public Bullet(Vector2 Pos, Vector2 Velo, float Rad)
+        float yrotate = 90f;
+        float zrotate = 0f;
+
+        public Bullet(Vector2 Pos, Vector2 Velo, float Rad, float yrotate)
         {
             Position = Pos;
             Velocity = Velo;
@@ -25,13 +28,15 @@ namespace Tanks
             Mass = 50f;
             base.Initialize();
             this.type = 11;
-            
+            this.yrotate = yrotate;
+            zrotate = 0f;
             
             //CollisionHandle.AddBoundingSphere(Position, Radius, 2);
         }
         public void Update(GameTime Gametime)
         {
             collidedThisFrame = false;
+            zrotate += Gametime.ElapsedGameTime.Milliseconds;
             //Position = (Position + Velocity) * Gametime.ElapsedGameTime.Milliseconds;
            
 
@@ -51,8 +56,11 @@ namespace Tanks
                 {
                     effect.EnableDefaultLighting();
                     effect.World = transforms[mesh.ParentBone.Index]
-                     * Matrix.CreateTranslation(NewPosition)
-                     * Matrix.CreateScale(1.0f);
+                                   * Matrix.CreateRotationY(MathHelper.ToRadians(yrotate))
+                                   
+                                   * Matrix.CreateTranslation(NewPosition)
+                                   * Matrix.CreateScale(1.0f);
+                     
 
                     effect.View = Matrix.CreateLookAt(Camera, new Vector3(Camera.X, 0f, Camera.Z - .1f), new Vector3(0, 1, 0));
                     effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);

@@ -28,11 +28,11 @@ namespace Tanks
 
         protected override void InitializeSettings(ParticleSettings settings)
         {
-            settings.TextureName = "smoke";
+            settings.TextureName = "fancysmoke";
 
             settings.MaxParticles = 600;
 
-            settings.Duration = TimeSpan.FromSeconds(10);
+            settings.Duration = TimeSpan.FromSeconds(1);
             
             settings.MinHorizontalVelocity = 0;
             settings.MaxHorizontalVelocity = 1.5f;
@@ -41,14 +41,14 @@ namespace Tanks
             settings.MaxVerticalVelocity = 2;
 
             // Create a wind effect by tilting the gravity vector sideways.
-            settings.Gravity = new Vector3(-20, -5, 0);
+            settings.Gravity = new Vector3(0, 0, 0);
 
             settings.EndVelocity = 0.75f;
 
             settings.MinRotateSpeed = -1;
             settings.MaxRotateSpeed = 1;
 
-            settings.MinStartSize = 1;
+            settings.MinStartSize = 5;
             settings.MaxStartSize = 5;
 
             settings.MinEndSize = 10;

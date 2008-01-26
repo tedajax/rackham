@@ -22,8 +22,8 @@ namespace Tanks
         public GamePlayer LinkedProfile;
 
         public BoundingSphere PresenceSphere;
-        
-    
+
+        private float VelocityCap = .1f;
 
 
         public float speed;
@@ -59,7 +59,7 @@ namespace Tanks
             Ready = 0;
             Action = Start;
             this.radius = radius;
-            speed = .002f;
+            speed = .001f;
             Velocity = Vector2.Zero;
             type = 1;
 
@@ -118,7 +118,7 @@ namespace Tanks
 
         public override bool Touch(GameplayObject target)
         {
-            Health -= (int)(target.Mass*5f);
+            Health -= (int)(target.Mass*50f);
             if (Health <= 0)
             {
                 Random exploderandom = new Random();
@@ -181,9 +181,12 @@ namespace Tanks
                 NumberRot++;
                 NoKeyPressed = false;
             }
-
+            if (Velocity.X > VelocityCap) velocity.X = VelocityCap;
+            if (Velocity.Y > VelocityCap) velocity.Y = VelocityCap;
+            if (Velocity.X < -VelocityCap) velocity.X = -VelocityCap;
+            if (Velocity.Y < -VelocityCap) velocity.Y = -VelocityCap;
             if (NoKeyPressed)
-                Velocity *= .90f;
+                Velocity *= .95f;
 
             if (Velocity.X + Velocity.Y > 2) Velocity = OldVelocity;
             //If you pressed keys (increaes numberRot) then you should divide rotation by number of keys pressed (to get angle in between)
@@ -212,7 +215,7 @@ namespace Tanks
                 for (int i = 0; i < maxbullets; i++)
                 {
                  
-                    newbullets.Add(new Bullet(Position, 2.5f * new Vector2((float)(Math.Cos((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2)))))) / 10), (float)(Math.Sin((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2))))))) / -10), 0.5f));
+                    newbullets.Add(new Bullet(Position, 2.5f * new Vector2((float)(Math.Cos((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2)))))) / 10), (float)(Math.Sin((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2))))))) / -10), 1.65f, this.Rotation + 90));
                 }
 
                 foreach (Bullet b in newbullets)
