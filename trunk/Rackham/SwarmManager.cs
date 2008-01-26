@@ -111,6 +111,8 @@ namespace Tanks
                                 }
                             }
 
+                            s.State = "IDLE";
+
                             if (s.State.ToUpper().Equals("MOVE"))
                             {
                                 s.moveSwarm(PlayerList[0].Position);
@@ -146,9 +148,10 @@ namespace Tanks
                     Swarm swarm = SwarmList[i];
                     i++;
                     if (swarm.getId().Equals(e.mySwarmId))
-                    {
-                        
+                    {                       
                         swarm.LoseEnemy(e);
+                        if (swarm.EnemiesInSwarm.Count <= 0)
+                            swarm.KillThisSwarm = true;
                         i = SwarmList.Count;
                     }
                     
@@ -156,6 +159,12 @@ namespace Tanks
 
             }
             EnemiesToDestroy.Clear();
+
+            for (int i = SwarmList.Count - 1; i >= 0; i--)
+            {
+                if (SwarmList[i].KillThisSwarm)
+                    SwarmList.Remove(SwarmList[i]);
+            }
         }
 
         public void DrawSwarms(Vector3 CameraPosition, float aspectRatio)

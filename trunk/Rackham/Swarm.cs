@@ -39,6 +39,8 @@ namespace Tanks
 
         public Vector2 direction;
 
+        public bool KillThisSwarm = false;
+
         public Swarm(Vector2 pos, Vector2 vel, List<Enemy> elist)
         {
             Position = pos;
@@ -119,9 +121,9 @@ namespace Tanks
                         outmove += eout.Velocity;
                         outmove.X = eout.Position.X - this.AvgPosition.X;
                         outmove.Y = eout.Position.Y - this.AvgPosition.Y;
-                        if (Math.Abs(outmove.X) < 50 && Math.Abs(outmove.Y) < 50)
+                        if (Math.Abs(outmove.X) < 30 && Math.Abs(outmove.Y) < 30)
                         {
-                            outmove = Vector2.Normalize(outmove) / 5;
+                            outmove = Vector2.Normalize(outmove) / 10;
                             eout.Velocity = outmove;
                         }
                     }
