@@ -235,7 +235,7 @@ namespace Tanks
                     List<Enemy> EnemyList = new List<Enemy>();
 
                     int count = 0;
-                    for (int i = 0; i < 130; i++)
+                    for (int i = 0; i < 15; i++)
                     {
                         EnemyList.Add(new Enemy(position + new Vector2(0f, (float)(count * 1.1f)), Vector2.Zero, .001f, EnemyModel));
                         count++;

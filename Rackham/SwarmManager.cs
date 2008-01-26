@@ -16,7 +16,7 @@ namespace Tanks
         String LastId;
 
         Random formationGenerator;
-
+        Random r = new Random();
         public SwarmManager()
         {
             SwarmId = 0;
@@ -85,7 +85,13 @@ namespace Tanks
                                 }
                                 else
                                 {
-                                    s.marchSwarm(PlayerList[0].Position);
+                                    
+                                    int iii = r.Next(1, 2);
+                                    
+                                    Vector2 direvector = new Vector2(0, -15);
+                                    if (iii == 2) direvector *= -1;
+                                    s.marchSwarm(PlayerList[0].Position, direvector);
+                                    
                                     s.NextChange = new TimeSpan(0, 0, 0, 0, 5000);
                                 }
 
@@ -113,9 +119,10 @@ namespace Tanks
                             {
                                 s.burstSwarm();
                             }
-                            else if (s.State.ToUpper().Equals("ABOVE"))
+                            else if (s.State.ToUpper().Equals("MARCH"))
                             {
-                                s.marchSwarm(PlayerList[0].Position);
+                                
+                                s.marchSwarm(PlayerList[0].Position,s.direction);
                             }
                             else if (s.State.ToUpper().Equals("IDLE"))
                             {
