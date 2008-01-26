@@ -37,7 +37,7 @@ namespace Tanks
 
         Random MovementRandomizer;
 
-        private int PlayerToTarget;
+        private Vector2 direction;
 
         public Swarm(Vector2 pos, Vector2 vel, List<Enemy> elist)
         {
@@ -193,22 +193,47 @@ namespace Tanks
             }
 
            
-            else if (State.ToUpper().Equals("ABOVE"))
+            else if (State.ToUpper().Equals("MARCH"))
             {
-
-                Vector2 positionabove = Position + new Vector2(0, 15);
+ 
+                Vector2 positionabove = Position + direction;
+                direction.Normalize();
                 int enemiesplaced = 0;
-                float rowmodifier = -5;
+                int totalenemiesplaced = 0;
+                 float rowmodifier = -10;
+                if (EnemiesInSwarm.Count - totalenemiesplaced < 5)
+                {
+                    rowmodifier = -5*(((EnemiesInSwarm.Count - totalenemiesplaced) - 1) / 2);
+                }
+                
+                float rowrandomer = -1;
+                MovementTimer += GameTime.ElapsedGameTime;
+                rowrandomer = -1;
+                if (MovementTimer.TotalMilliseconds > 600)
+                {
+                    rowrandomer = 1;
+                    
+                }
+                if (MovementTimer.TotalMilliseconds > 1200)
+                {
+                    MovementTimer = new TimeSpan(0, 0, 0);
+                }
                 foreach (Enemy e in EnemiesInSwarm)
                 {
-                    e.Target = positionabove + new Vector2(rowmodifier, 0);
+                    e.Target = positionabove + new Vector2(rowmodifier + rowrandomer, 0);
                     rowmodifier += 5f;
                     enemiesplaced++;
+                    totalenemiesplaced++;
                     if (enemiesplaced > 5)
                     {
                         enemiesplaced = 0;
-                        positionabove += new Vector2(0, 5f);
-                        rowmodifier = -5;
+                        positionabove += direction * 5;
+                        rowmodifier = -10;
+                        if (EnemiesInSwarm.Count - totalenemiesplaced < 5)
+                        {
+                            rowmodifier = -5*(((EnemiesInSwarm.Count - totalenemiesplaced) - 1) / 2);
+                        }
+                        rowrandomer *= -1;
                     }
                     e.Update(GameTime);
                 }
@@ -245,10 +270,11 @@ namespace Tanks
             State = "BURST";
         }
 
-        public void marchSwarm(Vector2 position)
+        public void marchSwarm(Vector2 position, Vector2 Direction)
         {
             this.Position = position;
-            State = "ABOVE";
+            this.direction = Direction;
+            State = "MARCH";
         }
     }
 }
