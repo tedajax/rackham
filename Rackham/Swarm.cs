@@ -190,28 +190,29 @@ namespace Tanks
             
             }
 
-            ChangeFormation += GameTime.ElapsedGameTime;
+           
             else if (State.ToUpper().Equals("ABOVE"))
             {
 
-                Vector2 positionabove = Position + new Vector2(0, 1);
+                Vector2 positionabove = Position + new Vector2(0, 15);
                 int enemiesplaced = 0;
-                float rowmodifier = -1;
+                float rowmodifier = -5;
                 foreach (Enemy e in EnemiesInSwarm)
                 {
                     e.Target = positionabove + new Vector2(rowmodifier, 0);
-                    rowmodifier += 0.5f;
+                    rowmodifier += 5f;
                     enemiesplaced++;
                     if (enemiesplaced > 5)
                     {
                         enemiesplaced = 0;
-                        positionabove += new Vector2(0, .5f);
-                        rowmodifier = -1;
+                        positionabove += new Vector2(0, 5f);
+                        rowmodifier = -5;
                     }
+                    e.Update(GameTime);
                 }
             }
-                   
 
+            ChangeFormation += GameTime.ElapsedGameTime;
 
             SwarmSightSphere.Center = new Vector3(Position.X, 0f, Position.Y);
         }

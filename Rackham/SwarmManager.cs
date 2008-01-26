@@ -70,13 +70,13 @@ namespace Tanks
                      {
                         if (PlayerList[0].getReadyState() == 6)
                         {
-                            if (s.ChangeFormation.TotalMilliseconds > s.NextChange.TotalMilliseconds)
+                            /*if (s.ChangeFormation.TotalMilliseconds > s.NextChange.TotalMilliseconds)
                             {
                                 int nextformation = formationGenerator.Next(10);
                                 if (nextformation < 4)
-                                {
+                                {*/
                             s.marchSwarm(PlayerList[0].Position);
-                                    //s.NextChange = new TimeSpan(0, 0, 0, 0, 5000);
+                                /*    //s.NextChange = new TimeSpan(0, 0, 0, 0, 5000);
                                 }
                                 else
                                 {

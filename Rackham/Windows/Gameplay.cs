@@ -229,13 +229,13 @@ namespace Tanks
             if (KeyState.IsKeyDown(Keys.F1)&&!OldState.IsKeyDown(Keys.F1))
             {
                 Random RANDOM = new Random();
-                for (int j = 0; j < 5; j++)
+                for (int j = 0; j < 1; j++)
                 {
                     Vector2 position = new Vector2(RANDOM.Next(-500, 500), RANDOM.Next(-500, 500));
                     List<Enemy> EnemyList = new List<Enemy>();
 
                     int count = 0;
-                    for (int i = 0; i < 5; i++)
+                    for (int i = 0; i < 10; i++)
                     {
                         EnemyList.Add(new Enemy(position + new Vector2(0f, (float)(count * 1.1f)), Vector2.Zero, .001f, EnemyModel));
                         count++;
