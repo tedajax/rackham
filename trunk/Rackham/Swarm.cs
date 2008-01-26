@@ -37,7 +37,7 @@ namespace Tanks
 
         Random MovementRandomizer;
 
-        private Vector2 direction;
+        public Vector2 direction;
 
         public Swarm(Vector2 pos, Vector2 vel, List<Enemy> elist)
         {
