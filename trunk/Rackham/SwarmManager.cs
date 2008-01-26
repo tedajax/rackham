@@ -17,6 +17,8 @@ namespace Tanks
 
         Random formationGenerator;
         Random r = new Random();
+
+        int enemychosen = 0;
         public SwarmManager()
         {
             SwarmId = 0;
@@ -57,6 +59,57 @@ namespace Tanks
         public void Update(GameTime gameTime, List<Player> PlayerList, BulletManager BM)
         {
             cleanUpSwarm();
+            if (PlayerList.Count > 0)
+            {
+                if (PlayerList[0].getReadyState() == 6)
+                {
+                    List<Swarm> SorroundList = new List<Swarm>();
+                    for (int i = 0; i < SwarmList.Count; i++)
+                    {
+                        if (i > 0)
+                            SorroundList.Add(SwarmList[i]);
+                        else
+                        {
+                            SwarmList[i].moveSwarm(PlayerList[0].Position);
+                            SwarmList[i].radius = 80;
+                        }
+                    }
+                    if (SorroundList.Count > 0)
+                    {
+
+                        float angle = 0;
+                        float addangle = 360 / SorroundList.Count;
+                        if (enemychosen >= SorroundList.Count)
+                        {
+                            enemychosen = 0;
+                        }
+                        for (int i = 0; i < SorroundList.Count; i++)
+                        {
+
+                            Swarm s = SorroundList[i];
+                            if (i == enemychosen)
+                            {
+
+                                s.moveSwarm(PlayerList[0].Position);
+                                s.outwardcircle = 30f;
+                                s.comprimise = 3 / 6;
+                                if (s.State == "IDLE")
+                                    enemychosen = formationGenerator.Next(0, SorroundList.Count - 1);
+
+                            }
+                            else
+                            {
+                                s.moveSwarm(PlayerList[0].Position + (250 * new Vector2((float)Math.Cos(MathHelper.ToRadians(angle)), (float)Math.Sin(Math.Sin(MathHelper.ToRadians(angle))))));
+                            }
+                            angle += addangle;
+
+
+
+                        }
+                    }
+                }
+            }
+            
             for (int i =0; i<SwarmList.Count; i++)
              {
                 Swarm s = SwarmList[i];
@@ -66,72 +119,6 @@ namespace Tanks
                 }
                 else
                  {
-                     if (PlayerList.Count > 0)
-                     {
-                        if (PlayerList[0].getReadyState() == 6)
-                        {
-                            if (s.ChangeFormation.TotalMilliseconds > s.NextChange.TotalMilliseconds)
-                            {
-                                int nextformation = formationGenerator.Next(100);
-                                if (nextformation < 0)
-                                {
-                                    s.moveSwarm(PlayerList[0].Position);
-                                    s.NextChange = new TimeSpan(0, 0, 0, 0, 5000);
-                                }
-                                else if (nextformation >= 0 && nextformation < 0)
-                                {
-                                    s.burstSwarm();
-                                    s.NextChange = new TimeSpan(0, 0, 0, 0, 100);
-                                }
-                                else
-                                {
-                                    
-                                    int iii = r.Next(1, 2);
-                                    
-                                    Vector2 direvector = new Vector2(0, -15);
-                                    if (iii == 2) direvector *= -1;
-                                    s.marchSwarm(PlayerList[0].Position, direvector);
-                                    
-                                    s.NextChange = new TimeSpan(0, 0, 0, 0, 5000);
-                                }
-
-                                s.ChangeFormation = new TimeSpan(0, 0, 0, 0, 0);
-                            }
-
-                            foreach (System.Collections.DictionaryEntry de in BM.GetBulletHashTable())
-                            {
-                                Bullet b = (Bullet)de.Value;
-
-                                BoundingSphere bulletsphere = new BoundingSphere(new Vector3(b.Position.X, 0f, b.Position.Y), b.Radius);
-                                if (s.SwarmSightSphere.Intersects(bulletsphere) && !s.State.ToUpper().Equals("BURST"))
-                                {
-                                    s.burstSwarm();
-                                    s.NextChange = new TimeSpan(0, 0, 0, 0, 10);
-                                    s.ChangeFormation = new TimeSpan(0, 0, 0, 0, 0);
-                                }
-                            }
-
-                            s.State = "IDLE";
-
-                            if (s.State.ToUpper().Equals("MOVE"))
-                            {
-                                s.moveSwarm(PlayerList[0].Position);
-                            }
-                            else if (s.State.ToUpper().Equals("BURST"))
-                            {
-                                s.burstSwarm();
-                            }
-                            else if (s.State.ToUpper().Equals("MARCH"))
-                            {
-                                
-                                s.marchSwarm(PlayerList[0].Position,s.direction);
-                            }
-                            else if (s.State.ToUpper().Equals("IDLE"))
-                            {
-                                
-                            }
-                        }
-                    }
                     s.Update(gameTime, PlayerList);
                 }
             }

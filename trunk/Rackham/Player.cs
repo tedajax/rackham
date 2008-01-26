@@ -51,7 +51,7 @@ namespace Tanks
         {
             
             Name = null;
-            Health = 10;
+            Health = 100;
             Model = null;
             Position = new Vector2();
             Rotation = 0.0f;
@@ -183,7 +183,7 @@ namespace Tanks
             }
 
             if (NoKeyPressed)
-                Velocity *= .95f;
+                Velocity *= .90f;
 
             if (Velocity.X + Velocity.Y > 2) Velocity = OldVelocity;
             //If you pressed keys (increaes numberRot) then you should divide rotation by number of keys pressed (to get angle in between)
@@ -207,7 +207,7 @@ namespace Tanks
 
                 List<Bullet> newbullets = new List<Bullet>();
 
-                int maxbullets = 3;
+                int maxbullets = 1;
 
                 for (int i = 0; i < maxbullets; i++)
                 {
