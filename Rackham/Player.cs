@@ -118,7 +118,7 @@ namespace Tanks
 
         public override bool Touch(GameplayObject target)
         {
-            Health -= (int)(target.Mass*50f);
+            Health -= (int)((target.Mass * 20f) - target.Radius);
             if (Health <= 0)
             {
                 Random exploderandom = new Random();
