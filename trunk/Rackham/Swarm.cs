@@ -19,6 +19,7 @@ namespace Tanks
         public Vector2 Position;
         public Vector2 AvgPosition;
         public Vector2 Velocity;
+           
 
         public TimeSpan NextChange = new TimeSpan();
         public TimeSpan ChangeFormation = new TimeSpan();
@@ -43,7 +44,7 @@ namespace Tanks
 
             EnemiesInSwarm = elist;
             EnemyCount = EnemiesInSwarm.Count;
-
+            
             Initialize();
         }
 
@@ -113,10 +114,11 @@ namespace Tanks
                     foreach (Enemy eout in EnemiesInSwarm)
                     {
                         Vector2 outmove = new Vector2();
+                        outmove += eout.Velocity;
                         outmove.X = eout.Position.X - this.AvgPosition.X;
                         outmove.Y = eout.Position.Y - this.AvgPosition.Y;
 
-                        outmove = Vector2.Normalize(outmove);
+                        outmove = Vector2.Normalize(outmove) / 10;
                         eout.Velocity = outmove;
                     }
                 }
@@ -186,6 +188,7 @@ namespace Tanks
             
             }
 
+            ChangeFormation += GameTime.ElapsedGameTime;
             SwarmSightSphere.Center = new Vector3(Position.X, 0f, Position.Y);
         }
 

@@ -70,21 +70,34 @@ namespace Tanks
                      {
                         if (PlayerList[0].getReadyState() == 6)
                         {
-                            /*if (gameTime.TotalGameTime.Milliseconds - s.ChangeFormation.Milliseconds > s.NextChange.Milliseconds)
+                            if (s.ChangeFormation.TotalMilliseconds > s.NextChange.TotalMilliseconds)
                             {
                                 int nextformation = formationGenerator.Next(10);
-                                if (nextformation < 8)
-                                {*/
+                                if (nextformation < 4)
+                                {
                                     s.moveSwarm(PlayerList[0].Position);
                                     s.NextChange = new TimeSpan(0, 0, 0, 0, 5000);
-                                /*}
+                                }
                                 else
                                 {
                                     s.burstSwarm();
-                                    s.NextChange = new TimeSpan(0, 0, 0, 0, 500);
+                                    s.NextChange = new TimeSpan(0, 0, 0, 0, 100);
                                 }
 
-                                s.ChangeFormation = gameTime.TotalGameTime;
+                                s.ChangeFormation = new TimeSpan(0, 0, 0, 0, 0);
+                            }
+
+                            if (s.State.ToUpper().Equals("MOVE"))
+                            {
+                                s.moveSwarm(PlayerList[0].Position);
+                            }
+                            else if (s.State.ToUpper().Equals("BURST"))
+                            {
+                                s.burstSwarm();
+                            }
+                            /*else if (s.State.ToUpper().Equals("IDLE"))
+                            {
+                                
                             }*/
                         }
                     }
