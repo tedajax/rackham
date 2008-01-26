@@ -235,7 +235,7 @@ namespace Tanks
                     List<Enemy> EnemyList = new List<Enemy>();
 
                     int count = 0;
-                    for (int i = 0; i < 10; i++)
+                    for (int i = 0; i < 130; i++)
                     {
                         EnemyList.Add(new Enemy(position + new Vector2(0f, (float)(count * 1.1f)), Vector2.Zero, .001f, EnemyModel));
                         count++;
@@ -249,7 +249,7 @@ namespace Tanks
                 newswarm.moveSwarm(newswarm.Position + new Vector2(0, 50));
             }
             //Updates the Swarm
-            SwarmManager.Update(gameTime, PlayerList);
+            SwarmManager.Update(gameTime, PlayerList, BulletManager);
            
 
             if (WindowManager.NewState.IsKeyDown(Keys.Space) && WindowManager.OldState.IsKeyUp(Keys.Space))
@@ -260,7 +260,7 @@ namespace Tanks
 
             //Updates the Collision Manager
             CollisionManager.Update(gameTime.ElapsedGameTime.Milliseconds);
-            BulletManager.Update(gameTime);
+            BulletManager.Update(gameTime, PlayerList[0]);
             //CollectManager.Update(gameTime);
             //Removes Bullets that are too far out of the screen (this needs to be moved somewhere else!)
             /*for (int i = BulletClass.Count - 1; i >= 0; i--)

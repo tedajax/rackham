@@ -97,7 +97,7 @@ namespace Tanks
         /// <param name="PlayerList">A list of players created inside GamePlay.cs is needed for some odd reason</param>
         public void Update(GameTime GameTime, List<Player> PlayerList)
         {
-            SwarmSightSphere.Radius = (float)EnemyCount * 10f;
+            SwarmSightSphere.Radius = 2f;
             AvgPosition = Vector2.Zero;
 
             foreach (Enemy e in EnemiesInSwarm)
@@ -119,9 +119,11 @@ namespace Tanks
                         outmove += eout.Velocity;
                         outmove.X = eout.Position.X - this.AvgPosition.X;
                         outmove.Y = eout.Position.Y - this.AvgPosition.Y;
-
-                        outmove = Vector2.Normalize(outmove) / 10;
-                        eout.Velocity = outmove;
+                        if (Math.Abs(outmove.X) < 50 && Math.Abs(outmove.Y) < 50)
+                        {
+                            outmove = Vector2.Normalize(outmove) / 5;
+                            eout.Velocity = outmove;
+                        }
                     }
                 }
             }
