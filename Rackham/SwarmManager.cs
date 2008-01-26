@@ -75,8 +75,8 @@ namespace Tanks
                                 int nextformation = formationGenerator.Next(10);
                                 if (nextformation < 4)
                                 {
-                                    s.moveSwarm(PlayerList[0].Position);
-                                    s.NextChange = new TimeSpan(0, 0, 0, 0, 5000);
+                            s.marchSwarm(PlayerList[0].Position);
+                                    //s.NextChange = new TimeSpan(0, 0, 0, 0, 5000);
                                 }
                                 else
                                 {
