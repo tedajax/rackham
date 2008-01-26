@@ -40,6 +40,8 @@ namespace Tanks
         Model EnemyModel;
         Model CollectItemModel;
 
+        Texture2D bg;
+
         List<Bullet> BulletClass = new List<Bullet>();
 
         //Create the Swarm and the Swarm handlers
@@ -112,8 +114,9 @@ namespace Tanks
                 {
                     p.Model = content.Load<Model>("Models\\Tank");
                 }
-                BulletModel = content.Load<Model>("Models\\Sphere");
+                BulletModel = content.Load<Model>("Models\\bullet");
                 EnemyModel = content.Load<Model>("Models\\cone");
+                bg = content.Load<Texture2D>("Content\\earth_night");
                 //CollectItemModel = content.Load<Model>("Models\\collect");
             }
             Random RANDOM = new Random();
@@ -202,12 +205,12 @@ namespace Tanks
             {
                 p.Update(WindowManager.NewState, KeyReleased, gameTime);
                 if (p.getReadyState() == 6)
-                    if (p.Health < 20 && gameTime.TotalGameTime.CompareTo(p.OnFire) > 0)
+                    if (gameTime.TotalGameTime.CompareTo(p.OnFire) > 0)
                     {
                         for (int i = 0; i < 1; i++)
                             WindowManager.smokeParticle.AddParticle(Vector3FromVector2(p.Position), Vector3FromVector2(p.Velocity));//.explosionParticle.AddParticle(new Vector3(p.Position.X, 1f, p.Position.Y), Vector3FromVector2(p.Velocity));
 
-                        p.OnFire = gameTime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 10);
+                        p.OnFire = gameTime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 100);
                     }
             }
 
@@ -233,7 +236,7 @@ namespace Tanks
             }
 
             //Updates the Collision Manager
-            CollisionManager.Update(gameTime.ElapsedGameTime.Milliseconds);
+            CollisionManager.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
             BulletManager.Update(gameTime, PlayerList[0]);
             //CollectManager.Update(gameTime);
             //Removes Bullets that are too far out of the screen (this needs to be moved somewhere else!)
@@ -271,6 +274,10 @@ namespace Tanks
 
         public override void Draw(GameTime gameTime)
         {
+            WindowManager.SpriteBatch.Begin();
+            WindowManager.SpriteBatch.Draw(bg,-(new Vector2(bg.Width,bg.Height)/2)- new Vector2(cameraPosition.X,cameraPosition.Z)/2, Color.White);
+            WindowManager.SpriteBatch.End();
+
             //Draw Each Bullet onto the screen
             BulletManager.Draw(BulletModel, cameraPosition, aspectRatio);
 

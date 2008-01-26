@@ -190,6 +190,13 @@ namespace Tanks
         {
             return true;
         }
+        /// <summary>
+        /// allows a gameplay object to know if was hit by a bounding sphere or not (big explosions)
+        /// </summary>
+        /// <param name="type">the bounding sphere's type. this is used to identify the bounding sphere from other types.</param>
+        public virtual void BoundingSphereTouch(int type)
+        {
+        }
 
 
         /// <summary>
