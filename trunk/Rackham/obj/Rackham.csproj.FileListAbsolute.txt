@@ -38,3 +38,5 @@ C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rack
 C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\Models\bullet.xnb
 C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\Models\bullet%0.xnb
 C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\Content\earth_night.xnb
+C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\Models\queen.xnb
+C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\Models\queen%0.xnb

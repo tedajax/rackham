@@ -39,6 +39,7 @@ namespace Tanks
         Model BulletModel;
         Model EnemyModel;
         Model CollectItemModel;
+        Model QueenModel;
 
         Texture2D bg;
 
@@ -61,6 +62,8 @@ namespace Tanks
         TextboxManager textManager;
 
         BulletManager BulletManager = new BulletManager();
+
+        HiveQueen Queen;
 
         //CollectablesManager CollectManager = new CollectablesManager();
         
@@ -117,7 +120,10 @@ namespace Tanks
                 BulletModel = content.Load<Model>("Models\\bullet");
                 EnemyModel = content.Load<Model>("Models\\cone");
                 bg = content.Load<Texture2D>("Content\\earth_night");
+                QueenModel = content.Load<Model>("Models\\queen");
                 //CollectItemModel = content.Load<Model>("Models\\collect");
+
+                Queen = new HiveQueen(new Vector2(0f, -300f), QueenModel);
             }
             Random RANDOM = new Random();
             for (int j = 0; j < 7; j++)
@@ -238,6 +244,7 @@ namespace Tanks
             //Updates the Collision Manager
             CollisionManager.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
             BulletManager.Update(gameTime, PlayerList[0]);
+            Queen.Update(gameTime);
             //CollectManager.Update(gameTime);
             //Removes Bullets that are too far out of the screen (this needs to be moved somewhere else!)
             /*for (int i = BulletClass.Count - 1; i >= 0; i--)
@@ -283,6 +290,8 @@ namespace Tanks
 
             //Draw Each Enemy onto the screen
             SwarmManager.DrawSwarms(cameraPosition, aspectRatio);
+
+            Queen.Draw(cameraPosition, aspectRatio);
 
             //Draw each player onto the screen
             foreach (Player p in PlayerList)
