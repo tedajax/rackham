@@ -224,8 +224,7 @@ namespace Tanks
                 cameraPosition = new Vector3(PlayerList[0].Position.X, CameraY, PlayerList[0].Position.Y - .1f);
             }
 
-            //Updates the Swarm
-            SwarmManager.Update(gameTime, PlayerList);
+            
 
             if (KeyState.IsKeyDown(Keys.F1)&&!OldState.IsKeyDown(Keys.F1))
             {
@@ -249,7 +248,8 @@ namespace Tanks
                 Swarm newswarm = SwarmManager.getSwarm(0);
                 newswarm.moveSwarm(newswarm.Position + new Vector2(0, 50));
             }
-
+            //Updates the Swarm
+            SwarmManager.Update(gameTime, PlayerList);
            
 
             if (WindowManager.NewState.IsKeyDown(Keys.Space) && WindowManager.OldState.IsKeyUp(Keys.Space))
