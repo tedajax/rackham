@@ -196,6 +196,8 @@ namespace Tanks
             if (!Pressed.IsKeyDown(Downkey) && !Pressed.IsKeyDown(Upkey))
                 velocity.Y *= .95f;
 
+            
+
             if (Velocity.X + Velocity.Y > 2) Velocity = OldVelocity;
             //If you pressed keys (increaes numberRot) then you should divide rotation by number of keys pressed (to get angle in between)
             if (NumberRot > 0)
@@ -353,8 +355,40 @@ namespace Tanks
 
         public int getReadyState() { return Ready; }
 
+        public override void HitBoundry()
+        {
+            if (Math.Abs(Position.X) > 1500)
+            {
+                if (Position.X > 0)
+                {
+                    position.X = 1500;
+                    if (Velocity.X > 0)
+                        velocity.X = 0;
+                }
+                else
+                {
+                    position.X = -1500;
+                    if (Velocity.X < 0)
+                        velocity.X = 0;
+                }
+            }
 
-
+            if (Math.Abs(Position.Y) > 1500)
+            {
+                if (Position.Y > 0)
+                {
+                    position.Y = 1500;
+                    if (Velocity.Y > 0)
+                        velocity.Y = 0;
+                }
+                else
+                {
+                    position.Y = -1500;
+                    if (Velocity.Y < 0)
+                        velocity.Y = 0;
+                }
+            }
+        }
     }
 
 }

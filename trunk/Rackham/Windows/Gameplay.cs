@@ -40,6 +40,7 @@ namespace Tanks
         Model EnemyModel;
         Model CollectItemModel;
         Model QueenModel;
+        Model GeneratorModel;
 
         Texture2D bg;
 
@@ -115,17 +116,18 @@ namespace Tanks
                 gameFont = content.Load<SpriteFont>("Content\\SpriteFont1");
                 foreach (Player p in PlayerList)
                 {
-                    p.Model = content.Load<Model>("Models\\Tank");
+                    p.Model = content.Load<Model>("Models\\playership");
                 }
                 BulletModel = content.Load<Model>("Models\\bullet");
                 EnemyModel = content.Load<Model>("Models\\cone");
                 bg = content.Load<Texture2D>("Content\\earth_night");
                 QueenModel = content.Load<Model>("Models\\queen");
+                GeneratorModel = content.Load<Model>("Models\\enemygenerator");
                 //CollectItemModel = content.Load<Model>("Models\\collect");
 
                 Queen = new HiveQueen(new Vector2(0f, -300f), QueenModel);
             }
-            Random RANDOM = new Random();
+            /*Random RANDOM = new Random();
             for (int j = 0; j < 7; j++)
             {
                 Vector2 position = new Vector2(RANDOM.Next(-500, 500), RANDOM.Next(-500, 500));
@@ -143,8 +145,7 @@ namespace Tanks
                 SwarmManager.addSwarm(Swarm);
             }
             Swarm newswarm = SwarmManager.getSwarm(0);
-            newswarm.moveSwarm(newswarm.Position + new Vector2(0, 50));
-            
+            newswarm.moveSwarm(newswarm.Position + new Vector2(0, 50));*/
         }
 
         public override void UnloadGraphicsContent(bool unloadAllContent)
@@ -231,21 +232,29 @@ namespace Tanks
             {
                 
             }
+                       
+            List<Swarm> NewSwarms = Queen.Update(gameTime, EnemyModel);
+
+            if (NewSwarms != null)
+            {
+                foreach (Swarm s in NewSwarms)
+                {
+                    SwarmManager.addSwarm(s);
+                    for (int i = 0; i < 20; i++)
+                    {
+                        WindowManager.explosionParticle.AddParticle(WindowManager.V3FromV2(s.EnemiesInSwarm[0].Position), new Vector3(0, 0, 0));
+                    }
+                }
+            }
+
             //Updates the Swarm
             SwarmManager.Update(gameTime, PlayerList, BulletManager);
-           
-
-            if (WindowManager.NewState.IsKeyDown(Keys.Space) && WindowManager.OldState.IsKeyUp(Keys.Space))
-            {
-                for (int i = 0; i < 20; i++)
-                    WindowManager.ExplosionParticleSystem.AddParticle(Vector3.Zero, Vector3.Zero);
-            }
+                      
 
             //Updates the Collision Manager
             CollisionManager.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
             BulletManager.Update(gameTime, PlayerList[0]);
-            Queen.Update(gameTime);
-          
+                       
             
             base.Update(gameTime);
            
@@ -259,11 +268,11 @@ namespace Tanks
 
             //Draw Each Bullet onto the screen
             BulletManager.Draw(BulletModel, cameraPosition, aspectRatio);
-
+            
             //Draw Each Enemy onto the screen
             SwarmManager.DrawSwarms(cameraPosition, aspectRatio);
 
-            Queen.Draw(cameraPosition, aspectRatio);
+            Queen.Draw(cameraPosition, aspectRatio, GeneratorModel);
 
             //Draw each player onto the screen
             foreach (Player p in PlayerList)

@@ -199,6 +199,11 @@ namespace Tanks
         }
 
 
+        public virtual void HitBoundry()
+        {
+            
+        }
+
         /// <summary>
         /// Damage this object by the amount provided.
         /// </summary>

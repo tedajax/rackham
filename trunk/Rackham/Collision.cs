@@ -112,7 +112,7 @@ namespace Tanks
                     // determine the new position
                     
                     allGameplayObjects[i].Position += movement;
-                   
+                    allGameplayObjects[i].HitBoundry();                   
                 }
             }
             for (int i = 0; i < boundlist.Count; i++)

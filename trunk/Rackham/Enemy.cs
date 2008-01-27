@@ -174,7 +174,6 @@ namespace Tanks
                 //Collision.addboundlist.Add(new RegisteredBoundingSphere(new BoundingSphere(new Vector3(position.X, 0, position.Y), 5), 15, new TimeSpan(0, 0, 0, 0, 100)));
             }
 
-
             Kamikazi();
 
             return base.Touch(target);
@@ -191,6 +190,41 @@ namespace Tanks
             SwarmManager.EnemiesToDestroy.Add(this);
 //            Collision.addboundlist.Add(new RegisteredBoundingSphere(new BoundingSphere(new Vector3(position.X, 0, position.Y), 10), 1, new TimeSpan(0, 0, 0, 0, 100)));
               
+        }
+
+        public override void HitBoundry()
+        {
+            if (Math.Abs(Position.X) > 1500)
+            {
+                if (Position.X > 0)
+                {
+                    position.X = 1500;
+                    if (Velocity.X > 0)
+                        velocity.X = 0;
+                }
+                else
+                {
+                    position.X = -1500;
+                    if (Velocity.X < 0)
+                        velocity.X = 0;
+                }
+            }
+
+            if (Math.Abs(Position.Y) > 1500)
+            {
+                if (Position.Y > 0)
+                {
+                    position.Y = 1500;
+                    if (Velocity.Y > 0)
+                        velocity.Y = 0;
+                }
+                else
+                {
+                    position.Y = -1500;
+                    if (Velocity.Y < 0)
+                        velocity.Y = 0;
+                }
+            }
         }
     }
 }

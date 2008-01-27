@@ -12,7 +12,11 @@ namespace Tanks
 
         public Vector3 ModelRotation;
 
+        public List<EnemyGenerator> Generators = new List<EnemyGenerator>();
+
         float Health;
+
+        private List<Swarm> ReturnSwarms;
 
         public HiveQueen(Vector2 pos, Model QueenModel)
         {
@@ -20,23 +24,47 @@ namespace Tanks
             this.QueenModel = QueenModel;
             Health = 100;
             
-            this.mass = 50;
+            this.mass = 5;
             this.radius = 20f;
 
             this.nocollide.Add(20);
 
+            this.type = 5;
+
+            Generators.Add(new EnemyGenerator(new Vector2(50, 0), 10, new TimeSpan(0, 0, 10)));
+
             this.Initialize();
         }
 
-        public void Update(GameTime gameTime)
+        public List<Swarm> Update(GameTime gameTime, Model EnemyModel)
         {
             collidedThisFrame = false;
 
-            Velocity *= new Vector2(.95f,.95f);
+            Velocity *= 0.95f;
 
+            ReturnSwarms = new List<Swarm>();
+            foreach (EnemyGenerator g in Generators)
+            {
+                Swarm AddSwarm = g.Update(gameTime, EnemyModel);
+
+                if (AddSwarm != null)
+                {
+                    ReturnSwarms.Add(AddSwarm);
+                }
+            }
+
+            ModelRotation.Y += 1.5f;
+
+            return ReturnSwarms;
         }
 
-        public void Draw(Vector3 Camera, float aspectRatio)
+        /// <summary>
+        /// Draw
+        /// </summary>
+        /// <param name="Camera">cam</param>
+        /// <param name="aspectRatio">ar</param>
+        /// <param name="Model">Generator Model</param>
+        public void Draw(Vector3 Camera, float aspectRatio, Model Model)
         {
             Matrix[] transforms = new Matrix[QueenModel.Bones.Count];
             QueenModel.CopyAbsoluteBoneTransformsTo(transforms);
@@ -61,6 +89,11 @@ namespace Tanks
                 }
                 //Draw the mesh, will use the effects set above.
                 mesh.Draw();
+            }
+
+            foreach (EnemyGenerator g in Generators)
+            {
+                g.Draw(Model, Camera, aspectRatio);
             }
         }
     }
