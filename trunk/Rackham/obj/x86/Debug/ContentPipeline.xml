@@ -35,7 +35,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\explosion.xnb</Output>
-      <Time>2008-01-26T00:13:35.8781587-05:00</Time>
+      <Time>2008-01-26T04:41:37.9250337-05:00</Time>
     </Item>
     <Item>
       <Source>fire.png</Source>
@@ -53,7 +53,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\smoke.xnb</Output>
-      <Time>2008-01-25T18:10:53.4142999-05:00</Time>
+      <Time>2008-01-26T04:41:37.9094087-05:00</Time>
     </Item>
     <Item>
       <Source>Models\Tank.x</Source>
@@ -148,6 +148,96 @@
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\cone%0.xml</Output>
       <Time>2008-01-25T18:10:32.1160619-05:00</Time>
+    </Item>
+    <Item>
+      <Source>fancysmoke.png</Source>
+      <Name>fancysmoke</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\fancysmoke.xnb</Output>
+      <Time>2008-01-26T05:05:13.7062837-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Content\earth_night.jpg</Source>
+      <Name>Content\earth_night</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Content\earth_night.xnb</Output>
+      <Time>2008-01-26T05:07:10.5812837-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\bullet.x</Source>
+      <Name>Models\bullet</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\bullet.xnb</Output>
+      <Time>2008-01-26T05:05:08.5344087-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\bullet%0.xml</Key>
+        <Value>2008-01-26T05:07:24.6125337-05:00</Value>
+      </Dependency>
+      <Request>bin\x86\Debug\Models\bullet%0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\queen.x</Source>
+      <Name>Models\queen</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\queen.xnb</Output>
+      <Time>2008-01-26T05:05:08.5031587-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\queen%0.xml</Key>
+        <Value>2008-01-26T05:07:25.2375337-05:00</Value>
+      </Dependency>
+      <Request>bin\x86\Debug\Models\queen%0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\bullet.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\bullet%0.xml</Output>
+      <Time>2008-01-26T05:05:08.5344087-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\bullet.png</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\bullet%0.xnb</Output>
+      <Time>2008-01-26T05:05:08.5187837-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\queen.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\queen%0.xml</Output>
+      <Time>2008-01-26T05:05:08.5031587-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\queen.png</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\queen%0.xnb</Output>
+      <Time>2008-01-26T05:05:08.4719087-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
