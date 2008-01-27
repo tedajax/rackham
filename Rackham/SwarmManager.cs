@@ -9,6 +9,7 @@ namespace Tanks
     class SwarmManager
     {
         List<Swarm> SwarmList = new List<Swarm>();
+        HiveQueen Queen;
         public static List<Enemy> EnemiesToDestroy = new List<Enemy>();
         //A Unique Id for each swarm
         int SwarmId;

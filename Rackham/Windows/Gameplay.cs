@@ -103,6 +103,10 @@ namespace Tanks
                 i++;
             }
 
+          
+            
+
+
             numExplosionParticles = 20;
         }
 
@@ -128,7 +132,7 @@ namespace Tanks
                 Queen = new HiveQueen(new Vector2(0f, -300f), QueenModel);
             }
             /*Random RANDOM = new Random();
-            for (int j = 0; j < 7; j++)
+            for (int j = 0; j < 5; j++)
             {
                 Vector2 position = new Vector2(RANDOM.Next(-500, 500), RANDOM.Next(-500, 500));
                 List<Enemy> EnemyList = new List<Enemy>();
@@ -144,8 +148,7 @@ namespace Tanks
 
                 SwarmManager.addSwarm(Swarm);
             }
-            Swarm newswarm = SwarmManager.getSwarm(0);
-            newswarm.moveSwarm(newswarm.Position + new Vector2(0, 50));*/
+           
         }
 
         public override void UnloadGraphicsContent(bool unloadAllContent)
@@ -219,6 +222,8 @@ namespace Tanks
 
                         p.OnFire = gameTime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 100);
                     }
+               
+                
             }
 
             if (PlayerList[0].getReadyState() == 6)

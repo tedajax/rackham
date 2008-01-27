@@ -114,7 +114,7 @@ namespace Tanks
                 Initial(Pressed, KeyReleased);
                 if (Ready == 6)
                 {
-                     this.Position = new Vector2(0, -12);
+               
                    // this.velocity = new Vector2(-3, 0);
                     base.Initialize();
                 }
@@ -302,6 +302,7 @@ namespace Tanks
 
                     if (LinkedProfile.Loaded == true)
                     {
+                        
                         Leftkey = LinkedProfile.LeftKey;
                         Rightkey = LinkedProfile.RightKey;
                         Upkey = LinkedProfile.UpKey;
@@ -313,6 +314,7 @@ namespace Tanks
                         ShootUp = Keys.W;
                         ShootDown = Keys.S;
                         Ready = 6;
+
                     }  
                 }
             }

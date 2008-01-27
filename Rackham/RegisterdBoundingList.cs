@@ -12,12 +12,29 @@ namespace Tanks
         public TimeSpan lifespan;
         public TimeSpan elapsedlife;
 
-        public RegisteredBoundingSphere(BoundingSphere sphere, int typer, TimeSpan lifespan)
+        public Vector2 Position;
+        public double Radius;
+        public double RadiusConst;
+        public double MaxRadius;
+
+        public RegisteredBoundingSphere(Vector2 Position, double Radius, double RadiusConst, double MaxRadius, int typer)
         {
-            boundingsphere = sphere;
+            this.Position = Position;
+            this.Radius = Radius;
+            this.RadiusConst = RadiusConst;
+            this.MaxRadius = MaxRadius; 
             type = typer;
-            this.lifespan = lifespan;
             elapsedlife = new TimeSpan();
+            boundingsphere = new BoundingSphere(new Vector3(Position.X, 0, Position.Y),(float)Radius);
         }
+
+        public bool Update()
+        {
+            Radius += RadiusConst;
+            boundingsphere = new BoundingSphere(new Vector3(Position.X, 0, Position.Y),(float) Radius);
+            if (Radius > MaxRadius) return false;
+            return true;
+        }
+
     }
 }

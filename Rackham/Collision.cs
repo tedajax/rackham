@@ -67,6 +67,7 @@ namespace Tanks
         }
         List<CollisionResult> collisionResults = new List<CollisionResult>();
 
+       
             
 
         public Collision() {        }
@@ -91,9 +92,15 @@ namespace Tanks
                 for (int j = 0; j < boundlist.Count; j++)
                 {
                     RegisteredBoundingSphere r = boundlist[j];
-                    BoundingSphere b = r.boundingsphere;
-                    if (new BoundingSphere(new Vector3(allGameplayObjects[i].Position.X, 0, allGameplayObjects[i].Position.Y), allGameplayObjects[i].Radius).Intersects(b)) allGameplayObjects[i].BoundingSphereTouch(r.type);
-
+                    if (r.Update())
+                    {
+                        BoundingSphere b = r.boundingsphere;
+                        if (new BoundingSphere(new Vector3(allGameplayObjects[i].Position.X, 0, allGameplayObjects[i].Position.Y), allGameplayObjects[i].Radius).Intersects(b)) allGameplayObjects[i].BoundingSphereTouch(r.type);
+                    }
+                    else
+                    {
+                        boundlist.Remove(boundlist[j]);
+                    }
                   
                 }
                 if (allGameplayObjects[i].Active)
@@ -115,10 +122,7 @@ namespace Tanks
                     allGameplayObjects[i].HitBoundry();                   
                 }
             }
-            for (int i = 0; i < boundlist.Count; i++)
-            {
-                boundlist.Remove(boundlist[i]);
-            }
+          
             RemoveDeadObjects();
         }
         /// <summary>
