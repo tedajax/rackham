@@ -516,11 +516,9 @@ namespace Tanks
             return exist;
         }
 
-        
-
-
-        
-
-
+        public static Vector3 V3FromV2(Vector2 input)
+        {
+            return new Vector3(input.X, 0f, input.Y);
+        }        
     }
 }
