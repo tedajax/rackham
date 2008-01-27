@@ -65,7 +65,7 @@ namespace Tanks
             Ready = 0;
             Action = Start;
             this.radius = radius;
-            speed = .001f;
+            speed = .004f;
             Velocity = Vector2.Zero;
             type = 1;
 
@@ -191,8 +191,10 @@ namespace Tanks
             if (Velocity.Y > VelocityCap) velocity.Y = VelocityCap;
             if (Velocity.X < -VelocityCap) velocity.X = -VelocityCap;
             if (Velocity.Y < -VelocityCap) velocity.Y = -VelocityCap;
-            if (NoKeyPressed)
-                Velocity *= .95f;
+            if (!Pressed.IsKeyDown(Rightkey) && !Pressed.IsKeyDown(Leftkey))
+                velocity.X *= .95f;
+            if (!Pressed.IsKeyDown(Downkey) && !Pressed.IsKeyDown(Upkey))
+                velocity.Y *= .95f;
 
             if (Velocity.X + Velocity.Y > 2) Velocity = OldVelocity;
             //If you pressed keys (increaes numberRot) then you should divide rotation by number of keys pressed (to get angle in between)
