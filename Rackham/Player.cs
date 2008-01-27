@@ -23,7 +23,7 @@ namespace Tanks
 
         public BoundingSphere PresenceSphere;
 
-        private float VelocityCap = .1f;
+        private float VelocityCap = .13f;
 
 
         public float speed;
@@ -41,9 +41,15 @@ namespace Tanks
         private Keys Downkey;
         private Keys Leftkey;
         private Keys Rightkey;
+        private Keys ShootLeft;
+        private Keys ShootRight;
+        private Keys ShootUp;
+        private Keys ShootDown;
         private Keys StopKey;
         private Keys ShootKey;
         private Keys Action;
+
+        private bool shoot = false;
 
         public TimeSpan OnFire = new TimeSpan();
 
@@ -201,21 +207,49 @@ namespace Tanks
             }
             //This is a workaround, when you press down and left at the same time, the model doesn't rotate correctly, this fixes it
             if (Pressed.IsKeyDown(Leftkey) && Pressed.IsKeyDown(Downkey)) Rotation += 180;
-            
-            
-                        
-            if (Pressed.IsKeyDown(ShootKey) && Gametime.TotalGameTime.CompareTo(ShotTime) > 0)
+            //Reset Rotation and NumberRot
+            float BulletRotation = 0.0f;
+            NumberRot = 0;
+
+            if (Pressed.IsKeyDown(ShootLeft))
             {
+                BulletRotation -= 180;
+                NumberRot++;
+            }
+            if (Pressed.IsKeyDown(ShootRight))
+            {
+               // BulletRotation += 180;
+                NumberRot++;
+            }
+            if (Pressed.IsKeyDown(ShootUp))
+            {
+                BulletRotation += 90;
+                NumberRot++;
+            }
+            if (Pressed.IsKeyDown(ShootDown))
+            {
+                BulletRotation -= 90; ;
+                NumberRot++;
+            }
+            if (Pressed.IsKeyDown(ShootLeft) && Pressed.IsKeyDown(ShootUp))
+            {
+                BulletRotation = 90 + 45;
+                NumberRot = 1;
+            }
+                        
+            if (NumberRot>0 && Gametime.TotalGameTime.CompareTo(ShotTime) > 0)
+            {
+                BulletRotation /= NumberRot;
                 float eangle = 10f;
 
                 List<Bullet> newbullets = new List<Bullet>();
 
-                int maxbullets = 1;
+                int maxbullets = 3;
 
                 for (int i = 0; i < maxbullets; i++)
                 {
                  
-                    newbullets.Add(new Bullet(Position, 2.5f * new Vector2((float)(Math.Cos((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2)))))) / 10), (float)(Math.Sin((double)MathHelper.ToRadians((Rotation + (eangle * (i - (int)(maxbullets / 2))))))) / -10), 1.65f, this.Rotation + 90));
+                    newbullets.Add(new Bullet(Position, 2.5f * new Vector2((float)(Math.Cos((double)MathHelper.ToRadians((BulletRotation + (eangle * (i - (int)(maxbullets / 2)))))) / 10), (float)(Math.Sin((double)MathHelper.ToRadians((BulletRotation + (eangle * (i - (int)(maxbullets / 2))))))) / -10), 1.65f, BulletRotation+90f));
                 }
 
                 foreach (Bullet b in newbullets)
@@ -226,7 +260,7 @@ namespace Tanks
 
                 
 
-                ShotTime = Gametime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 200);
+                ShotTime = Gametime.TotalGameTime + new TimeSpan(0, 0, 0, 0,200);
             }
 
             PresenceSphere.Center = new Vector3(Position.X, 0f, Position.Y);
@@ -269,7 +303,11 @@ namespace Tanks
                         Upkey = LinkedProfile.UpKey;
                         Downkey = LinkedProfile.DownKey;
                         StopKey = LinkedProfile.EnterKey;
-                        ShootKey = LinkedProfile.EnterKey;
+                        //ShootKey = LinkedProfile.EnterKey;
+                        ShootLeft = Keys.A;
+                        ShootRight = Keys.D;
+                        ShootUp = Keys.W;
+                        ShootDown = Keys.S;
                         Ready = 6;
                     }  
                 }

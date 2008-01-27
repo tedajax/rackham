@@ -245,36 +245,8 @@ namespace Tanks
             CollisionManager.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
             BulletManager.Update(gameTime, PlayerList[0]);
             Queen.Update(gameTime);
-            //CollectManager.Update(gameTime);
-            //Removes Bullets that are too far out of the screen (this needs to be moved somewhere else!)
-            /*for (int i = BulletClass.Count - 1; i >= 0; i--)
-            {
-
-                
-                if (BulletClass[i].killme == true)
-                {
-                    Bullet O = BulletClass[i];
-                    if (isOnScreen(O.Position))
-                    {
-                        for (int x = 0; x < numExplosionParticles; x++)
-                            WindowManager.ExplosionParticleSystem.AddParticle(new Vector3(O.Position.X, 0f, O.Position.Y), new Vector3(O.Velocity.X, 0f, O.Velocity.Y));
-                    }
-                    BulletClass.Remove(O);
-                    O = null;
-
-                }
-            }*/
-           
-            /*if (KeyState.IsKeyDown(Keys.Left))
-            {
-                newswarm.moveSwarm(newswarm.Position + new Vector2(-1, 0));
-            }
-            if (KeyState.IsKeyDown(Keys.Right))
-            {
-                newswarm.moveSwarm(newswarm.Position + new Vector2(1, 0));
-            }*/
-            if (NewState.IsKeyDown(Keys.A)) screenadder += .1f;
-            if (NewState.IsKeyDown(Keys.B)) screenadder -= .1f;
+          
+            
             base.Update(gameTime);
            
         }

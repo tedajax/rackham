@@ -71,7 +71,7 @@ namespace Tanks
                         else
                         {
                             SwarmList[i].moveSwarm(PlayerList[0].Position);
-                            SwarmList[i].radius = 80;
+                            SwarmList[i].setRadius(80);
                         }
                     }
                     if (SorroundList.Count > 0)

@@ -19,3 +19,9 @@ bin\x86\Debug\explosion.xnb
 bin\x86\Debug\fire.xnb
 bin\x86\Debug\smoke.xnb
 bin\x86\Debug\ParticleEffect.xnb
+bin\x86\Debug\fancysmoke.xnb
+bin\x86\Debug\Content\earth_night.xnb
+bin\x86\Debug\Models\bullet.xnb
+bin\x86\Debug\Models\queen.xnb
+bin\x86\Debug\Models\bullet%0.xnb
+bin\x86\Debug\Models\queen%0.xnb

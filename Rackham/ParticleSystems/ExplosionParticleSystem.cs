@@ -49,11 +49,11 @@ namespace Tanks
             settings.MinRotateSpeed = -1;
             settings.MaxRotateSpeed = 1;
 
-            settings.MinStartSize = 1;
-            settings.MaxStartSize = 5;
+            settings.MinStartSize = 5;
+            settings.MaxStartSize = 10;
 
-            settings.MinEndSize = 10;
-            settings.MaxEndSize = 20;
+            settings.MinEndSize = 20;
+            settings.MaxEndSize = 30;
 
             // Use additive blending.
             settings.SourceBlend = Blend.SourceAlpha;

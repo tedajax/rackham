@@ -32,6 +32,8 @@ namespace Tanks
         {
             collidedThisFrame = false;
 
+            Velocity *= new Vector2(.95f,.95f);
+
         }
 
         public void Draw(Vector3 Camera, float aspectRatio)

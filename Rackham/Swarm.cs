@@ -22,7 +22,9 @@ namespace Tanks
 
         public float outwardcircle = 25;
         public float comprimise = 3 / 5;
-        public float radius = 10;
+        
+        private float radius = 10;
+        private float modifiedradius = 10;
 
         public TimeSpan NextChange = new TimeSpan();
         public TimeSpan ChangeFormation = new TimeSpan();
@@ -36,6 +38,7 @@ namespace Tanks
 
         public string State;
 
+        double angle = 0;
         private double angleOffset = 0;
 
         Random MovementRandomizer;
@@ -141,29 +144,33 @@ namespace Tanks
                 
 
                 float i = 0;
-                double angle = 0;
+               // 
+                
                 double angleadd = 360 / EnemyCount;
                 MovementTimer += GameTime.ElapsedGameTime;
-                if (MovementTimer.TotalMilliseconds > 1500)
+                if (MovementTimer.TotalMilliseconds > NextChange.TotalMilliseconds)
                 {
-                    angle += 180;
+                    angle += MovementRandomizer.Next(0,360);
+                    NextChange = new TimeSpan(0, 0, 0, 0, MovementRandomizer.Next(400, 1000));
+                    MovementTimer = new TimeSpan(0, 0, 0, 0,0);
                 }
-                if (MovementTimer.TotalMilliseconds > 3000)
-                {
-                    MovementTimer = new TimeSpan(0, 0, 0);
-                }
+              
 
                 int count = 0;
+                double newangle = angle;
                 foreach (Enemy e in EnemiesInSwarm)
                 {
 
-                   i = (float) angle;
-                    angle += angleadd;
+                   i = (float) newangle;
+                    newangle += angleadd;
+                    if (e.Radius != this.radius) e.Radius = this.radius;
+                    if (MovementTimer == new TimeSpan(0,0,0)) e.ModifiedRadius = e.Radius * (MovementRandomizer.Next(80, 120) / 100); 
+                 
                    // float oldox = e.Target - Position.X;
                    float ox = (float)Math.Cos(i) * 25;//(SwarmSightSphere.Radius / 5);
                    float oy = (float)Math.Sin(i) * 25;//(SwarmSightSphere.Radius / 5);
-                   ox = (float)Math.Cos(i) *radius;
-                   oy = (float)Math.Sin(i) *radius;
+                   ox = (float)Math.Cos(i) *e.ModifiedRadius;
+                   oy = (float)Math.Sin(i) *e.ModifiedRadius;
                     e.Target.X = ox + Position.X;
                     e.Target.Y = oy + Position.Y;
                     
@@ -288,10 +295,7 @@ namespace Tanks
                 Position = newPosition;
                 State = "MOVE";
             }
-            else
-            {
-                int i = 0;
-            }
+         
         }
 
         public void burstSwarm()
@@ -305,5 +309,12 @@ namespace Tanks
             this.direction = Direction;
             State = "MARCH";
         }
+
+        public void setRadius(float R)
+        {
+            radius = R;
+            modifiedradius = R;
+        }
+
     }
 }
