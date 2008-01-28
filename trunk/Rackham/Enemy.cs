@@ -149,6 +149,7 @@ namespace Tanks
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
+                    effect.PreferPerPixelLighting = true;
                     effect.World = transforms[mesh.ParentBone.Index] * Matrix.CreateRotationY(MathHelper.ToRadians(Rotation))
                      * Matrix.CreateTranslation(NewPosition)
                      * Matrix.CreateScale(1.0f);

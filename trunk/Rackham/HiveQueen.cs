@@ -29,7 +29,7 @@ namespace Tanks
 
         float Health;
 
-        public bool QueenDead = false;
+        public static bool QueenDead = false;
 
         float bounds = 1500;
 
@@ -196,7 +196,7 @@ namespace Tanks
         /// </summary>
         /// <param name="Camera">cam</param>
         /// <param name="aspectRatio">ar</param>
-        /// <param name="Model">Generator Model</param>
+        /// <param name="Model">Generator Model (Don't Ask)</param>
         public void Draw(Vector3 Camera, float aspectRatio, Model Model)
         {
             Matrix[] transforms = new Matrix[QueenModel.Bones.Count];
@@ -211,6 +211,7 @@ namespace Tanks
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
+                    effect.PreferPerPixelLighting = true;
                     effect.World = transforms[mesh.ParentBone.Index]
                                    * Matrix.CreateRotationY(MathHelper.ToRadians(this.ModelRotation.Y))
                                    * Matrix.CreateRotationX(MathHelper.ToRadians(this.ModelRotation.X))

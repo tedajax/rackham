@@ -55,6 +55,7 @@ namespace Tanks
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
+                    effect.PreferPerPixelLighting = true;
                     effect.World = transforms[mesh.ParentBone.Index]
                                    * Matrix.CreateRotationY(MathHelper.ToRadians(yrotate))
                                    
@@ -85,6 +86,7 @@ namespace Tanks
             Collision.KillList.Add(this);
             BulletManager.BulletsToRemove.Add(mykey);
         }
+        
 
         public override void HitBoundry()
         {
