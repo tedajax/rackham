@@ -64,30 +64,30 @@ namespace Tanks
             {
                 if (PlayerList[0].getReadyState() == 6)
                 {
-                    List<Swarm> SorroundList = new List<Swarm>();
+                    List<Swarm> SurroundList = new List<Swarm>();
                     for (int i = 0; i < SwarmList.Count; i++)
                     {
                         if (i > 0)
-                            SorroundList.Add(SwarmList[i]);
+                            SurroundList.Add(SwarmList[i]);
                         else
                         {
                             SwarmList[i].moveSwarm(PlayerList[0].Position);
                             SwarmList[i].setRadius(80);
                         }
                     }
-                    if (SorroundList.Count > 0)
+                    if (SurroundList.Count > 0)
                     {
 
                         float angle = 0;
-                        float addangle = 360 / SorroundList.Count;
-                        if (enemychosen >= SorroundList.Count)
+                        float addangle = 360 / SurroundList.Count;
+                        if (enemychosen >= SurroundList.Count)
                         {
                             enemychosen = 0;
                         }
-                        for (int i = 0; i < SorroundList.Count; i++)
+                        for (int i = 0; i < SurroundList.Count; i++)
                         {
 
-                            Swarm s = SorroundList[i];
+                            Swarm s = SurroundList[i];
                             if (i == enemychosen)
                             {
 
@@ -95,7 +95,7 @@ namespace Tanks
                                 s.outwardcircle = 30f;
                                 s.comprimise = 3 / 6;
                                 if (s.State == "IDLE")
-                                    enemychosen = formationGenerator.Next(0, SorroundList.Count - 1);
+                                    enemychosen = formationGenerator.Next(0, SurroundList.Count - 1);
 
                             }
                             else
@@ -103,8 +103,6 @@ namespace Tanks
                                 s.moveSwarm(PlayerList[0].Position + (250 * new Vector2((float)Math.Cos(MathHelper.ToRadians(angle)), (float)Math.Sin(Math.Sin(MathHelper.ToRadians(angle))))));
                             }
                             angle += addangle;
-
-
 
                         }
                     }
@@ -122,6 +120,15 @@ namespace Tanks
                  {
                     s.Update(gameTime, PlayerList);
                 }
+            }
+        }
+
+        public void MergeSwarm(Swarm swarm1, Swarm swarm2)
+        {
+            foreach (Enemy e in swarm2.EnemiesInSwarm)
+            {
+                swarm1.AddEnemy(e);
+                EnemiesToDestroy.Add(e);
             }
         }
 

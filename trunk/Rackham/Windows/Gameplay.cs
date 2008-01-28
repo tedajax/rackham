@@ -38,16 +38,15 @@ namespace Tanks
         //Create the Bullet and the Bullet Handler
         Model BulletModel;
         Model EnemyModel;
-        Model CollectItemModel;
         Model QueenModel;
         Model GeneratorModel;
+
+        public static int MaxEnemies = 200;
+        public static int CurrentEnemyCount = 0;
 
         Texture2D bg;
 
         List<Bullet> BulletClass = new List<Bullet>();
-
-        //Create the Swarm and the Swarm handlers
-        Swarm Swarm;
         List<Enemy> enemies = new List<Enemy>();
 
         //Position of the Camera in world space, for our view matrix
@@ -57,14 +56,16 @@ namespace Tanks
         //Aspect ratio to use for the projection matrix
         static float aspectRatio;
 
-        int numExplosionParticles;
-
         //A Text Manager so we can display text to the screen in a cool fashion
         TextboxManager textManager;
 
         BulletManager BulletManager = new BulletManager();
 
         HiveQueen Queen;
+
+        Random RANDOM;
+
+        Vector3 CameraShake;
 
         //CollectablesManager CollectManager = new CollectablesManager();
         
@@ -103,11 +104,7 @@ namespace Tanks
                 i++;
             }
 
-          
-            
-
-
-            numExplosionParticles = 20;
+            CameraShake = Vector3.Zero;
         }
 
         public override void LoadGraphicsContent(bool LoadAllContent)
@@ -127,12 +124,11 @@ namespace Tanks
                 bg = content.Load<Texture2D>("Content\\earth_night");
                 QueenModel = content.Load<Model>("Models\\queen");
                 GeneratorModel = content.Load<Model>("Models\\enemygenerator");
-                //CollectItemModel = content.Load<Model>("Models\\collect");
 
                 Queen = new HiveQueen(new Vector2(0f, -300f), QueenModel);
             }
-            /*Random RANDOM = new Random();
-            for (int j = 0; j < 5; j++)
+            RANDOM = new Random();
+            /*for (int j = 0; j < 7; j++)
             {
                 Vector2 position = new Vector2(RANDOM.Next(-500, 500), RANDOM.Next(-500, 500));
                 List<Enemy> EnemyList = new List<Enemy>();
@@ -252,6 +248,13 @@ namespace Tanks
                 }
             }
 
+            if (Queen.QueenDead)
+            {
+                CameraShake = new Vector3((float)RANDOM.NextDouble() * 3f, (float)RANDOM.NextDouble() * 3f, (float)RANDOM.NextDouble() * 3f);
+            }
+
+            
+
             //Updates the Swarm
             SwarmManager.Update(gameTime, PlayerList, BulletManager);
                       
@@ -268,21 +271,21 @@ namespace Tanks
         public override void Draw(GameTime gameTime)
         {
             WindowManager.SpriteBatch.Begin();
-            WindowManager.SpriteBatch.Draw(bg,-(new Vector2(bg.Width,bg.Height)/2)- new Vector2(cameraPosition.X,cameraPosition.Z)/2, Color.White);
+            WindowManager.SpriteBatch.Draw(bg,-(new Vector2(bg.Width,bg.Height)/2)- new Vector2(cameraPosition.X,cameraPosition.Z)/2 + new Vector2(CameraShake.X, CameraShake.Y), Color.White);
             WindowManager.SpriteBatch.End();
 
             //Draw Each Bullet onto the screen
-            BulletManager.Draw(BulletModel, cameraPosition, aspectRatio);
+            BulletManager.Draw(BulletModel, cameraPosition + CameraShake, aspectRatio);
             
             //Draw Each Enemy onto the screen
-            SwarmManager.DrawSwarms(cameraPosition, aspectRatio);
+            SwarmManager.DrawSwarms(cameraPosition + CameraShake, aspectRatio);
 
-            Queen.Draw(cameraPosition, aspectRatio, GeneratorModel);
+            Queen.Draw(cameraPosition + CameraShake, aspectRatio, GeneratorModel);
 
             //Draw each player onto the screen
             foreach (Player p in PlayerList)
             {
-                p.Draw(cameraPosition, aspectRatio, gameFont, WindowManager.SpriteBatch);
+                p.Draw(cameraPosition + CameraShake, aspectRatio, gameFont, WindowManager.SpriteBatch);
             }
 
             WindowManager.SpriteBatch.Begin();
@@ -308,7 +311,7 @@ namespace Tanks
                      * Matrix.CreateTranslation(Vector3.Zero)
                      * Matrix.CreateScale(1.0f);
 
-                    effect.View = Matrix.CreateLookAt(cameraPosition, new Vector3(cameraPosition.X, 0f, cameraPosition.Z - .1f), new Vector3(0, 1, 0));
+                    effect.View = Matrix.CreateLookAt(cameraPosition + CameraShake, new Vector3(cameraPosition.X, 0f, cameraPosition.Z - .1f), new Vector3(0, 1, 0));
                     effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);
                 }
 

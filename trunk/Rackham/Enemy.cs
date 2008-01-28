@@ -16,7 +16,6 @@ namespace Tanks
     {
         
         public float speed;
-        public float Radius;
         public float ModifiedRadius;
 
         public Vector2 Target;
@@ -116,7 +115,7 @@ namespace Tanks
                 if (Math.Abs(velocity.X) > MaxVelocity)
                 {
                     velocity.X /= Math.Abs(velocity.X);
-                    velocity.X = MaxVelocity * velocity.X;
+                    velocity.X *= MaxVelocity;
                 }
                 if (Math.Abs(Velocity.Y) > MaxVelocity)
                 {

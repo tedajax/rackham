@@ -137,63 +137,16 @@ namespace Tanks
         #region Updating Methods
 
 
-  /*      /// <summary>
-        /// Update the gameplay object.
-        /// </summary>
-        /// <param name="elapsedTime">The amount of elapsed time, in seconds.</param>
-        public virtual void Update(float elapsedTime)
-        {
-            collidedThisFrame = false;
-        }
-
-
-        #endregion*/
-
-/*
-        #region Drawing Methods
-
-
-        /// <summary>
-        /// Draw the gameplay object.
-        /// </summary>
-        /// <param name="elapsedTime">The amount of elapsed time, in seconds.</param>
-        /// <param name="spriteBatch">The SpriteBatch object used to draw.</param>
-        /// <param name="sprite">The texture used to draw this object.</param>
-        /// <param name="sourceRectangle">The source rectangle.</param>
-        /// <param name="color">The color of the sprite.</param>
-        public virtual void Draw(float elapsedTime, SpriteBatch spriteBatch,
-            Texture2D sprite, Rectangle? sourceRectangle, Color color)
-        {
-            if ((spriteBatch != null) && (sprite != null))
-            {
-                spriteBatch.Draw(sprite, position, sourceRectangle, color, rotation,
-                    new Vector2(sprite.Width / 2f, sprite.Height / 2f),
-                    2f * radius / MathHelper.Min(sprite.Width, sprite.Height),
-                    SpriteEffects.None, 0f);
-            }
-        }
-
-        */
         #endregion
 
 
         #region Interaction Methods
 
-
-        /// <summary>
-        /// Defines the interaction between this GameplayObject and 
-        /// a target GameplayObject when they touch.
-        /// </summary>
-        /// <param name="target">The GameplayObject that is touching this one.</param>
-        /// <returns>True if the objects meaningfully interacted.</returns>
         public virtual bool Touch(GameplayObject target)
         {
             return true;
         }
-        /// <summary>
-        /// allows a gameplay object to know if was hit by a bounding sphere or not (big explosions)
-        /// </summary>
-        /// <param name="type">the bounding sphere's type. this is used to identify the bounding sphere from other types.</param>
+        
         public virtual void BoundingSphereTouch(int type)
         {
         }
@@ -204,30 +157,12 @@ namespace Tanks
             
         }
 
-        /// <summary>
-        /// Damage this object by the amount provided.
-        /// </summary>
-        /// <remarks>
-        /// This function is provided in lieu of a Life mutation property to allow 
-        /// classes of objects to restrict which kinds of objects may damage them,
-        /// and under what circumstances they may be damaged.
-        /// </remarks>
-        /// <param name="source">The GameplayObject responsible for the damage.</param>
-        /// <param name="damageAmount">The amount of damage.</param>
-        /// <returns>If true, this object was damaged.</returns>
+
         public virtual bool Damage(GameplayObject source, float damageAmount)
         {
             return false;
         }
 
-
-        /// <summary>
-        /// Kills this object, in response to the given GameplayObject.
-        /// </summary>
-        /// <param name="source">The GameplayObject responsible for the kill.</param>
-        /// <param name="cleanupOnly">
-        /// If true, the object dies without any further effects.
-        /// </param>
         public virtual void Die(GameplayObject source, bool cleanupOnly)
         {
             // deactivate the object

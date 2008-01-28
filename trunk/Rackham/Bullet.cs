@@ -80,6 +80,8 @@ namespace Tanks
 
         public void Kamikazie()
         {
+            for (int x = 0; x < 5; x++)
+                WindowManager.explosionParticle.AddParticle(WindowManager.V3FromV2(Position), WindowManager.V3FromV2(Velocity));
             Collision.KillList.Add(this);
             BulletManager.BulletsToRemove.Add(mykey);
         }
@@ -88,8 +90,6 @@ namespace Tanks
         {
             if (Math.Abs(Position.X) > 1500 || Math.Abs(Position.Y) > 1500)
             {
-                for (int x = 0; x < 5; x++)
-                    WindowManager.explosionParticle.AddParticle(WindowManager.V3FromV2(Position), WindowManager.V3FromV2(Velocity));
                 Kamikazie();
             }
         }

@@ -436,19 +436,6 @@ namespace Tanks
             if (LoadNewProfile) LoadNewProfileDraw();
             //spriteBatch.End();
             
-            Matrix view =   Matrix.CreateLookAt(cameraPosition,
-                                                new Vector3(cameraPosition.X, 0f, cameraPosition.Z - 0.1f), Vector3.Up);
-
-            Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45),
-                                                                   aspectRatio,
-                                                                   1, 1000);
-
-            
-            
-            /*if (ScreenFrustum == null)
-                ScreenFrustum = new BoundingFrustum(view);
-            else
-                ScreenFrustum.Matrix = view;*/
         }
 
 
