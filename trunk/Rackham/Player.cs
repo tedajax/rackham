@@ -116,7 +116,7 @@ namespace Tanks
                 Initial(Pressed, KeyReleased);
                 if (Ready == 6)
                 {
-               
+                    this.position = new Vector2(0, -1000);
                    // this.velocity = new Vector2(-3, 0);
                     base.Initialize();
                 }
@@ -126,7 +126,7 @@ namespace Tanks
 
         public override bool Touch(GameplayObject target)
         {
-            Health -= (int)((target.Mass * 20f) - target.Radius);
+            Health -= (int)((target.Mass * 40f) - target.Radius);
             if (Health <= 0)
             {
                 Random exploderandom = new Random();
@@ -250,7 +250,7 @@ namespace Tanks
 
                 List<Bullet> newbullets = new List<Bullet>();
 
-                int maxbullets = 3;
+                int maxbullets = 1;
 
                 for (int i = 0; i < maxbullets; i++)
                 {

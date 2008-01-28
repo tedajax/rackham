@@ -27,7 +27,7 @@ namespace Tanks
 
         //This is the Swarm Manager, Enemies need to be created then added into a swarm, the swarm must then me put into
         //this manager. The manger then updates everything and keeps it all working.
-        SwarmManager SwarmManager = new SwarmManager();
+        SwarmManager SwarmManager;
 
         //Create the First player object;
         List<Player> PlayerList;
@@ -127,6 +127,7 @@ namespace Tanks
                 GeneratorModel = content.Load<Model>("Models\\enemygenerator");
 
                 Queen = new HiveQueen(new Vector2(0f, -300f), QueenModel);
+                SwarmManager = new SwarmManager(Queen);
             }
             RANDOM = new Random();
             /*for (int j = 0; j < 7; j++)
@@ -144,8 +145,8 @@ namespace Tanks
                 Swarm = new Swarm(position, Vector2.Zero, EnemyList);
 
                 SwarmManager.addSwarm(Swarm);
-            }
-           */
+            }*/
+           
         }
 
         public override void UnloadGraphicsContent(bool unloadAllContent)
@@ -208,62 +209,69 @@ namespace Tanks
             WindowManager.cameraPosition.Y = cameraPosition.Y;
             
             //Updates Each Player
-            foreach (Player p in PlayerList)
+            if (!NewState.IsKeyDown(Keys.Tab))
             {
-                p.Update(WindowManager.NewState, KeyReleased, gameTime);
-                if (p.getReadyState() == 6)
-                    if (gameTime.TotalGameTime.CompareTo(p.OnFire) > 0)
-                    {
-                        for (int i = 0; i < 1; i++)
-                            WindowManager.smokeParticle.AddParticle(Vector3FromVector2(p.Position), Vector3FromVector2(p.Velocity));//.explosionParticle.AddParticle(new Vector3(p.Position.X, 1f, p.Position.Y), Vector3FromVector2(p.Velocity));
-
-                        p.OnFire = gameTime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 100);
-                    }
-               
-                
-            }
-
-            if (PlayerList[0].getReadyState() == 6)
-            {
-                cameraPosition = new Vector3(PlayerList[0].Position.X, CameraY, PlayerList[0].Position.Y - .1f);
-            }
-
-            
-
-            if (KeyState.IsKeyDown(Keys.F1)&&!OldState.IsKeyDown(Keys.F1))
-            {
-                
-            }
-                       
-            List<Swarm> NewSwarms = Queen.Update(gameTime, EnemyModel);
-
-            if (NewSwarms != null)
-            {
-                foreach (Swarm s in NewSwarms)
+                CameraY = (float)MathHelper.Lerp(CameraY, 180, .5f);
+                foreach (Player p in PlayerList)
                 {
-                    SwarmManager.addSwarm(s);
-                    for (int i = 0; i < 20; i++)
+                    p.Update(WindowManager.NewState, KeyReleased, gameTime);
+                    if (p.getReadyState() == 6)
+                        if (gameTime.TotalGameTime.CompareTo(p.OnFire) > 0)
+                        {
+                            for (int i = 0; i < 1; i++)
+                                WindowManager.smokeParticle.AddParticle(Vector3FromVector2(p.Position), Vector3FromVector2(p.Velocity));//.explosionParticle.AddParticle(new Vector3(p.Position.X, 1f, p.Position.Y), Vector3FromVector2(p.Velocity));
+
+                            p.OnFire = gameTime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 100);
+                        }
+
+
+                }
+
+                if (PlayerList[0].getReadyState() == 6)
+                {
+                    cameraPosition = new Vector3(PlayerList[0].Position.X, CameraY, PlayerList[0].Position.Y - .1f);
+                }
+
+
+
+                if (KeyState.IsKeyDown(Keys.F1) && !OldState.IsKeyDown(Keys.F1))
+                {
+
+                }
+
+                List<Swarm> NewSwarms = Queen.Update(gameTime, EnemyModel);
+
+                if (NewSwarms != null)
+                {
+                    foreach (Swarm s in NewSwarms)
                     {
-                        WindowManager.explosionParticle.AddParticle(WindowManager.V3FromV2(s.EnemiesInSwarm[0].Position), new Vector3(0, 0, 0));
+                        SwarmManager.addSwarm(s);
+                        for (int i = 0; i < 20; i++)
+                        {
+                            WindowManager.explosionParticle.AddParticle(WindowManager.V3FromV2(s.EnemiesInSwarm[0].Position), new Vector3(0, 0, 0));
+                        }
                     }
                 }
-            }
 
             if (HiveQueen.QueenDead)
             {
                 CameraShake = new Vector3((float)RANDOM.NextDouble() * 3f, (float)RANDOM.NextDouble() * 3f, (float)RANDOM.NextDouble() * 3f);
             }
 
-            
 
-            //Updates the Swarm
-            SwarmManager.Update(gameTime, PlayerList, BulletManager);
-                      
 
-            //Updates the Collision Manager
-            CollisionManager.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
-            BulletManager.Update(gameTime, PlayerList[0]);
-                       
+                //Updates the Swarm
+                SwarmManager.Update(gameTime, PlayerList, BulletManager);
+
+
+                //Updates the Collision Manager
+                CollisionManager.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
+                BulletManager.Update(gameTime, PlayerList[0]);
+            }
+            else
+            {
+                CameraY = (float)MathHelper.Lerp(CameraY, 1300, .1f);
+            }
             
             base.Update(gameTime);
            
