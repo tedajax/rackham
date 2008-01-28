@@ -23,6 +23,8 @@ namespace Tanks
 
         public BoundingSphere PresenceSphere;
 
+        public static bool PlayerDead = false;
+
         private float VelocityCap = .13f;
 
 
@@ -37,14 +39,14 @@ namespace Tanks
         private TimeSpan ShotTime;
         private Vector2 DrawBase;
         private int Ready;
-        private Keys Upkey;
-        private Keys Downkey;
-        private Keys Leftkey;
-        private Keys Rightkey;
-        private Keys ShootLeft;
-        private Keys ShootRight;
-        private Keys ShootUp;
-        private Keys ShootDown;
+        private Keys Upkey = Keys.Up;
+        private Keys Downkey = Keys.Down;
+        private Keys Leftkey = Keys.Left;
+        private Keys Rightkey = Keys.Right;
+        private Keys ShootLeft = Keys.A;
+        private Keys ShootRight = Keys.D;
+        private Keys ShootUp = Keys.W;
+        private Keys ShootDown = Keys.S;
         private Keys StopKey;
         private Keys ShootKey;
         private Keys Action;
@@ -63,11 +65,13 @@ namespace Tanks
             Rotation = 0.0f;
             this.DrawBase = DrawBase;
             Ready = 0;
-            Action = Start;
+
             this.radius = radius;
             speed = .004f;
             Velocity = Vector2.Zero;
             type = 1;
+
+            PlayerDead = false;
 
             PresenceSphere = new BoundingSphere(new Vector3(Position.X, 0f, Position.Y), 20f);
             LinkedProfile = null;
@@ -145,6 +149,8 @@ namespace Tanks
                             (velocity.X + explodepos.X, 0f, velocity.Y + explodepos.Y));
                     }
                 }
+
+                PlayerDead = true;
             }
             return true;
         }
@@ -266,7 +272,7 @@ namespace Tanks
 
                 
 
-                ShotTime = Gametime.TotalGameTime + new TimeSpan(0, 0, 0, 0,200);
+                ShotTime = Gametime.TotalGameTime + new TimeSpan(0, 0, 0, 0, 100);
             }
 
             PresenceSphere.Center = new Vector3(Position.X, 0f, Position.Y);
@@ -299,25 +305,23 @@ namespace Tanks
         {
             if (Ready == 0)
             {
-                if (Pressed.IsKeyDown(Action) && KeyReleased == true)
-                {
+                //if (Pressed.IsKeyDown(Action) && KeyReleased == true)
+                //{
 
-                   
 
-                        Leftkey = Keys.Left;
-                        Rightkey = Keys.Right;
+
                         Upkey = Keys.Up;
                         Downkey = Keys.Down;
-                        StopKey = Keys.Enter;
-                        //ShootKey = LinkedProfile.EnterKey;
+                        Leftkey = Keys.Left;
+                        Rightkey = Keys.Right;
                         ShootLeft = Keys.A;
                         ShootRight = Keys.D;
                         ShootUp = Keys.W;
                         ShootDown = Keys.S;
                         Ready = 6;
 
-                    
-                }
+       
+                //}
             }
         }
         public void InitialDraw(SpriteBatch batch, SpriteFont font)

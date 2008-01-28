@@ -54,7 +54,9 @@ namespace Tanks
             this.nocollide.Add(20);
 
             QueenRandom = new Random();
-            
+
+            QueenDead = false;
+
             this.type = 5;
             this.Initialize();
         }

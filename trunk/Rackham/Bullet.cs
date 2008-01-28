@@ -74,12 +74,18 @@ namespace Tanks
         {
             if (target.Type < 10 || target.Type == 20)
             {
-                Kamikazie();
+                KamikazieAndExplode();
             }
             return true;
         }
 
         public void Kamikazie()
+        {
+            Collision.KillList.Add(this);
+            BulletManager.BulletsToRemove.Add(mykey);
+        }
+
+        public void KamikazieAndExplode()
         {
             for (int x = 0; x < 5; x++)
                 WindowManager.explosionParticle.AddParticle(WindowManager.V3FromV2(Position), WindowManager.V3FromV2(Velocity));
