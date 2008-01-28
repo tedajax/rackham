@@ -361,7 +361,7 @@ namespace Tanks
                 GamePlayers[GamerNumToLoad].Loaded = true;
                 if (WindowManagerTextBoxes.textboxes.Count == 0)
                 {
-                    WindowManagerTextBoxes.AddTextBox(new TextBox("Completed", "Profile "+GamePlayers[GamerNumToLoad].Gamer.ToString()+" was Loaded Successfully\nPress Enter to Continue", new Vector2(400, 300), 0, 5, true));
+                    WindowManagerTextBoxes.AddTextBox(new TextBox("Completed", "Press Enter To Continue", new Vector2(1024 / 2, 768 / 2), 0, 5, true));
                 }
                 if (WindowManagerTextBoxes.textboxes[0].Name == "Completed" && WindowManagerTextBoxes.textboxes[0].Mode == "Die")
                 {

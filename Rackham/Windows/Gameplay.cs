@@ -34,6 +34,8 @@ namespace Tanks
         
         //Create the Player Model which is used by the player class(es)
         Model PlayerModel;
+
+        TimeSpan DeadQueenTimer = new TimeSpan(0, 0, 0);
         
         //Create the Bullet and the Bullet Handler
         Model BulletModel;
@@ -75,6 +77,7 @@ namespace Tanks
             textManager = new TextboxManager();
             cameraPosition = CP;
             aspectRatio = ar;
+            CameraShake = Vector3.Zero;
         }
 
         public override void Init()
@@ -127,6 +130,7 @@ namespace Tanks
                 GeneratorModel = content.Load<Model>("Models\\enemygenerator");
 
                 Queen = new HiveQueen(new Vector2(0f, -300f), QueenModel);
+                
                 SwarmManager = new SwarmManager(Queen);
             }
             RANDOM = new Random();
@@ -164,7 +168,8 @@ namespace Tanks
                 WindowManager.Game.Exit();
 
             if (Mode == "Run") Run(gametime);
-
+            if (Mode == "Die") Die(gametime);
+            if (Mode == "Lose") Lose(gametime);
 
         }
 
@@ -189,7 +194,7 @@ namespace Tanks
             
 
             //Allows Player 1 to Respawn himself (Needs update/simplification)
-            if (WindowManager.NewState.IsKeyDown(Keys.D1) && KeyReleased != false)
+            if (WindowManager.NewState.IsKeyDown(Keys.D1) && KeyReleased != false && PlayerList[0].Health <= 0)
             {
                 Player Player1 = PlayerList[0];
                 Collision.AllGamePlayObjects.Remove(Player1);
@@ -256,17 +261,26 @@ namespace Tanks
             if (HiveQueen.QueenDead)
             {
                 CameraShake = new Vector3((float)RANDOM.NextDouble() * 3f, (float)RANDOM.NextDouble() * 3f, (float)RANDOM.NextDouble() * 3f);
+                //Mode = "Die";
+                DeadQueenTimer += gameTime.ElapsedGameTime;
+                if (DeadQueenTimer.TotalSeconds > 10)
+                {
+                    Mode = "Die";
+                }
             }
+            if (Player.PlayerDead)
+            {
+                Mode = "Lose";
+            }
+                       
+
+            //Updates the Swarm
+            SwarmManager.Update(gameTime, PlayerList, BulletManager);
 
 
-
-                //Updates the Swarm
-                SwarmManager.Update(gameTime, PlayerList, BulletManager);
-
-
-                //Updates the Collision Manager
-                CollisionManager.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
-                BulletManager.Update(gameTime, PlayerList[0]);
+            //Updates the Collision Manager
+            CollisionManager.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
+            BulletManager.Update(gameTime, PlayerList[0]);
             }
             else
             {
@@ -315,6 +329,7 @@ namespace Tanks
             WindowManager.SpriteBatch.Begin();
             WindowManager.SpriteBatch.DrawString(gameFont, CameraY.ToString()+Environment.NewLine+screenadder.ToString(), new Vector2(0, 40), Color.White);
             WindowManager.SpriteBatch.DrawString(gameFont, PlayerList[0].Position.ToString(), new Vector2(0, 200), Color.White);
+            WindowManager.SpriteBatch.DrawString(gameFont, PlayerList[0].Velocity.ToString(), new Vector2(0, 220), Color.White);
             WindowManager.SpriteBatch.End();
 
         }
@@ -333,6 +348,31 @@ namespace Tanks
         {
             Vector3 vec3 = new Vector3(vec2.X, 0f, vec2.Y);
             return vec3;
+        }
+
+        public void Die(GameTime gametime)
+        {
+            int i = 0;
+
+            if (i == 0)
+            {
+                UnloadGraphicsContent(true);
+                WindowManager.AddScreen(new Win());
+                WindowManager.removeScreen(this);
+            }
+
+        }
+        public void Lose(GameTime gametime)
+        {
+            int i = 0;
+
+            if (i == 0)
+            {
+                UnloadGraphicsContent(true);
+                WindowManager.AddScreen(new Lose());
+                WindowManager.removeScreen(this);
+            }
+
         }
     }
 }

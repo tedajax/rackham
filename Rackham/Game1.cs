@@ -37,6 +37,8 @@ namespace Tanks
             graphics = new GraphicsDeviceManager(this);
 
             graphics.MinimumPixelShaderProfile = ShaderProfile.PS_2_0;
+            graphics.PreferredBackBufferWidth = 1024;
+            graphics.PreferredBackBufferHeight = 768;
             content = new ContentManager(Services);
 
             Components.Add(new GamerServicesComponent(this));

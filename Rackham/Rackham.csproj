@@ -63,6 +63,7 @@
     <Compile Include="BulletManager.cs" />
     <Compile Include="EnemyGenerator.cs" />
     <Compile Include="HiveQueen.cs" />
+    <Compile Include="Lose.cs" />
     <Compile Include="ParticleEmitter.cs" />
     <Compile Include="ParticleSettings.cs" />
     <Compile Include="ParticleSystem.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="WindowManager\WindowManager.cs" />
     <Compile Include="Windows\Gameplay.cs" />
     <Compile Include="Windows\TitleScreen.cs" />
+    <Compile Include="Windows\Win.cs" />
     <Compile Include="XNAExtras\BitmapFont.cs">
       <Name>BitmapFont</Name>
     </Compile>
