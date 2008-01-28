@@ -77,33 +77,9 @@ namespace Tanks
                     }
                     if (SurroundList.Count > 0)
                     {
-
-                        float angle = 0;
-                        float addangle = 360 / SurroundList.Count;
-                        if (enemychosen >= SurroundList.Count)
+                        if (SwarmList.Count >= 1)
                         {
-                            enemychosen = 0;
-                        }
-                        for (int i = 0; i < SurroundList.Count; i++)
-                        {
-
-                            Swarm s = SurroundList[i];
-                            if (i == enemychosen)
-                            {
-
-                                s.moveSwarm(PlayerList[0].Position);
-                                s.outwardcircle = 30f;
-                                s.comprimise = 3 / 6;
-                                if (s.State == "IDLE")
-                                    enemychosen = formationGenerator.Next(0, SurroundList.Count - 1);
-
-                            }
-                            else
-                            {
-                                s.moveSwarm(PlayerList[0].Position + (250 * new Vector2((float)Math.Cos(MathHelper.ToRadians(angle)), (float)Math.Sin(Math.Sin(MathHelper.ToRadians(angle))))));
-                            }
-                            angle += addangle;
-
+                            SwarmList[0].defendSwarm(new Vector2(50, 0), 10);
                         }
                     }
                 }

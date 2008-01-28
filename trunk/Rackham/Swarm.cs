@@ -220,28 +220,69 @@ namespace Tanks
                 }
                 */
             }
+            else if (State.ToUpper().Equals("DEFEND"))
+            {
 
-           
+
+                // = GameTime.TotalGameTime.Milliseconds + tempspan.TotalMilliseconds;
+
+
+                float i = 0;
+                // 
+
+                double angleadd = 360 / EnemyCount;
+
+
+                int count = 0;
+                double newangle = angle;
+                foreach (Enemy e in EnemiesInSwarm)
+                {
+
+                    i = (float)newangle;
+                    newangle += angleadd;
+                    if (e.Radius != this.radius) e.Radius = this.radius;
+                    if (MovementTimer == new TimeSpan(0, 0, 0)) e.ModifiedRadius = e.Radius * (MovementRandomizer.Next(80, 120) / 100);
+
+                    // float oldox = e.Target - Position.X;
+                    float ox = (float)Math.Cos(i) * 25;//(SwarmSightSphere.Radius / 5);
+                    float oy = (float)Math.Sin(i) * 25;//(SwarmSightSphere.Radius / 5);
+                    ox = (float)Math.Cos(newangle) * e.ModifiedRadius;
+                    oy = (float)Math.Sin(newangle) * e.ModifiedRadius;
+                    e.Target.X = ox + Position.X;
+                    e.Target.Y = oy + Position.Y;
+
+
+                    e.Update(GameTime);
+
+                    i++;
+
+                }
+
+                if (count > EnemiesInSwarm.Count * comprimise)
+                    State = "IDLE";
+
+            }
+
             else if (State.ToUpper().Equals("MARCH"))
             {
- 
+
                 Vector2 positionabove = Position + direction;
                 direction.Normalize();
                 int enemiesplaced = 0;
                 int totalenemiesplaced = 0;
-                 float rowmodifier = -10;
+                float rowmodifier = -10;
                 if (EnemiesInSwarm.Count - totalenemiesplaced < 5)
                 {
-                    rowmodifier = -5*(((EnemiesInSwarm.Count - totalenemiesplaced) - 1) / 2);
+                    rowmodifier = -5 * (((EnemiesInSwarm.Count - totalenemiesplaced) - 1) / 2);
                 }
-                
+
                 float rowrandomer = -1;
                 MovementTimer += GameTime.ElapsedGameTime;
                 rowrandomer = -1;
                 if (MovementTimer.TotalMilliseconds > 600)
                 {
                     rowrandomer = 1;
-                    
+
                 }
                 if (MovementTimer.TotalMilliseconds > 1200)
                 {
@@ -260,7 +301,7 @@ namespace Tanks
                         rowmodifier = -10;
                         if (EnemiesInSwarm.Count - totalenemiesplaced < 5)
                         {
-                            rowmodifier = -5*(((EnemiesInSwarm.Count - totalenemiesplaced) - 1) / 2);
+                            rowmodifier = -5 * (((EnemiesInSwarm.Count - totalenemiesplaced) - 1) / 2);
                         }
                         rowrandomer *= -1;
                     }
@@ -301,6 +342,13 @@ namespace Tanks
         public void burstSwarm()
         {
             State = "BURST";
+        }
+
+        public void defendSwarm(Vector2 pos, float rad)
+        {
+            State = "DEFEND";
+            Position = pos;
+            radius = rad;
         }
 
         public void marchSwarm(Vector2 position, Vector2 Direction)
