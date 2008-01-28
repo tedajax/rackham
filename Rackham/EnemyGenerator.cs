@@ -40,11 +40,10 @@ namespace Tanks
 
             position = Pos;
 
-            //nocollide.Add(1);
             nocollide.Add(5);
-            //nocollide.Add(11);
             nocollide.Add(20);
 
+            this.type = 6;
             
             this.radius = 9f;
 

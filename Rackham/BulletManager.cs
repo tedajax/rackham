@@ -39,8 +39,7 @@ namespace Tanks
                 
                 if (x != null)
                 {
-                    if (Gameplay.isOnScreen(x.Position))
-                        x.Draw(m, CameraPosition,AspectRatio);
+                    x.Draw(m, CameraPosition,AspectRatio);
                 }
                 
             }
