@@ -8,11 +8,16 @@ namespace Tanks
 {
     class HiveQueen : GameplayObject
     {
+
+        public int EnemiesDefendingMe;  //Only to be used by swarm manager
+
         public Model QueenModel;
 
         public Vector3 ModelRotation;
 
         private TimeSpan TimeSinceLastGenerator = new TimeSpan();
+        private TimeSpan TimeTillNextGenerator = new TimeSpan(0, 1, 0);
+        private int GeneratorsICanCreate = 5;
 
         Vector2 Target;
         Vector2 StartPosition;
@@ -105,7 +110,7 @@ namespace Tanks
 
             if (!QueenDead)
             {
-                if (Generators.Count <= 3 && !SetGenerator)
+                if (GeneratorsICanCreate>0 && !SetGenerator)
                 {
                     Target.X = StartPosition.X + QueenRandom.Next(-100, 100);
                     Target.Y = StartPosition.Y + QueenRandom.Next(-100, 100);
@@ -114,10 +119,10 @@ namespace Tanks
                     if (Target.X > bounds) Target.X = bounds;
                     if (Target.Y < -bounds) Target.Y = -bounds;
                     if (Target.Y > bounds) Target.Y = bounds;
-
+                    GeneratorsICanCreate--;
                     SetGenerator = true;
                 }
-
+                /*
                 if (TimeSinceLastGenerator.TotalSeconds > 15 && !SetGenerator && Generators.Count > 3)
                 {
                     if (QueenRandom.Next(100) < 50 - Generators.Count && Generators.Count <= 8)
@@ -136,13 +141,20 @@ namespace Tanks
                     {
                         TimeSinceLastGenerator = new TimeSpan(0, 0, 0);
                     }
+                }*/
+                if (TimeSinceLastGenerator > TimeTillNextGenerator)
+                {
+                    TimeSinceLastGenerator = new TimeSpan();
+                    GeneratorsICanCreate++;
+
+                    SetGenerator = true;
                 }
 
                 if (SetGenerator)
                 {
                     if (WithIn(Target, 2f))
                     {
-                        Generators.Add(new EnemyGenerator(Position, 5, new TimeSpan(0, 0, 15)));
+                        Generators.Add(new EnemyGenerator(Position, 5, new TimeSpan(0, 0, 8)));
                         SetGenerator = false;
                         TimeSinceLastGenerator = new TimeSpan(0, 0, 0);
 
@@ -151,13 +163,21 @@ namespace Tanks
                 }
 
                 ReturnSwarms = new List<Swarm>();
-                foreach (EnemyGenerator g in Generators)
+                for (int i=0; i<Generators.Count;i++)
                 {
-                    Swarm AddSwarm = g.Update(gameTime, EnemyModel);
-
-                    if (AddSwarm != null)
+                    EnemyGenerator g = Generators[i];
+                    if (g.Active)
                     {
-                        ReturnSwarms.Add(AddSwarm);
+                        Swarm AddSwarm = g.Update(gameTime, EnemyModel);
+
+                        if (AddSwarm != null)
+                        {
+                            ReturnSwarms.Add(AddSwarm);
+                        }
+                    }
+                    else
+                    {
+                        Generators.Remove(g);
                     }
                 }
 

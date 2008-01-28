@@ -15,12 +15,16 @@ namespace Tanks
         static TimeSpan CoolDown = new TimeSpan(0, 0, 5);
         TimeSpan CurrentCoolDown = CoolDown;
 
+        public int EnemiesDefendingMe; //Only To Be Used by SwarmManager
+
         Random GenerationRandomizer;
 
         float YRotation = 0f;
         float RotationSpeed;
 
         Swarm ReturnSwarm;
+
+        float health = 75;
 
         private bool cooldown = false;
 
@@ -37,7 +41,7 @@ namespace Tanks
             CurrentTimeBetweenGeneration = TimeBetweenGeneration;
 
             RotationSpeed = 1f;
-
+            this.mass = 25f;
             position = Pos;
 
             nocollide.Add(5);
@@ -54,6 +58,8 @@ namespace Tanks
 
         public Swarm Update(GameTime gameTime, Model EnemyModel)
         {
+            
+            
             if (CurrentTimeBetweenGeneration.TotalMilliseconds > 0)
             {
                 CurrentTimeBetweenGeneration -= gameTime.ElapsedGameTime;
@@ -104,31 +110,52 @@ namespace Tanks
             return ReturnSwarm;
         }
 
+        public override bool Touch(GameplayObject target)
+        {
+            health -= 4 ;
+            if (health <=0)
+            {
+                this.Die();
+            }
+            return base.Touch(target);
+        }
+
+        public void Die()
+        {
+            if (active) active = false;
+            for (int i=0; i<50;i++)
+                WindowManager.explosionParticle.AddParticle(WindowManager.V3FromV2(this.position+new Vector2(GenerationRandomizer.Next(-10,10),GenerationRandomizer.Next(-10,10))),Vector3.Zero);
+            Collision.addboundlist.Add(new RegisteredBoundingSphere(this.position, 0,1,50,1));
+            Collision.KillList.Add(this);
+        }
         public void Draw(Model Model, Vector3 Camera, float aspectRatio)
         {
-            Matrix[] transforms = new Matrix[Model.Bones.Count];
-            Model.CopyAbsoluteBoneTransformsTo(transforms);
-            Vector3 NewPosition = new Vector3(Position.X, 0, Position.Y);
-            //Draw the model, a model can have multiple meshes, so loop
-            foreach (ModelMesh mesh in Model.Meshes)
+            if (active)
             {
-
-
-                //This is where the mesh orientation is set, as well as our camera and projection
-                foreach (BasicEffect effect in mesh.Effects)
+                Matrix[] transforms = new Matrix[Model.Bones.Count];
+                Model.CopyAbsoluteBoneTransformsTo(transforms);
+                Vector3 NewPosition = new Vector3(Position.X, 0, Position.Y);
+                //Draw the model, a model can have multiple meshes, so loop
+                foreach (ModelMesh mesh in Model.Meshes)
                 {
-                    effect.EnableDefaultLighting();
-                    effect.World = transforms[mesh.ParentBone.Index]
-                                   * Matrix.CreateRotationY(MathHelper.ToRadians(YRotation))
-                                   * Matrix.CreateTranslation(NewPosition / 5)
-                                   * Matrix.CreateScale(5.0f);
 
 
-                    effect.View = Matrix.CreateLookAt(Camera, new Vector3(Camera.X, 0f, Camera.Z - .1f), new Vector3(0, 1, 0));
-                    effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);
+                    //This is where the mesh orientation is set, as well as our camera and projection
+                    foreach (BasicEffect effect in mesh.Effects)
+                    {
+                        effect.EnableDefaultLighting();
+                        effect.World = transforms[mesh.ParentBone.Index]
+                                       * Matrix.CreateRotationY(MathHelper.ToRadians(YRotation))
+                                       * Matrix.CreateTranslation(NewPosition / 5)
+                                       * Matrix.CreateScale(5.0f);
+
+
+                        effect.View = Matrix.CreateLookAt(Camera, new Vector3(Camera.X, 0f, Camera.Z - .1f), new Vector3(0, 1, 0));
+                        effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);
+                    }
+                    //Draw the mesh, will use the effects set above.
+                    mesh.Draw();
                 }
-                //Draw the mesh, will use the effects set above.
-                mesh.Draw();
             }
         }
     }

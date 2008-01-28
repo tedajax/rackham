@@ -25,3 +25,10 @@ bin\x86\Debug\Models\bullet.xnb
 bin\x86\Debug\Models\queen.xnb
 bin\x86\Debug\Models\bullet%0.xnb
 bin\x86\Debug\Models\queen%0.xnb
+bin\x86\Debug\Models\playership.xnb
+bin\x86\Debug\Models\enemygenerator.xnb
+bin\x86\Debug\Models\playership%0.xnb
+bin\x86\Debug\Models\enemygenerator%0.xnb
+bin\x86\Debug\BloomCombine.xnb
+bin\x86\Debug\BloomExtract.xnb
+bin\x86\Debug\GaussianBlur.xnb
