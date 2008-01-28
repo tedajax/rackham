@@ -28,6 +28,8 @@ namespace Tanks
         public static ParticleSystem fireParticle;
         public static ParticleSystem smokeParticle;
 
+        BloomComponent bloom;
+
         WindowManager windowManager;
         
         public Game1()
@@ -50,8 +52,10 @@ namespace Tanks
             windowManager = new WindowManager(this);
             windowManager.SetParticles((ExplosionParticleSystem)explosionParticle, (FireParticleSystem)fireParticle, (SmokePlumeParticleSystem)smokeParticle);
 
-
             Components.Add(windowManager);
+
+            bloom = new BloomComponent(this);
+            Components.Add(bloom);
 
             windowManager.AddScreen(new TitleScreen(false));
         }

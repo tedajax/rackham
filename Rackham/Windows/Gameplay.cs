@@ -144,7 +144,7 @@ namespace Tanks
 
                 SwarmManager.addSwarm(Swarm);
             }
-           
+           */
         }
 
         public override void UnloadGraphicsContent(bool unloadAllContent)
@@ -294,37 +294,14 @@ namespace Tanks
 
             //CollectManager.Draw(cameraPosition, aspectRatio);
 
-            Model model = EnemyModel;
+            
+            Matrix view = Matrix.CreateLookAt(cameraPosition, new Vector3(cameraPosition.X, 0f, cameraPosition.Z - .1f), new Vector3(0, 1, 0));
+            Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);
 
-            Matrix[] transforms = new Matrix[model.Bones.Count];
-            model.CopyAbsoluteBoneTransformsTo(transforms);
-            //Draw the model, a model can have multiple meshes, so loop
-            foreach (ModelMesh mesh in model.Meshes)
-            {
+            WindowManager.explosionParticle.SetCamera(view, projection);
+            WindowManager.smokeParticle.SetCamera(view, projection);
+            WindowManager.fireParticle.SetCamera(view, projection);
 
-
-                //This is where the mesh orientation is set, as well as our camera and projection
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.EnableDefaultLighting();
-                    effect.World = transforms[mesh.ParentBone.Index]
-                     * Matrix.CreateTranslation(Vector3.Zero)
-                     * Matrix.CreateScale(1.0f);
-
-                    effect.View = Matrix.CreateLookAt(cameraPosition + CameraShake, new Vector3(cameraPosition.X, 0f, cameraPosition.Z - .1f), new Vector3(0, 1, 0));
-                    effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);
-                }
-
-                Matrix view = Matrix.CreateLookAt(cameraPosition, new Vector3(cameraPosition.X, 0f, cameraPosition.Z - .1f), new Vector3(0, 1, 0));
-                Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), aspectRatio, 1.0f, 10000.0f);
-
-                WindowManager.explosionParticle.SetCamera(view, projection);
-                WindowManager.smokeParticle.SetCamera(view, projection);
-                WindowManager.fireParticle.SetCamera(view, projection);
-
-                //Draw the mesh, will use the effects set above.
-                mesh.Draw();
-            }
 
             WindowManager.SpriteBatch.Begin();
             WindowManager.SpriteBatch.DrawString(gameFont, CameraY.ToString()+Environment.NewLine+screenadder.ToString(), new Vector2(0, 40), Color.White);

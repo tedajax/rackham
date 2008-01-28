@@ -55,6 +55,8 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BloomComponent.cs" />
+    <Compile Include="BloomSettings.cs" />
     <Compile Include="Bullet.cs">
       <Name>Bullet</Name>
     </Compile>
