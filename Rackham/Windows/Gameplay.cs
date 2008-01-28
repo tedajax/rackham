@@ -120,8 +120,9 @@ namespace Tanks
                     p.Model = content.Load<Model>("Models\\playership");
                 }
                 BulletModel = content.Load<Model>("Models\\bullet");
-                EnemyModel = content.Load<Model>("Models\\cone");
-                bg = content.Load<Texture2D>("Content\\earth_night");
+                EnemyModel = content.Load<Model>("Models\\enemy");
+                bg = content.Load<Texture2D>("Content\\background");
+                
                 QueenModel = content.Load<Model>("Models\\queen");
                 GeneratorModel = content.Load<Model>("Models\\enemygenerator");
 
@@ -248,7 +249,7 @@ namespace Tanks
                 }
             }
 
-            if (Queen.QueenDead)
+            if (HiveQueen.QueenDead)
             {
                 CameraShake = new Vector3((float)RANDOM.NextDouble() * 3f, (float)RANDOM.NextDouble() * 3f, (float)RANDOM.NextDouble() * 3f);
             }
@@ -271,7 +272,7 @@ namespace Tanks
         public override void Draw(GameTime gameTime)
         {
             WindowManager.SpriteBatch.Begin();
-            WindowManager.SpriteBatch.Draw(bg,-(new Vector2(bg.Width,bg.Height)/2)- new Vector2(cameraPosition.X,cameraPosition.Z)/2 + new Vector2(CameraShake.X, CameraShake.Y), Color.White);
+            WindowManager.SpriteBatch.Draw(bg,(-(new Vector2(bg.Width, bg.Height)/2)- new Vector2(cameraPosition.X,cameraPosition.Z)/2) / 2 + new Vector2(CameraShake.X, CameraShake.Y), Color.White);
             WindowManager.SpriteBatch.End();
 
             //Draw Each Bullet onto the screen
