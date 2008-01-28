@@ -23,9 +23,12 @@ namespace Tanks
         public float outwardcircle = 25;
         public float comprimise = 3 / 5;
         
-        private float radius = 10;
+        public float radius = 10;
         private float modifiedradius = 10;
 
+        private bool canburst = true;
+        public TimeSpan BurstTimer = new TimeSpan();
+        public TimeSpan MaxBurstTime = new TimeSpan();
         public TimeSpan NextChange = new TimeSpan();
         public TimeSpan ChangeFormation = new TimeSpan();
 
@@ -116,9 +119,16 @@ namespace Tanks
 
             AvgPosition.X /= EnemiesInSwarm.Count;
             AvgPosition.Y /= EnemiesInSwarm.Count;
-            
+            BurstTimer += GameTime.ElapsedGameTime;
+            if (canburst == false && BurstTimer >= MaxBurstTime) canburst = true;
             if (State.ToUpper().Equals("BURST"))
             {
+               
+                if (BurstTimer >= MaxBurstTime)
+                {
+                    State = "MOVE";
+                    BurstTimer = new TimeSpan();
+                }
                 foreach (Enemy e in EnemiesInSwarm)
                 {
                     foreach (Enemy eout in EnemiesInSwarm)
@@ -331,17 +341,23 @@ namespace Tanks
         /// <param name="newPosition">position to move to</param>
         public void moveSwarm(Vector2 newPosition)
         {
-            if (Position != newPosition)
+            if (Position != newPosition && State !="BURST")
             {
+                
                 Position = newPosition;
                 State = "MOVE";
             }
          
         }
 
-        public void burstSwarm()
+        public void burstSwarm(TimeSpan timer)
         {
-            State = "BURST";
+            if (canburst)
+            {
+                State = "BURST";
+                BurstTimer = new TimeSpan();
+                MaxBurstTime = timer;
+            }
         }
 
         public void defendSwarm(Vector2 pos, float rad)

@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
-
+using System.Collections;
 namespace Tanks
 {
     //This is a Manager that holds all the swarms together. Swarms should only be created through this manager!
     class SwarmManager
     {
         static int AmountOfEnemiesBeforeAttack = 25;
-
+        bool initialscaredburst = false;
         List<Swarm> SwarmList = new List<Swarm>();
         HiveQueen Queen;
 
@@ -71,95 +71,128 @@ namespace Tanks
             cleanUpSwarm();
             if (PlayerList.Count > 0)
             {
-                if (PlayerList[0].getReadyState() == 6 && SwarmList.Count>0)
+                if (PlayerList[0].getReadyState() == 6)
                 {
-                    //PHASE 1..COUNT YOUR TROOPS!
-                    //PHASE 2..Distribute Your Troops
-                    int EnemiesLeftToDist = EnemiesIGot;
-                    int SwarmsIGot = SwarmList.Count;
-                    Queue<Swarm> SwarmstoDist = new Queue<Swarm>();
-                    foreach (Swarm s in SwarmList)
+                    if (SwarmList.Count > 0)
                     {
-                       SwarmstoDist.Enqueue(s);
-                    }
-                    BoundingSphere b = new BoundingSphere(WindowManager.V3FromV2(Queen.Position), 150f);
-                    BoundingSphere c = new BoundingSphere(WindowManager.V3FromV2(PlayerList[0].Position), 2.5f);
-                    if (b.Intersects(c))
-                    {
+                        //PHASE 1..COUNT YOUR TROOPS!
+                        //PHASE 2..Distribute Your Troops
+                        int EnemiesLeftToDist = EnemiesIGot;
+                        int SwarmsIGot = SwarmList.Count;
+                        Queue<Swarm> SwarmstoDist = new Queue<Swarm>();
                         foreach (Swarm s in SwarmList)
                         {
-                            s.moveSwarm(PlayerList[0].Position);
-                            s.setRadius(5);
-
+                            SwarmstoDist.Enqueue(s);
                         }
-                    }
-                    else
-                    {
-
-                        if (SwarmsIGot <= Queen.Generators.Count)
+                        BoundingSphere b = new BoundingSphere(WindowManager.V3FromV2(Queen.Position), 150f);
+                        BoundingSphere c = new BoundingSphere(WindowManager.V3FromV2(PlayerList[0].Position), 2.5f);
+                        if (b.Intersects(c))
                         {
-                            Swarm newswarm = SwarmstoDist.Dequeue();
-                            newswarm.setRadius(15);
-                            newswarm.moveSwarm(Queen.Position);
-                            SwarmsIGot--;
-                            int j = 0;
-                            for (int i = 0; i < SwarmsIGot; i++)
-                            {
-                                newswarm = SwarmstoDist.Dequeue();
-                                newswarm.setRadius(12);
-                                newswarm.moveSwarm(Queen.Generators[j].Position);
-                                j++;
-                                if (j == Queen.Generators.Count) j = 0;
 
+                            foreach (Swarm s in SwarmList)
+                            {
+                                if (initialscaredburst == false)
+                                {
+                                    s.burstSwarm(new TimeSpan(0, 0, 1));
+
+                                }
+                                else
+                                {
+
+                                    s.moveSwarm(PlayerList[0].Position);
+                                    s.setRadius(5);
+                                }
 
                             }
+                            initialscaredburst = true;
                         }
                         else
                         {
-                            int swarmsinhalf = Queen.Generators.Count;
-                            Swarm newswarm = SwarmstoDist.Dequeue();
-                            newswarm.setRadius(10);
-                            newswarm.moveSwarm(Queen.Position);
-                            SwarmsIGot--;
-                            int j = 0;
-                            for (int i = 0; i < swarmsinhalf; i++)
+                            initialscaredburst = false;
+                            if (SwarmsIGot <= Queen.Generators.Count)
                             {
-                                newswarm = SwarmstoDist.Dequeue();
-                                newswarm.setRadius(9);
-                                newswarm.moveSwarm(Queen.Generators[j].Position);
+                                Swarm newswarm = SwarmstoDist.Dequeue();
+                                newswarm.setRadius(15);
+                                newswarm.moveSwarm(Queen.Position);
                                 SwarmsIGot--;
-                                j++;
-                                if (j == Queen.Generators.Count) j = 0;
+                                int j = 0;
+                                for (int i = 0; i < SwarmsIGot; i++)
+                                {
+                                    newswarm = SwarmstoDist.Dequeue();
+                                    newswarm.setRadius(12);
+                                    newswarm.moveSwarm(Queen.Generators[j].Position);
+                                    j++;
+                                    if (j == Queen.Generators.Count) j = 0;
+
+
+                                }
+                            }
+                            else
+                            {
+                                int swarmsinhalf = Queen.Generators.Count;
+                                Swarm newswarm = SwarmstoDist.Dequeue();
+                                newswarm.setRadius(10);
+                                newswarm.moveSwarm(Queen.Position);
+                                SwarmsIGot--;
+                                int j = 0;
+                                for (int i = 0; i < swarmsinhalf; i++)
+                                {
+                                    newswarm = SwarmstoDist.Dequeue();
+                                    newswarm.setRadius(9);
+                                    newswarm.moveSwarm(Queen.Generators[j].Position);
+                                    SwarmsIGot--;
+                                    j++;
+                                    if (j == Queen.Generators.Count) j = 0;
+
+                                }
+                                swarmsinhalf = (int)Math.Floor(((double)SwarmsIGot * 3 / 5));
+                                for (int i = 0; i < swarmsinhalf; i++)
+                                {
+
+                                    newswarm = SwarmstoDist.Dequeue();
+                                    newswarm.moveSwarm(PlayerList[0].Position);
+                                    newswarm.setRadius(5);
+                                    
+                                    
+                                    SwarmsIGot--;
+                                }
+                                for (int i = 0; i < SwarmsIGot; i++)
+                                {
+                                    newswarm = SwarmstoDist.Dequeue();
+                                    newswarm.setRadius(9);
+                                    newswarm.moveSwarm(Queen.Generators[j].Position);
+                                    SwarmsIGot--;
+                                    j++;
+                                    if (j == Queen.Generators.Count) j = 0;
+
+                                }
+                                
+
 
                             }
-                            swarmsinhalf = (int)Math.Floor(((double)SwarmsIGot * 3 / 5));
-                            for (int i = 0; i < swarmsinhalf; i++)
+                            foreach (Swarm newswarm in SwarmList)
                             {
-
-                                newswarm = SwarmstoDist.Dequeue();
-                                newswarm.moveSwarm(PlayerList[0].Position);
-                                newswarm.setRadius(5);
-                                SwarmsIGot--;
+                                foreach (DictionaryEntry d in BM.GetBulletHashTable())
+                                {
+                                    Bullet bullet = (Bullet)d.Value;
+                                    BoundingSphere a = new BoundingSphere(WindowManager.V3FromV2(bullet.Position), bullet.Radius);
+                                    BoundingSphere a2 = new BoundingSphere(WindowManager.V3FromV2(newswarm.Position), 25);
+                                    if (a2.Intersects(a))
+                                    {
+                                        newswarm.burstSwarm(new TimeSpan(0, 0, 0, 0, 500));
+                                        newswarm.Position = PlayerList[0].Position;
+                                    }
+                                }
                             }
-                            for (int i = 0; i < SwarmsIGot; i++)
-                            {
-                                newswarm = SwarmstoDist.Dequeue();
-                                newswarm.setRadius(9);
-                                newswarm.moveSwarm(Queen.Generators[j].Position);
-                                SwarmsIGot--;
-                                j++;
-                                if (j == Queen.Generators.Count) j = 0;
-
-                            }
-
-
 
                         }
+                    }
 
-                    }   
 
-                    
+
                 }
+                else
+                    Queen.Health = 250;
             }
             
             for (int i =0; i<SwarmList.Count; i++)

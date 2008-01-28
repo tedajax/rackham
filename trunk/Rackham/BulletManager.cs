@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 using Microsoft.Xna.Framework;
+using System.Collections;
 namespace Tanks
 {
     class BulletManager
@@ -68,6 +69,7 @@ namespace Tanks
             lasttime = gameTime.ElapsedGameTime;
         }
 
+        public Hashtable getBullets() { return bullethashtable; }
         
 
     }

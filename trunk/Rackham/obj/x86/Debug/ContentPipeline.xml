@@ -159,15 +159,6 @@
       <Time>2008-01-26T05:05:13.7062837-05:00</Time>
     </Item>
     <Item>
-      <Source>Content\earth_night.jpg</Source>
-      <Name>Content\earth_night</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>bin\x86\Debug\Content\earth_night.xnb</Output>
-      <Time>2008-01-26T05:07:10.5812837-05:00</Time>
-    </Item>
-    <Item>
       <Source>Models\bullet.x</Source>
       <Name>Models\bullet</Name>
       <Importer>XImporter</Importer>
@@ -237,7 +228,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\queen%0.xnb</Output>
-      <Time>2008-01-26T05:05:08.4719087-05:00</Time>
+      <Time>2008-01-27T23:28:16.971625-05:00</Time>
     </Item>
     <Item>
       <Source>Models\playership.x</Source>
@@ -287,7 +278,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\playership%0.xnb</Output>
-      <Time>2008-01-27T17:18:24.221625-05:00</Time>
+      <Time>2008-01-27T23:28:16.98725-05:00</Time>
     </Item>
     <Item>
       <Source>Models\enemygenerator.x</Source>
@@ -309,7 +300,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\enemygenerator%0.xnb</Output>
-      <Time>2008-01-27T17:18:24.252875-05:00</Time>
+      <Time>2008-01-27T23:28:17.002875-05:00</Time>
     </Item>
     <Item>
       <Source>BloomCombine.fx</Source>
@@ -337,6 +328,51 @@
       <Options>None</Options>
       <Output>bin\x86\Debug\GaussianBlur.xnb</Output>
       <Time>2008-01-27T21:12:18.377875-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Content\background.png</Source>
+      <Name>Content\background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Content\background.xnb</Output>
+      <Time>2008-01-27T23:28:39.04975-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\enemy.x</Source>
+      <Name>Models\enemy</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\enemy.xnb</Output>
+      <Time>2008-01-27T23:28:16.909125-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\enemy%0.xml</Key>
+        <Value>2008-01-27T23:31:06.502875-05:00</Value>
+      </Dependency>
+      <Request>bin\x86\Debug\Models\enemy%0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\enemy.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\enemy%0.xml</Output>
+      <Time>2008-01-27T23:28:16.909125-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\enemy.png</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\enemy%0.xnb</Output>
+      <Time>2008-01-27T23:28:16.956-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

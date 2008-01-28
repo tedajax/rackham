@@ -130,7 +130,7 @@ namespace Tanks
             if (Health <= 0)
             {
                 Random exploderandom = new Random();
-
+                
                 Ready = 0;
                 Health = 100;
                 int explosions = 10;
@@ -302,14 +302,13 @@ namespace Tanks
                 if (Pressed.IsKeyDown(Action) && KeyReleased == true)
                 {
 
-                    if (LinkedProfile.Loaded == true)
-                    {
-                        
-                        Leftkey = LinkedProfile.LeftKey;
-                        Rightkey = LinkedProfile.RightKey;
-                        Upkey = LinkedProfile.UpKey;
-                        Downkey = LinkedProfile.DownKey;
-                        StopKey = LinkedProfile.EnterKey;
+                   
+
+                        Leftkey = Keys.Left;
+                        Rightkey = Keys.Right;
+                        Upkey = Keys.Up;
+                        Downkey = Keys.Down;
+                        StopKey = Keys.Enter;
                         //ShootKey = LinkedProfile.EnterKey;
                         ShootLeft = Keys.A;
                         ShootRight = Keys.D;
@@ -317,7 +316,7 @@ namespace Tanks
                         ShootDown = Keys.S;
                         Ready = 6;
 
-                    }  
+                    
                 }
             }
         }
