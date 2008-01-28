@@ -75,7 +75,7 @@ namespace Tanks
         {
             int i = 0;
             RunMode = "MainRun";
-            WindowManager.StartLoadNewProfile(0, true);
+            //WindowManager.StartLoadNewProfile(0, true);
              if (i == 0) Mode = "Run";
             
         }

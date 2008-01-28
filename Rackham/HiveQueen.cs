@@ -8,7 +8,7 @@ namespace Tanks
 {
     class HiveQueen : GameplayObject
     {
-
+        static int MaxGenerators = 10; 
         public int EnemiesDefendingMe;  //Only to be used by swarm manager
 
         public Model QueenModel;
@@ -17,7 +17,7 @@ namespace Tanks
 
         private TimeSpan TimeSinceLastGenerator = new TimeSpan();
         private TimeSpan TimeTillNextGenerator = new TimeSpan(0, 1, 0);
-        private int GeneratorsICanCreate = 5;
+        private int GeneratorsICanCreate = 3;
 
         Vector2 Target;
         Vector2 StartPosition;
@@ -32,7 +32,7 @@ namespace Tanks
 
         public List<EnemyGenerator> Generators = new List<EnemyGenerator>();
 
-        float Health;
+        public float Health;
 
         public static bool QueenDead = false;
 
@@ -110,7 +110,7 @@ namespace Tanks
 
             if (!QueenDead)
             {
-                if (GeneratorsICanCreate>0 && !SetGenerator)
+                if (GeneratorsICanCreate>0 && !SetGenerator && Generators.Count < MaxGenerators)
                 {
                     Target.X = StartPosition.X + QueenRandom.Next(-100, 100);
                     Target.Y = StartPosition.Y + QueenRandom.Next(-100, 100);
