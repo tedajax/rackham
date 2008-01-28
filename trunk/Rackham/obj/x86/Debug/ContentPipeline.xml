@@ -8,7 +8,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Content\newfont-0.xnb</Output>
-      <Time>2008-01-25T18:10:53.1642839-05:00</Time>
+      <Time>2008-01-28T09:34:59.15625-05:00</Time>
     </Item>
     <Item>
       <Source>Models\TankTex.bmp</Source>
@@ -17,7 +17,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\TankTex.xnb</Output>
-      <Time>2008-01-25T18:10:32.1785659-05:00</Time>
+      <Time>2008-01-28T09:34:31.609375-05:00</Time>
     </Item>
     <Item>
       <Source>Models\Road.bmp</Source>
@@ -26,7 +26,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\Road.xnb</Output>
-      <Time>2008-01-25T18:10:32.0379319-05:00</Time>
+      <Time>2008-01-28T09:34:31.71875-05:00</Time>
     </Item>
     <Item>
       <Source>explosion.png</Source>
@@ -35,7 +35,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\explosion.xnb</Output>
-      <Time>2008-01-26T04:41:37.9250337-05:00</Time>
+      <Time>2008-01-28T09:34:59.421875-05:00</Time>
     </Item>
     <Item>
       <Source>fire.png</Source>
@@ -44,7 +44,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\fire.xnb</Output>
-      <Time>2008-01-25T18:10:53.4768039-05:00</Time>
+      <Time>2008-01-28T09:34:59.453125-05:00</Time>
     </Item>
     <Item>
       <Source>smoke.png</Source>
@@ -53,7 +53,25 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\smoke.xnb</Output>
-      <Time>2008-01-26T04:41:37.9094087-05:00</Time>
+      <Time>2008-01-28T09:34:59.390625-05:00</Time>
+    </Item>
+    <Item>
+      <Source>fancysmoke.png</Source>
+      <Name>fancysmoke</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\fancysmoke.xnb</Output>
+      <Time>2008-01-28T09:34:59.3125-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Content\background.png</Source>
+      <Name>Content\background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Content\background.xnb</Output>
+      <Time>2008-01-28T09:34:59.1875-05:00</Time>
     </Item>
     <Item>
       <Source>Models\Tank.x</Source>
@@ -62,10 +80,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\Tank.xnb</Output>
-      <Time>2008-01-25T18:10:32.0535579-05:00</Time>
+      <Time>2008-01-28T09:34:31.75-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Tank%0.xml</Key>
-        <Value>2008-01-26T00:16:49.5969087-05:00</Value>
+        <Value>2008-01-28T09:40:48.578125-05:00</Value>
       </Dependency>
       <Request>bin\x86\Debug\Models\tanktex%0.xnb</Request>
     </Item>
@@ -76,10 +94,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\Sphere.xnb</Output>
-      <Time>2008-01-25T18:10:32.1941919-05:00</Time>
+      <Time>2008-01-28T09:34:31.625-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Sphere%0.xml</Key>
-        <Value>2008-01-26T00:16:50.2844087-05:00</Value>
+        <Value>2008-01-28T09:40:49.09375-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -89,11 +107,81 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\cone.xnb</Output>
-      <Time>2008-01-25T18:10:32.1160619-05:00</Time>
+      <Time>2008-01-28T09:34:31.59375-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\cone%0.xml</Key>
-        <Value>2008-01-26T00:16:50.3625337-05:00</Value>
+        <Value>2008-01-28T09:40:49.15625-05:00</Value>
       </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\bullet.x</Source>
+      <Name>Models\bullet</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\bullet.xnb</Output>
+      <Time>2008-01-28T09:34:31.640625-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\bullet%0.xml</Key>
+        <Value>2008-01-28T09:40:49.234375-05:00</Value>
+      </Dependency>
+      <Request>bin\x86\Debug\Models\bullet%0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\queen.x</Source>
+      <Name>Models\queen</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\queen.xnb</Output>
+      <Time>2008-01-28T09:34:31.546875-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\queen%0.xml</Key>
+        <Value>2008-01-28T09:40:49.671875-05:00</Value>
+      </Dependency>
+      <Request>bin\x86\Debug\Models\queen%0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\playership.x</Source>
+      <Name>Models\playership</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\playership.xnb</Output>
+      <Time>2008-01-28T09:34:31.5625-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\playership%0.xml</Key>
+        <Value>2008-01-28T09:40:51.375-05:00</Value>
+      </Dependency>
+      <Request>bin\x86\Debug\Models\playership%0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\enemygenerator.x</Source>
+      <Name>Models\enemygenerator</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\enemygenerator.xnb</Output>
+      <Time>2008-01-28T09:34:31.578125-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\enemygenerator%0.xml</Key>
+        <Value>2008-01-28T09:40:53.015625-05:00</Value>
+      </Dependency>
+      <Request>bin\x86\Debug\Models\enemygenerator%0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\enemy.x</Source>
+      <Name>Models\enemy</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\Models\enemy.xnb</Output>
+      <Time>2008-01-28T09:34:31.53125-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\enemy%0.xml</Key>
+        <Value>2008-01-28T09:40:54.21875-05:00</Value>
+      </Dependency>
+      <Request>bin\x86\Debug\Models\enemy%0.xnb</Request>
     </Item>
     <Item>
       <Source>Content\SpriteFont1.spritefont</Source>
@@ -102,7 +190,7 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\Content\SpriteFont1.xnb</Output>
-      <Time>2008-01-25T18:10:53.1642839-05:00</Time>
+      <Time>2008-01-28T09:34:59.203125-05:00</Time>
     </Item>
     <Item>
       <Source>ParticleEffect.fx</Source>
@@ -111,14 +199,41 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>bin\x86\Debug\ParticleEffect.xnb</Output>
-      <Time>2008-01-25T18:10:53.3674219-05:00</Time>
+      <Time>2008-01-28T09:34:59.34375-05:00</Time>
+    </Item>
+    <Item>
+      <Source>BloomCombine.fx</Source>
+      <Name>BloomCombine</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\BloomCombine.xnb</Output>
+      <Time>2008-01-28T09:34:59.484375-05:00</Time>
+    </Item>
+    <Item>
+      <Source>BloomExtract.fx</Source>
+      <Name>BloomExtract</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\BloomExtract.xnb</Output>
+      <Time>2008-01-28T09:34:59.265625-05:00</Time>
+    </Item>
+    <Item>
+      <Source>GaussianBlur.fx</Source>
+      <Name>GaussianBlur</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>bin\x86\Debug\GaussianBlur.xnb</Output>
+      <Time>2008-01-28T09:34:59.640625-05:00</Time>
     </Item>
     <Item>
       <Source>Models\Tank.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\Tank%0.xml</Output>
-      <Time>2008-01-25T18:10:32.0535579-05:00</Time>
+      <Time>2008-01-28T09:34:31.75-05:00</Time>
     </Item>
     <Item>
       <Source>Models\tanktex.bmp</Source>
@@ -133,65 +248,28 @@
       </Parameters>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\tanktex%0.xnb</Output>
-      <Time>2008-01-25T18:10:32.1785659-05:00</Time>
+      <Time>2008-01-28T09:34:31.609375-05:00</Time>
     </Item>
     <Item>
       <Source>Models\Sphere.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\Sphere%0.xml</Output>
-      <Time>2008-01-25T18:10:32.1941919-05:00</Time>
+      <Time>2008-01-28T09:34:31.625-05:00</Time>
     </Item>
     <Item>
       <Source>Models\cone.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\cone%0.xml</Output>
-      <Time>2008-01-25T18:10:32.1160619-05:00</Time>
-    </Item>
-    <Item>
-      <Source>fancysmoke.png</Source>
-      <Name>fancysmoke</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>bin\x86\Debug\fancysmoke.xnb</Output>
-      <Time>2008-01-26T05:05:13.7062837-05:00</Time>
-    </Item>
-    <Item>
-      <Source>Models\bullet.x</Source>
-      <Name>Models\bullet</Name>
-      <Importer>XImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>bin\x86\Debug\Models\bullet.xnb</Output>
-      <Time>2008-01-26T05:05:08.5344087-05:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\Models\bullet%0.xml</Key>
-        <Value>2008-01-26T05:07:24.6125337-05:00</Value>
-      </Dependency>
-      <Request>bin\x86\Debug\Models\bullet%0.xnb</Request>
-    </Item>
-    <Item>
-      <Source>Models\queen.x</Source>
-      <Name>Models\queen</Name>
-      <Importer>XImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>bin\x86\Debug\Models\queen.xnb</Output>
-      <Time>2008-01-26T05:05:08.5031587-05:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\Models\queen%0.xml</Key>
-        <Value>2008-01-26T05:07:25.2375337-05:00</Value>
-      </Dependency>
-      <Request>bin\x86\Debug\Models\queen%0.xnb</Request>
+      <Time>2008-01-28T09:34:31.59375-05:00</Time>
     </Item>
     <Item>
       <Source>Models\bullet.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\bullet%0.xml</Output>
-      <Time>2008-01-26T05:05:08.5344087-05:00</Time>
+      <Time>2008-01-28T09:34:31.640625-05:00</Time>
     </Item>
     <Item>
       <Source>Models\bullet.png</Source>
@@ -206,14 +284,14 @@
       </Parameters>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\bullet%0.xnb</Output>
-      <Time>2008-01-26T05:05:08.5187837-05:00</Time>
+      <Time>2008-01-28T09:34:31.78125-05:00</Time>
     </Item>
     <Item>
       <Source>Models\queen.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\queen%0.xml</Output>
-      <Time>2008-01-26T05:05:08.5031587-05:00</Time>
+      <Time>2008-01-28T09:34:31.546875-05:00</Time>
     </Item>
     <Item>
       <Source>Models\queen.png</Source>
@@ -228,42 +306,14 @@
       </Parameters>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\queen%0.xnb</Output>
-      <Time>2008-01-27T23:28:16.971625-05:00</Time>
-    </Item>
-    <Item>
-      <Source>Models\playership.x</Source>
-      <Name>Models\playership</Name>
-      <Importer>XImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>bin\x86\Debug\Models\playership.xnb</Output>
-      <Time>2008-01-27T17:18:24.23725-05:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\Models\playership%0.xml</Key>
-        <Value>2008-01-27T17:44:52.221625-05:00</Value>
-      </Dependency>
-      <Request>bin\x86\Debug\Models\playership%0.xnb</Request>
-    </Item>
-    <Item>
-      <Source>Models\enemygenerator.x</Source>
-      <Name>Models\enemygenerator</Name>
-      <Importer>XImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>bin\x86\Debug\Models\enemygenerator.xnb</Output>
-      <Time>2008-01-27T17:18:24.2685-05:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\Models\enemygenerator%0.xml</Key>
-        <Value>2008-01-27T17:44:54.190375-05:00</Value>
-      </Dependency>
-      <Request>bin\x86\Debug\Models\enemygenerator%0.xnb</Request>
+      <Time>2008-01-28T09:34:31.6875-05:00</Time>
     </Item>
     <Item>
       <Source>Models\playership.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\playership%0.xml</Output>
-      <Time>2008-01-27T17:18:24.23725-05:00</Time>
+      <Time>2008-01-28T09:34:31.5625-05:00</Time>
     </Item>
     <Item>
       <Source>Models\playership.png</Source>
@@ -278,14 +328,14 @@
       </Parameters>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\playership%0.xnb</Output>
-      <Time>2008-01-27T23:28:16.98725-05:00</Time>
+      <Time>2008-01-28T09:34:31.734375-05:00</Time>
     </Item>
     <Item>
       <Source>Models\enemygenerator.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\enemygenerator%0.xml</Output>
-      <Time>2008-01-27T17:18:24.2685-05:00</Time>
+      <Time>2008-01-28T09:34:31.578125-05:00</Time>
     </Item>
     <Item>
       <Source>Models\enemygenerator.png</Source>
@@ -300,64 +350,14 @@
       </Parameters>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\enemygenerator%0.xnb</Output>
-      <Time>2008-01-27T23:28:17.002875-05:00</Time>
-    </Item>
-    <Item>
-      <Source>BloomCombine.fx</Source>
-      <Name>BloomCombine</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>bin\x86\Debug\BloomCombine.xnb</Output>
-      <Time>2008-01-27T21:12:18.2685-05:00</Time>
-    </Item>
-    <Item>
-      <Source>BloomExtract.fx</Source>
-      <Name>BloomExtract</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>bin\x86\Debug\BloomExtract.xnb</Output>
-      <Time>2008-01-27T21:12:18.23725-05:00</Time>
-    </Item>
-    <Item>
-      <Source>GaussianBlur.fx</Source>
-      <Name>GaussianBlur</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>bin\x86\Debug\GaussianBlur.xnb</Output>
-      <Time>2008-01-27T21:12:18.377875-05:00</Time>
-    </Item>
-    <Item>
-      <Source>Content\background.png</Source>
-      <Name>Content\background</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>bin\x86\Debug\Content\background.xnb</Output>
-      <Time>2008-01-27T23:28:39.04975-05:00</Time>
-    </Item>
-    <Item>
-      <Source>Models\enemy.x</Source>
-      <Name>Models\enemy</Name>
-      <Importer>XImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>bin\x86\Debug\Models\enemy.xnb</Output>
-      <Time>2008-01-27T23:28:16.909125-05:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\Models\enemy%0.xml</Key>
-        <Value>2008-01-27T23:31:06.502875-05:00</Value>
-      </Dependency>
-      <Request>bin\x86\Debug\Models\enemy%0.xnb</Request>
+      <Time>2008-01-28T09:34:31.765625-05:00</Time>
     </Item>
     <Item>
       <Source>Models\enemy.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\enemy%0.xml</Output>
-      <Time>2008-01-27T23:28:16.909125-05:00</Time>
+      <Time>2008-01-28T09:34:31.53125-05:00</Time>
     </Item>
     <Item>
       <Source>Models\enemy.png</Source>
@@ -372,16 +372,16 @@
       </Parameters>
       <Options>None</Options>
       <Output>bin\x86\Debug\Models\enemy%0.xnb</Output>
-      <Time>2008-01-27T23:28:16.956-05:00</Time>
+      <Time>2008-01-28T09:34:31.671875-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
       <BuildConfiguration>Debug</BuildConfiguration>
-      <RootDirectory>C:\Documents and Settings\Gokul\My Documents\Visual Studio 2005\SVN\trunk\Rackham\</RootDirectory>
-      <LoggerRootDirectory>C:\Documents and Settings\Gokul\My Documents\Visual Studio 2005\SVN\trunk\Rackham\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Documents and Settings\Gokul\My Documents\Visual Studio 2005\SVN\trunk\Rackham\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Documents and Settings\Gokul\My Documents\Visual Studio 2005\SVN\trunk\Rackham\bin\x86\Debug\</OutputDirectory>
+      <RootDirectory>C:\Rackham\Rackham\</RootDirectory>
+      <LoggerRootDirectory>C:\Rackham\Rackham\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Rackham\Rackham\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Rackham\Rackham\bin\x86\Debug\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -402,7 +402,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\WINDOWS\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\2.0.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2007-12-18T17:38:02.65625-05:00</Value>
+        <Value>2007-12-19T09:42:34.75-05:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
