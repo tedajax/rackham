@@ -16,6 +16,7 @@ namespace Tanks
     {
         
         public float speed;
+        public float Radius;
         public float ModifiedRadius;
 
         public Vector2 Target;
@@ -163,7 +164,6 @@ namespace Tanks
         public override void BoundingSphereTouch(int type)
         {
            // Collision.addboundlist.Add(new RegisteredBoundingSphere(new BoundingSphere(new Vector3(position.X, 0, position.Y), 5), 15, new TimeSpan(0, 0, 0, 0, 100)));
-            //Collision.addboundlist.Add(new RegisteredBoundingSphere(this.Position, 0, .1, 20, 1));
             Kamikazi();
         }
 
@@ -171,7 +171,6 @@ namespace Tanks
         {
             if (target.Type == 11)
             {
-               // Collision.addboundlist.Add(new RegisteredBoundingSphere(this.Position, 0, .1, 20, 1));
                 //Collision.addboundlist.Add(new RegisteredBoundingSphere(new BoundingSphere(new Vector3(position.X, 0, position.Y), 5), 15, new TimeSpan(0, 0, 0, 0, 100)));
             }
 
@@ -189,7 +188,8 @@ namespace Tanks
             for (int x = 0; x < 5; x++)
                 WindowManager.explosionParticle.AddParticle(pos, vel);
             SwarmManager.EnemiesToDestroy.Add(this);
-           
+//            Collision.addboundlist.Add(new RegisteredBoundingSphere(new BoundingSphere(new Vector3(position.X, 0, position.Y), 10), 1, new TimeSpan(0, 0, 0, 0, 100)));
+              
         }
 
         public override void HitBoundry()

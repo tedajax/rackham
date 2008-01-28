@@ -44,3 +44,6 @@ C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rack
 C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\Models\playership%0.xnb
 C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\Models\enemygenerator.xnb
 C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\Models\enemygenerator%0.xnb
+C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\BloomCombine.xnb
+C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\BloomExtract.xnb
+C:\Documents and Settings\Antidote\My Documents\Visual Studio 2005\Projects\Rackham\Rackham\bin\x86\Debug\GaussianBlur.xnb
