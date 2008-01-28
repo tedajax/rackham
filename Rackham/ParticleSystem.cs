@@ -256,6 +256,7 @@ namespace Tanks
                 techniqueName = "RotatingParticles";
 
             particleEffect.CurrentTechnique = particleEffect.Techniques[techniqueName];
+            
         }
 
 
