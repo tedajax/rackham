@@ -1,0 +1,5 @@
+Rackham aims to create a novel approach to Artificial Intelligence through the implementation of a "hive mind". The AI controls anywhere from one to several hundred pawns which it then directs in accordance to a pre-programmed goal. A unique goal of this project is to build an AI that is constantly "thinking" and "adapting" to the users inputs and is actually "learning" the strategies and tenancies of the user in order to accomplish its goals.
+
+Rackham was created for the sole purpose of being entered into the Dream Build Play competition. Rackham is being developed and implemented into a full featured quasi strategy/shooting game but the source code for the artificial intelligence will be available as development continues.
+
+Rackham is written using Microsoft Visual C# and the XNA 2.0 game libraries.
